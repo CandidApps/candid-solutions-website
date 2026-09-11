@@ -1,0 +1,38 @@
+---
+description: CANDID Brand Guidelines 2026 — tokens and usage for candid.solutions
+alwaysApply: true
+---
+
+# CANDID Brand Guidelines, 2026
+
+Source of truth: `public/brand/CANDID_Brand_Guidelines_2026.pdf`
+
+## Colors
+
+```css
+--ink: #171614;
+--blue: #4D6BC1;
+--crimson: #E91536;
+--cream: #F5F1EC;
+--white: #FFFFFF;
+```
+
+- Ink + White/Cream carry layouts
+- Crimson = CANDID Solutions accent
+- Blue = CandidIQ accent
+- CandidPay = crimson→blue gradient accents
+- **Never invent tints** (no pink, coral, lightened crimson, etc.). Only these five tokens.
+
+## Typography
+
+- Display / eyebrows / headlines: **Archivo** Bold / ExtraBold / Black
+- Body / UI / captions: **Inter** Regular / Medium / Bold (sparingly)
+- Never retype “CANDID” — use `Logo.tsx` Accent lockup (Brand Guidelines p.07). Crimson on cream; cream/white on ink. No “Solutions” / “IQ” suffix on the umbrella site header.
+
+## Architecture
+
+Lead with **CANDID** on the umbrella site. Use Solutions / Pay / IQ names only when speaking to that product.
+
+## Voice
+
+Professional, clear, simple. Confident, friendly, easy to trust. Short sentences. No filler.
