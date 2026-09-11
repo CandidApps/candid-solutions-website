@@ -7,6 +7,10 @@ import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { nav, site } from "@/lib/site";
 
+function isExternalChild(child: object): boolean {
+  return "external" in child && (child as { external?: boolean }).external === true;
+}
+
 function NavLink({
   href,
   label,
@@ -81,10 +85,9 @@ export function SiteHeader() {
                       <NavLink
                         href={child.href}
                         label={child.label}
-                        external={"external" in child && child.external}
+                        external={isExternalChild(child)}
                         current={
-                          !("external" in child && child.external) &&
-                          pathname === child.href
+                          !isExternalChild(child) && pathname === child.href
                         }
                       />
                     </div>
@@ -140,10 +143,9 @@ export function SiteHeader() {
                     key={child.label}
                     href={child.href}
                     label={child.label}
-                    external={"external" in child && child.external}
+                    external={isExternalChild(child)}
                     current={
-                      !("external" in child && child.external) &&
-                      pathname === child.href
+                      !isExternalChild(child) && pathname === child.href
                     }
                     onClick={() => setOpen(false)}
                   />
