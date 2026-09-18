@@ -93,17 +93,19 @@ export function ProcessRail({
       }}
     >
       {steps.map((step, index) => {
-        const next = steps[index + 1];
         const last = Math.max(steps.length - 1, 1);
         const t = index / last;
         /* Ease toward the ends so middle steps stay clearer red/blue, less muddy. */
         const mix = Math.pow(t, 1.35) * 100;
+        const done = active > index;
+        const current = active === index;
         return (
           <li
             key={step.n}
             data-step={index}
-            className={`how__stop${active === index ? " is-active" : ""}`}
-            aria-current={active === index ? "step" : undefined}
+            className={`how__stop${current ? " is-active" : ""}`}
+            aria-current={current ? "step" : undefined}
+            aria-label={`Step ${step.n}: ${step.title}`}
             onClick={() => select(index)}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
@@ -121,12 +123,9 @@ export function ProcessRail({
             }
           >
             <div className="how__track" aria-hidden="true">
-              <span className="how__node">{step.n}</span>
-              {next ? (
-                <span
-                  className={`how__line${active > index ? " is-filled" : ""}`}
-                />
-              ) : null}
+              <span
+                className={`how__line${done ? " is-filled" : ""}${current ? " is-current" : ""}`}
+              />
             </div>
             <div className="how__card">
               <h3>{step.title}</h3>

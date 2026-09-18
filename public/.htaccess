@@ -1,0 +1,69 @@
+# Candid Solutions — legacy URL redirects (WordPress → Next.js)
+# Place in site document root. Requires Apache mod_rewrite.
+# Keep in sync with src/lib/redirects.ts and next.config.ts.
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Prefer HTTPS (uncomment if TLS terminates on this host)
+  # RewriteCond %{HTTPS} !=on
+  # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+  # --- Core IA ---
+  RewriteRule ^home/?$ / [R=301,L]
+  RewriteRule ^contact-us/?$ /contact [R=301,L]
+  RewriteRule ^become-an-agent/?$ /agents [R=301,L]
+  RewriteRule ^partner-program/?$ /agents [R=301,L]
+  RewriteRule ^partners/?$ /agents [R=301,L]
+  RewriteRule ^agent/?$ /agents [R=301,L]
+  RewriteRule ^our-company/?$ /about [R=301,L]
+  RewriteRule ^company/?$ /about [R=301,L]
+  RewriteRule ^save/?$ /solutions [R=301,L]
+  RewriteRule ^sitemap/?$ /sitemap.xml [R=301,L]
+
+  # --- Legal ---
+  RewriteRule ^about/privacy-policy/?$ /about [R=301,L]
+  RewriteRule ^about/terms-and-conditions/?$ /about [R=301,L]
+  RewriteRule ^privacy-policy/?$ /about [R=301,L]
+  RewriteRule ^privacy/?$ /about [R=301,L]
+  RewriteRule ^terms-and-conditions/?$ /about [R=301,L]
+  RewriteRule ^terms/?$ /about [R=301,L]
+
+  # --- Legacy marketing ---
+  RewriteRule ^sap-s4hana\.html$ /solutions/technology [R=301,L]
+  RewriteRule ^sap-s4hana/?$ /solutions/technology [R=301,L]
+  RewriteRule ^nproject/?$ /about [R=301,L]
+  RewriteRule ^nproject/.*$ /about [R=301,L]
+  RewriteRule ^business-machine-agents/?$ /agents [R=301,L]
+
+  # --- Blog (no blog on rebuild) ---
+  RewriteRule ^blog/?$ / [R=301,L]
+  RewriteRule ^blog/.*$ / [R=301,L]
+
+  # --- Old solution pages → Technology / products ---
+  RewriteRule ^solutions/cybersecurity/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/cyber-security/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/contact-center/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/customer-experience/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/cloud/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/cloud-infrastructure/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/sd-wan/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/internet/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/internet-sd-wan/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/mobility/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/managed-mobility/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/voip/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/ucaas/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/managed-services/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/managed-it/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/telecom-audits/?$ /solutions/candidiq [R=301,L]
+  RewriteRule ^solutions/tem/?$ /solutions/candidiq [R=301,L]
+  RewriteRule ^solutions/expense-management/?$ /solutions/candidiq [R=301,L]
+  RewriteRule ^solutions/payments/?$ /solutions/candidpay [R=301,L]
+  RewriteRule ^solutions/payment-processing/?$ /solutions/candidpay [R=301,L]
+  RewriteRule ^solutions/industry-solutions/?$ /solutions [R=301,L]
+  RewriteRule ^solutions/industry-solutions/commerce/?$ /solutions [R=301,L]
+  RewriteRule ^solutions/industry-solutions/payments/?$ /solutions/candidpay [R=301,L]
+  RewriteRule ^solutions/industry-solutions/commercial-real-estate/?$ /solutions [R=301,L]
+</IfModule>

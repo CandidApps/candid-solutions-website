@@ -893,7 +893,7 @@ html[data-theme="dark"] .hero__stats dt {
   justify-content: center;
   width: 100%;
   max-width: none;
-  padding: clamp(3.75rem, 7vw, 5.5rem) var(--page-pad);
+  padding: var(--section-pad) var(--page-pad);
   background: var(--ink);
   color: var(--cream);
 }
@@ -1486,17 +1486,17 @@ html[data-theme="dark"] .solutions-close p {
 .how {
   max-width: var(--wrap);
   margin: 0 auto;
+  /* Keep full section pad always — rail active states (scale/shadow/lift) need the box. */
   padding: var(--section-pad) var(--page-pad);
+  padding-bottom: calc(var(--section-pad) + 1rem);
   border-top: 1px solid var(--rule);
 }
 
-/* One shared gap between stacked cream sections (avoid padding doubling). */
-.band + .band:not(.band--navy),
-.band + .how,
+/* One shared gap between stacked cream bands (avoid padding doubling).
+   Do not collapse .how — ProcessRail overflow needs its own padding. */
+.band:not(.band--navy) + .band:not(.band--navy),
 .how + .band:not(.band--navy),
-.how + .how,
 .tech-services + .band,
-.iq-overview-wrap + .how,
 .iq-overview-wrap + .band,
 .band + .tech-process,
 .tech-process + .band:not(.band--navy),
@@ -1507,13 +1507,26 @@ html[data-theme="dark"] .solutions-close p {
   padding-top: 0;
 }
 
-/* Never collapse padding on full-bleed ink boxes — keep even top/bottom air. */
+/* Cream gap outside full-bleed ink boxes (equal above and below). */
 .band--navy,
-.band + .band--navy,
-.how + .band--navy,
-.band--navy + .band--navy {
-  padding-top: clamp(3.75rem, 7vw, 5.5rem);
-  padding-bottom: clamp(3.75rem, 7vw, 5.5rem);
+.energy-live,
+.tech-quote {
+  margin-block: var(--section-pad);
+}
+
+/* Ink margin is the gap — don't double with adjacent cream band padding.
+   Leave .how alone so the process rail stays inside its box. */
+.band:not(.band--navy):has(+ .band--navy),
+.band:not(.band--navy):has(+ .energy-live),
+.band:not(.band--navy):has(+ .tech-quote),
+.tech-process:has(+ .tech-quote) {
+  padding-bottom: 0;
+}
+
+.band--navy + .band:not(.band--navy),
+.energy-live + .band,
+.tech-quote + .band {
+  padding-top: 0;
 }
 
 .how__intro {
@@ -1528,7 +1541,7 @@ html[data-theme="dark"] .solutions-close p {
   grid-auto-columns: minmax(12rem, 1fr);
   gap: 0;
   margin: 1.75rem 0 0;
-  padding: 0.35rem 0.15rem 0.75rem;
+  padding: 0.5rem 0.15rem 1rem;
   list-style: none;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -1540,7 +1553,8 @@ html[data-theme="dark"] .solutions-close p {
   .how__rail {
     grid-auto-flow: unset;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
     scroll-snap-type: none;
   }
 
@@ -1572,9 +1586,8 @@ html[data-theme="dark"] .solutions-close p {
 .how__track {
   display: flex;
   align-items: center;
-  gap: 0;
-  margin-bottom: 0.85rem;
-  min-height: 2.1rem;
+  margin-bottom: 0.9rem;
+  min-height: 0.65rem;
 }
 
 .how--interactive .how__stop {
@@ -1590,61 +1603,21 @@ html[data-theme="dark"] .solutions-close p {
   outline-offset: 3px;
 }
 
-.how__node {
-  position: relative;
-  isolation: isolate;
-  z-index: 1;
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 999px;
-  overflow: hidden;
-  background: var(--rail-gradient);
-  background-size: calc(var(--steps, 7) * 100%) 100%;
-  background-position: calc(var(--index, 0) * -100%) 0;
-  color: #fff;
-  font-family: var(--font-display), Archivo, sans-serif;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  box-shadow: 0 0 0 4px var(--bg);
-  transition:
-    transform 1.25s var(--motion-ease),
-    box-shadow 1.25s var(--motion-ease);
-}
-
-.how__node::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: color-mix(in srgb, var(--stop) 72%, white);
-  opacity: 0;
-  transition: opacity 1.25s var(--motion-ease);
-}
-
-.how__stop.is-active .how__node {
-  transform: scale(1.08);
-  box-shadow:
-    0 0 0 4px var(--bg),
-    0 0 0 7px color-mix(in srgb, var(--stop) 28%, transparent);
-}
-
-.how__stop.is-active .how__node::before {
-  opacity: 0.82;
-}
-
+/* Continuous L→R progress: one segment per step, no numbered nodes. */
 .how__line {
-  flex: 1 1 auto;
-  height: 3px;
-  margin-inline: -1px;
   position: relative;
-  overflow: hidden;
-  background: color-mix(in srgb, var(--stop) 18%, var(--rule));
-  border-radius: 999px;
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  height: 3px;
+  overflow: visible;
+  background: color-mix(in srgb, var(--rule) 88%, var(--ink));
+  border-radius: 0;
+}
+
+.how__stop:not(:last-child) .how__line {
+  /* Bridge the card gutter so the rail reads as one continuous bar. */
+  width: calc(100% + 0.55rem);
 }
 
 .how__line::after {
@@ -1653,14 +1626,44 @@ html[data-theme="dark"] .solutions-close p {
   inset: 0;
   background: var(--rail-gradient);
   background-size: calc(var(--steps, 7) * 100%) 100%;
-  background-position: calc(var(--index, 0) * -100% - 50%) 0;
+  background-position: calc(var(--index, 0) * -100%) 0;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 1.25s var(--motion-ease);
 }
 
-.how__line.is-filled::after {
+.how__line.is-filled::after,
+.how__line.is-current::after {
   transform: scaleX(1);
+}
+
+/* Leading edge on the active segment — short bar, not a circle. */
+.how__line.is-current {
+  height: 4px;
+}
+
+.how__line.is-current::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1;
+  width: 3px;
+  height: 12px;
+  translate: 50% -50%;
+  border-radius: 1px;
+  background: var(--rail-gradient);
+  background-size: calc(var(--steps, 7) * 100%) 100%;
+  background-position: calc(var(--index, 0) * -100% - 50%) 0;
+  box-shadow: 0 0 0 3px var(--bg);
+  transition:
+    background 1.25s var(--motion-ease),
+    box-shadow 1.25s var(--motion-ease);
+}
+
+.how__stop:last-child .how__line.is-current::before {
+  right: 0;
+  translate: 0 -50%;
 }
 
 .how__card {
@@ -1744,14 +1747,12 @@ html[data-theme="dark"] .solutions-close p {
   text-underline-offset: 3px;
 }
 
-html[data-theme="dark"] .how__node {
-  box-shadow: 0 0 0 4px var(--bg);
+html[data-theme="dark"] .how__line {
+  background: color-mix(in srgb, var(--rule) 70%, transparent);
 }
 
-html[data-theme="dark"] .how__stop.is-active .how__node {
-  box-shadow:
-    0 0 0 4px var(--bg),
-    0 0 0 7px color-mix(in srgb, var(--stop) 40%, transparent);
+html[data-theme="dark"] .how__line.is-current::before {
+  box-shadow: 0 0 0 3px var(--bg);
 }
 
 /* Cards */
@@ -2523,6 +2524,12 @@ html[data-theme="dark"] .surface[data-tone="ink"] {
 .product-hero--partner .tech-hero__copy h1 .product-hero__accent,
 .product-hero--energy .tech-hero__copy h1 .product-hero__accent {
   color: var(--crimson);
+}
+
+.product-hero--partner .tech-hero__copy h1 {
+  max-width: 18ch;
+  white-space: pre-line;
+  line-height: 1.05;
 }
 
 .product-hero--pay .tech-hero__img,
@@ -3316,7 +3323,7 @@ html[data-theme="dark"] .energy-passthru-list h3 {
 
 .energy-live {
   width: 100%;
-  padding: clamp(3.75rem, 7vw, 5.5rem) var(--page-pad);
+  padding: var(--section-pad) var(--page-pad);
   background: var(--ink);
   color: var(--cream);
 }
@@ -3423,7 +3430,7 @@ html[data-theme="dark"] .energy-passthru-list h3 {
   width: 100%;
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: clamp(3.75rem, 7vw, 5.5rem) var(--page-pad);
+  padding: var(--section-pad) var(--page-pad);
 }
 
 @media (min-width: 900px) {
@@ -4227,7 +4234,7 @@ html[data-theme="dark"] .tech-services__grid article {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(3.75rem, 7vw, 5.5rem) 0;
+  padding: var(--section-pad) 0;
   background: var(--ink);
   color: var(--cream);
 }
@@ -4584,14 +4591,13 @@ html[data-theme="dark"] .tech-quote::before {
     scroll-behavior: auto;
   }
 
-  .how__node,
-  .how__node::before,
   .how__card,
   .how__card::before,
   .how__card h3,
   .how__card p,
   .how__card a,
   .how__line::after,
+  .how__line.is-current::before,
   .theme-toggle svg,
   .back-to-top,
   .tech-flow-panel::before,
@@ -4759,6 +4765,11 @@ html[data-theme="dark"] .tech-quote::before {
   .product-hero .tech-hero__copy h1 {
     font-size: clamp(1.85rem, 9vw, 2.6rem);
     max-width: 14ch;
+  }
+
+  .product-hero--partner .tech-hero__copy h1 {
+    max-width: 18ch;
+    font-size: clamp(1.7rem, 8vw, 2.35rem);
   }
 
   .tech-hero__lead {

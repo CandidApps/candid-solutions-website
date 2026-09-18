@@ -10,8 +10,8 @@ export const partnerPage = {
   ],
   hero: {
     eyebrow: "Partner Program",
-    titleBefore: "Sell a broader ",
-    titleAccent: "practice.",
+    titleBefore: "One team.\nEvery service.\n",
+    titleAccent: "Locked-in loyalty.",
     lead: "We manage 250+ supplier agreements so you don’t have to. Engineers, quoting, and the back office come with you. No quotas.",
     ghost: { href: "#tracks", label: "See the tracks" },
     solid: { href: "#apply", label: "Let’s Chat" },
