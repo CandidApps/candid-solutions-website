@@ -1,5 +1,5 @@
-import type { CSSProperties } from "react";
 import { ContactForm } from "@/components/ContactForm";
+import { ProcessRail } from "@/components/ProcessRail";
 import { site } from "@/lib/site";
 import { partnerPage } from "@/lib/partners";
 
@@ -49,37 +49,12 @@ export function PartnersBody() {
         </div>
       </section>
 
-      <section className="how how--4" id="how">
+      <section className="how how--4 how--interactive" id="how">
         <div className="band__head how__intro">
           <p className="label">{how.label}</p>
           <h2>{how.title}</h2>
         </div>
-        <ol className="how__rail how__rail--4" aria-label="Partner process">
-          {how.steps.map((step, index) => {
-            const next = how.steps[index + 1];
-            return (
-              <li
-                key={step.n}
-                className="how__stop"
-                style={
-                  {
-                    "--tone": "var(--crimson)",
-                    "--tone-next": "var(--crimson)",
-                  } as CSSProperties
-                }
-              >
-                <div className="how__track" aria-hidden="true">
-                  <span className="how__node">{step.n}</span>
-                  {next ? <span className="how__line" /> : null}
-                </div>
-                <div className="how__card">
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+        <ProcessRail steps={how.steps} label="Partner process" columns={4} />
       </section>
 
       <section className="band">

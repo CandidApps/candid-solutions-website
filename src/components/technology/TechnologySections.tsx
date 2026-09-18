@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
+import { ProcessRail } from "@/components/ProcessRail";
 import { technology } from "@/lib/technology";
 
 function ServiceIcon({ index }: { index: number }) {
@@ -112,38 +112,17 @@ export function TechnologySections() {
         </div>
       </section>
 
-      <section className="how how--4" id="how">
+      <section className="how how--4 how--interactive" id="how">
         <div className="band__head how__intro">
           <p className="label">{process.label}</p>
           <h2>{process.title}</h2>
           <p>{process.lead}</p>
         </div>
-        <ol className="how__rail how__rail--4" aria-label="Technology process">
-          {process.steps.map((step, index) => {
-            const next = process.steps[index + 1];
-            return (
-              <li
-                key={step.n}
-                className="how__stop"
-                style={
-                  {
-                    "--tone": "var(--crimson)",
-                    "--tone-next": "var(--crimson)",
-                  } as CSSProperties
-                }
-              >
-                <div className="how__track" aria-hidden="true">
-                  <span className="how__node">{step.n}</span>
-                  {next ? <span className="how__line" /> : null}
-                </div>
-                <div className="how__card">
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+        <ProcessRail
+          steps={process.steps}
+          label="Technology process"
+          columns={4}
+        />
       </section>
 
       <section className="band">

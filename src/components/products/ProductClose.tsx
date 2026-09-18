@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { site } from "@/lib/site";
 
 export function ProductClose({
@@ -18,25 +17,29 @@ export function ProductClose({
 }) {
   return (
     <section className="product-close" id="close">
-      <p className="label">{label}</p>
-      <h2>{title}</h2>
-      <div className="product-close__actions">
-        <a href={site.phoneHref} className="btn btn-pay">
-          {call}
-        </a>
-        <a href={site.emailHref} className="btn btn-ghost">
-          {email}
-        </a>
-        {visit && visitHref ? (
-          <a
-            href={visitHref}
-            className="btn btn-line"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            {visit} ↗
+      <div className="product-close__inner">
+        <div className="product-close__copy">
+          <p className="label">{label}</p>
+          <h2>{title}</h2>
+        </div>
+        <div className="product-close__actions">
+          <a href={site.phoneHref} className="btn btn-pay">
+            {call}
           </a>
-        ) : null}
+          <a href={site.emailHref} className="btn btn-ghost">
+            {email}
+          </a>
+          {visit && visitHref ? (
+            <a
+              href={visitHref}
+              className="btn btn-line"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {visit} ↗
+            </a>
+          ) : null}
+        </div>
       </div>
     </section>
   );

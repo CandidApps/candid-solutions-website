@@ -64,10 +64,13 @@ export function ProcessRail({
     const node = root.querySelector<HTMLElement>(`[data-step="${active}"]`);
     if (!node) return;
     if (root.scrollWidth <= root.clientWidth + 8) return;
-    node.scrollIntoView({
+
+    // Scroll only the rail horizontally — never the page.
+    const left =
+      node.offsetLeft - (root.clientWidth - node.offsetWidth) / 2;
+    root.scrollTo({
+      left: Math.max(0, left),
       behavior: "smooth",
-      inline: "center",
-      block: "nearest",
     });
   }, [active]);
 
@@ -92,7 +95,9 @@ export function ProcessRail({
       {steps.map((step, index) => {
         const next = steps[index + 1];
         const last = Math.max(steps.length - 1, 1);
-        const mix = (index / last) * 100;
+        const t = index / last;
+        /* Ease toward the ends so middle steps stay clearer red/blue, less muddy. */
+        const mix = Math.pow(t, 1.35) * 100;
         return (
           <li
             key={step.n}
@@ -107,7 +112,13 @@ export function ProcessRail({
               }
             }}
             tabIndex={0}
-            style={{ "--mix": mix } as CSSProperties}
+            style={
+              {
+                "--mix": mix,
+                "--index": index,
+                "--steps": steps.length,
+              } as CSSProperties
+            }
           >
             <div className="how__track" aria-hidden="true">
               <span className="how__node">{step.n}</span>

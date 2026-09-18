@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { ProcessRail } from "@/components/ProcessRail";
 import { ProductClose } from "@/components/products/ProductClose";
 import { site } from "@/lib/site";
 import { candidIqPage } from "@/lib/products";
@@ -39,38 +39,17 @@ export function CandidIqBody() {
         </div>
       </section>
 
-      <section className="how how--4" id="flow">
+      <section className="how how--4 how--interactive" id="flow">
         <div className="band__head how__intro">
           <p className="label">{flow.label}</p>
           <h2>{flow.title}</h2>
           <p>{flow.lead}</p>
         </div>
-        <ol className="how__rail how__rail--4" aria-label="Question to result">
-          {flow.steps.map((step, index) => {
-            const next = flow.steps[index + 1];
-            return (
-              <li
-                key={step.n}
-                className="how__stop"
-                style={
-                  {
-                    "--tone": "var(--blue)",
-                    "--tone-next": "var(--blue)",
-                  } as CSSProperties
-                }
-              >
-                <div className="how__track" aria-hidden="true">
-                  <span className="how__node">{step.n}</span>
-                  {next ? <span className="how__line" /> : null}
-                </div>
-                <div className="how__card">
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </li>
-            );
-          })}
-        </ol>
+        <ProcessRail
+          steps={flow.steps}
+          label="Question to result"
+          columns={4}
+        />
       </section>
 
       <section className="band">

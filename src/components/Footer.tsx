@@ -58,13 +58,17 @@ export function Footer() {
             </li>
           </ul>
         </div>
-        <div>
+        <div className="site-footer__contact">
           <p className="site-footer__label">Contact</p>
           <ul>
             <li>
               <Link href="/contact">Let’s Chat!</Link>
             </li>
-            <li>{site.hours}</li>
+            <li>
+              Mon–Fri 7:00 AM–6:00 PM
+              <br />
+              Sat 10:00 AM–2:00 PM
+            </li>
           </ul>
         </div>
       </div>
