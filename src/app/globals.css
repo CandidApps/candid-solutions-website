@@ -877,6 +877,21 @@ html[data-theme="dark"] .hero__stats dt {
   overflow-wrap: anywhere;
 }
 
+/* Contact form honeypot — hidden from people, not from bots */
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: wait;
+  pointer-events: none;
+}
+
 .band {
   max-width: var(--wrap);
   margin: 0 auto;

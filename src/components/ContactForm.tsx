@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { site } from "@/lib/site";
 
 type Variant = "business" | "agent";
+type Status = "idle" | "submitting" | "sent" | "error";
 
 const inquiryOptions = [
   "General information",
@@ -19,46 +20,83 @@ const inquiryOptions = [
 ];
 
 export function ContactForm({ variant = "business" }: { variant?: Variant }) {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState("");
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const subject =
-      variant === "agent"
-        ? "Agent program inquiry"
-        : String(data.get("inquiry") || "Website inquiry");
-    const body = [
-      `Name: ${data.get("firstName")} ${data.get("lastName")}`,
-      `Email: ${data.get("email")}`,
-      `Phone: ${data.get("phone") || "—"}`,
-      variant === "business" ? `Organization: ${data.get("organization") || "—"}` : null,
-      `Inquiry: ${subject}`,
-      "",
-      String(data.get("message") || ""),
-    ]
-      .filter(Boolean)
-      .join("\n");
+    const form = event.currentTarget;
+    const data = new FormData(form);
 
-    const mailto = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.open(mailto, "_self");
-    setSent(true);
+    setStatus("submitting");
+    setError("");
+
+    const payload = {
+      variant,
+      firstName: String(data.get("firstName") || ""),
+      lastName: String(data.get("lastName") || ""),
+      email: String(data.get("email") || ""),
+      phone: String(data.get("phone") || ""),
+      organization: String(data.get("organization") || ""),
+      inquiry: String(data.get("inquiry") || "Website inquiry"),
+      message: String(data.get("message") || ""),
+      website: String(data.get("website") || ""),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = (await response.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+
+      if (!response.ok) {
+        setStatus("error");
+        setError(
+          result?.error ||
+            "Could not send your message. Please try again or email us.",
+        );
+        return;
+      }
+
+      form.reset();
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+      setError(
+        "Could not send your message. Check your connection and try again.",
+      );
+    }
   }
 
-  if (sent) {
+  if (status === "sent") {
     return (
       <p className="rounded-sm border border-line bg-card p-6 text-sm leading-relaxed text-muted">
-        Your email client should open with the message. If it doesn’t, write us at{" "}
+        Thanks — your message is on its way. We typically respond within one
+        business day. Prefer email?{" "}
         <a className="text-red underline" href={site.emailHref}>
           {site.email}
         </a>
-        . We typically respond within one business day.
       </p>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4">
+    <form onSubmit={onSubmit} className="grid gap-4" noValidate={false}>
+      {/* Honeypot — leave empty */}
+      <label className="hp" aria-hidden="true">
+        <span>Website</span>
+        <input
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </label>
+
       <div className="grid gap-4 sm:grid-cols-2">
         <Field name="firstName" label="First name" required />
         <Field name="lastName" label="Last name" required />
@@ -86,7 +124,9 @@ export function ContactForm({ variant = "business" }: { variant?: Variant }) {
       ) : null}
       <label className="grid gap-1.5 text-sm">
         <span className="font-medium text-fg">
-          {variant === "agent" ? "Tell us about your business goals" : "How can we help?"}
+          {variant === "agent"
+            ? "Tell us about your business goals"
+            : "How can we help?"}
         </span>
         <textarea
           name="message"
@@ -95,8 +135,22 @@ export function ContactForm({ variant = "business" }: { variant?: Variant }) {
           required
         />
       </label>
-      <button type="submit" className="btn btn-solid">
-        Send message
+
+      {status === "error" && error ? (
+        <p className="text-sm text-red" role="alert">
+          {error}{" "}
+          <a className="underline" href={site.emailHref}>
+            {site.email}
+          </a>
+        </p>
+      ) : null}
+
+      <button
+        type="submit"
+        className="btn btn-solid"
+        disabled={status === "submitting"}
+      >
+        {status === "submitting" ? "Sending…" : "Send message"}
       </button>
     </form>
   );
