@@ -64,10 +64,13 @@ export function Footer() {
             <li>
               <Link href="/contact">Let’s Chat!</Link>
             </li>
-            <li>
-              Mon–Fri 7:00 AM–6:00 PM
-              <br />
-              Sat 10:00 AM–2:00 PM
+            <li className="site-footer__hours">
+              {site.hours.map((row) => (
+                <span key={row.days}>
+                  <span className="site-footer__days">{row.days}</span>
+                  <span className="site-footer__time">{row.time}</span>
+                </span>
+              ))}
             </li>
           </ul>
         </div>

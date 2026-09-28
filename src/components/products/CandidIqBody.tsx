@@ -52,24 +52,26 @@ export function CandidIqBody() {
         />
       </section>
 
-      <section className="band">
-        <div className="band__head">
-          <p className="label">{operators.label}</p>
-          <h2>{operators.title}</h2>
-        </div>
-        <div className="team__grid">
-          {operators.items.map((item) => (
-            <article key={item.title} className="card" data-tone="blue">
-              <p className="label">{item.kicker}</p>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-              <ul className="iq-points">
-                {item.points.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
+      <section className="band band--navy team" id="operators">
+        <div className="band__shell">
+          <div className="band__head">
+            <p className="label">{operators.label}</p>
+            <h2>{operators.title}</h2>
+          </div>
+          <div className="team__grid">
+            {operators.items.map((item) => (
+              <article key={item.title} className="team__card">
+                <p className="label">{item.kicker}</p>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+                <ul>
+                  {item.points.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -88,11 +90,13 @@ export function CandidIqBody() {
         </div>
       </section>
 
-      <section className="tech-process tech-process--iq" id="how">
-        <div className="tech-shell">
-          <p className="label">{how.label}</p>
-          <h2>{how.title}</h2>
-          <p className="tech-process__lead">{how.lead}</p>
+      <section className="band band--navy team iq-how" id="how">
+        <div className="band__shell">
+          <div className="band__head">
+            <p className="label">{how.label}</p>
+            <h2>{how.title}</h2>
+            <p>{how.lead}</p>
+          </div>
           <ol>
             {how.steps.map((step) => (
               <li key={step.n}>

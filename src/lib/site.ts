@@ -7,7 +7,10 @@ export const site = {
   phoneHref: "tel:+18152078000",
   email: "connect@candid.solutions",
   emailHref: "mailto:connect@candid.solutions",
-  hours: "Mon–Fri 7:00 AM–6:00 PM · Sat 10:00 AM–2:00 PM",
+  hours: [
+    { days: "Mon–Fri", time: "7:00 AM–6:00 PM" },
+    { days: "Sat", time: "10:00 AM–2:00 PM" },
+  ],
   agentLogin: "https://partnerbackoffice.com",
   linkedin: "https://www.linkedin.com/company/candidsolutions",
   facebook: "https://www.facebook.com/CANDIDBUSINESS/",

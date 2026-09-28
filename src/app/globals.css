@@ -1020,10 +1020,24 @@ html[data-theme="dark"] .hero__stats dt {
   }
 }
 
+@media (min-width: 960px) {
+  .team__grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .team__card {
   padding: 1.35rem 1.3rem 1.4rem;
   background: color-mix(in srgb, var(--cream) 6%, var(--ink));
   border: 1px solid color-mix(in srgb, var(--cream) 14%, transparent);
+}
+
+.how + .band--navy {
+  margin-top: 0;
+}
+
+.band--navy:has(+ .how) {
+  margin-bottom: 0;
 }
 
 .team__card h3 {
@@ -1034,6 +1048,13 @@ html[data-theme="dark"] .hero__stats dt {
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.25;
+}
+
+.team__card p {
+  margin: 0.55rem 0 0;
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+  font-size: 0.95rem;
+  line-height: 1.55;
 }
 
 .team__card ul {
@@ -1511,7 +1532,7 @@ html[data-theme="dark"] .solutions-close p {
    Do not collapse .how — ProcessRail overflow needs its own padding. */
 .band:not(.band--navy) + .band:not(.band--navy),
 .how + .band:not(.band--navy),
-.tech-services + .band,
+.tech-services + .band:not(.band--navy),
 .iq-overview-wrap + .band,
 .band + .tech-process,
 .tech-process + .band:not(.band--navy),
@@ -1551,9 +1572,10 @@ html[data-theme="dark"] .solutions-close p {
 
 .how__rail {
   --tone: var(--crimson);
+  position: relative;
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(12rem, 1fr);
+  grid-template-columns: repeat(var(--steps, 7), minmax(12rem, 1fr));
+  grid-template-rows: auto auto;
   gap: 0;
   margin: 1.75rem 0 0;
   padding: 0.5rem 0.15rem 1rem;
@@ -1566,20 +1588,16 @@ html[data-theme="dark"] .solutions-close p {
 
 @media (min-width: 1100px) {
   .how__rail {
-    grid-auto-flow: unset;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--steps, 7), minmax(0, 1fr));
     overflow-x: clip;
     overflow-y: visible;
     scroll-snap-type: none;
-  }
-
-  .how__rail--4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 .how__stop {
   position: relative;
+  grid-row: 2;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -1598,13 +1616,6 @@ html[data-theme="dark"] .solutions-close p {
   );
 }
 
-.how__track {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.9rem;
-  min-height: 0.65rem;
-}
-
 .how--interactive .how__stop {
   cursor: pointer;
 }
@@ -1618,67 +1629,60 @@ html[data-theme="dark"] .solutions-close p {
   outline-offset: 3px;
 }
 
-/* Continuous L→R progress: one segment per step, no numbered nodes. */
-.how__line {
+/* One progress bar across every step. The fill is a single width, not a line per card. */
+.how__rail-line {
   position: relative;
-  display: block;
-  flex: 1 1 auto;
-  width: 100%;
+  grid-column: 1 / -1;
+  grid-row: 1;
   height: 3px;
-  overflow: visible;
+  margin: 0.35rem 0 0.9rem;
+  pointer-events: none;
   background: color-mix(in srgb, var(--rule) 88%, var(--ink));
-  border-radius: 0;
 }
 
-.how__stop:not(:last-child) .how__line {
-  /* Bridge the card gutter so the rail reads as one continuous bar. */
-  width: calc(100% + 0.55rem);
+.how__rail-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% * (var(--active, 0) + 1) / var(--steps, 7));
+  overflow: hidden;
+  transition: width 1.25s var(--motion-ease);
 }
 
-.how__line::after {
+.how__rail-fill::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: var(--rail-gradient);
-  background-size: calc(var(--steps, 7) * 100%) 100%;
-  background-position: calc(var(--index, 0) * -100%) 0;
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 1.25s var(--motion-ease);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% * var(--steps, 7) / (var(--active, 0) + 1));
+  background: linear-gradient(
+    115deg,
+    var(--crimson) 0%,
+    var(--crimson) 38%,
+    var(--blue) 62%,
+    var(--blue) 100%
+  );
 }
 
-.how__line.is-filled::after,
-.how__line.is-current::after {
-  transform: scaleX(1);
-}
-
-/* Leading edge on the active segment — short bar, not a circle. */
-.how__line.is-current {
-  height: 4px;
-}
-
-.how__line.is-current::before {
+.how__rail-line::after {
   content: "";
   position: absolute;
   top: 50%;
-  right: 0;
+  left: calc(100% * (var(--active, 0) + 1) / var(--steps, 7));
   z-index: 1;
   width: 3px;
   height: 12px;
-  translate: 50% -50%;
+  translate: -50% -50%;
   border-radius: 1px;
-  background: var(--rail-gradient);
-  background-size: calc(var(--steps, 7) * 100%) 100%;
-  background-position: calc(var(--index, 0) * -100% - 50%) 0;
+  background: color-mix(in srgb, var(--blue) calc(var(--mix, 0) * 1%), var(--crimson));
   box-shadow: 0 0 0 3px var(--bg);
-  transition:
-    background 1.25s var(--motion-ease),
-    box-shadow 1.25s var(--motion-ease);
+  transition: left 1.25s var(--motion-ease);
 }
 
-.how__stop:last-child .how__line.is-current::before {
-  right: 0;
-  translate: 0 -50%;
+.how__rail-line.is-end::after {
+  translate: -100% -50%;
 }
 
 .how__card {
@@ -1690,8 +1694,7 @@ html[data-theme="dark"] .solutions-close p {
   gap: 0.35rem;
   min-height: 100%;
   padding: 1rem 0.85rem 1.1rem;
-  border: 1px solid color-mix(in srgb, var(--stop) 70%, var(--ink));
-  border-top: 4px solid var(--stop);
+  border: 1px solid color-mix(in srgb, var(--white) 28%, transparent);
   background: var(--rail-gradient);
   background-size: calc(var(--steps, 7) * 100%) 100%;
   background-position: calc(var(--index, 0) * -100%) 0;
@@ -1762,11 +1765,11 @@ html[data-theme="dark"] .solutions-close p {
   text-underline-offset: 3px;
 }
 
-html[data-theme="dark"] .how__line {
+html[data-theme="dark"] .how__rail-line {
   background: color-mix(in srgb, var(--rule) 70%, transparent);
 }
 
-html[data-theme="dark"] .how__line.is-current::before {
+html[data-theme="dark"] .how__rail-line::after {
   box-shadow: 0 0 0 3px var(--bg);
 }
 
@@ -2249,6 +2252,24 @@ html[data-theme="dark"] .surface[data-tone="ink"] {
   flex: 0 0 auto;
 }
 
+@media (min-width: 860px) {
+  .cta-band__inner {
+    display: grid;
+    grid-template-columns: 1.4fr 0.7fr 0.7fr 0.7fr;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .cta-band__copy {
+    grid-column: 1 / 4;
+  }
+
+  .cta-band .btn {
+    grid-column: 4;
+    justify-self: end;
+  }
+}
+
 @media (min-width: 1100px) {
   .cta-band h2 {
     white-space: nowrap;
@@ -2293,8 +2314,29 @@ html[data-theme="dark"] .surface[data-tone="ink"] {
   }
 }
 
-.site-footer__contact {
-  max-width: 12rem;
+.site-footer__hours {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.site-footer__hours > span {
+  display: grid;
+}
+
+.site-footer__days {
+  color: var(--cream);
+  font-weight: 700;
+}
+
+.site-footer__time {
+  color: #b7b1a8;
+}
+
+@media (min-width: 860px) {
+  .site-footer__contact {
+    justify-self: end;
+    width: max-content;
+  }
 }
 
 .site-footer__brand p {
@@ -2739,6 +2781,28 @@ html[data-theme="dark"] .surface[data-tone="ink"] {
   width: fit-content;
 }
 
+/* Technology page shares one 50/50 split from services through the quote. */
+@media (min-width: 900px) {
+  .tech-page .pay-overview {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 1.15rem;
+  }
+
+  .tech-page .pay-overview > div:first-child {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tech-page .pay-overview > div:first-child .btn {
+    margin-top: auto;
+  }
+
+  .tech-page .pay-overview > div > p {
+    max-width: none;
+  }
+}
+
 .pay-stats {
   display: grid;
   gap: 0.85rem;
@@ -2801,8 +2865,13 @@ html[data-theme="dark"] .pay-stats dt {
   font-weight: 600;
 }
 
-.pay-partners__more em {
-  font-style: italic;
+.band--navy .pay-partners__label,
+.band--navy .pay-partners li {
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+}
+
+.team__card .partner-track__note {
+  color: color-mix(in srgb, var(--cream) 65%, transparent);
 }
 
 .pay-rails {
@@ -3688,6 +3757,43 @@ html[data-theme="dark"] .product-close .label {
   font-size: 0.88rem;
 }
 
+.iq-how ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.iq-how li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--cream) 16%, transparent);
+}
+
+.iq-how li span {
+  color: var(--crimson);
+  font-family: var(--font-display), Archivo, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+
+.iq-how h3 {
+  margin: 0;
+  color: var(--cream);
+  font-family: var(--font-display), Archivo, sans-serif;
+  font-size: 1.12rem;
+  font-weight: 800;
+}
+
+.iq-how .iq-how-stats dt {
+  color: var(--cream);
+}
+
+.iq-how .iq-how-stats dd {
+  color: color-mix(in srgb, var(--cream) 72%, transparent);
+}
+
 .iq-plans {
   display: grid;
   gap: 1rem;
@@ -3787,7 +3893,8 @@ section#overview .tech-panel {
   line-height: 1.45;
 }
 
-.card .partner-track__rate {
+.card .partner-track__rate,
+.team__card .partner-track__rate {
   margin: 0.35rem 0 0;
   font-family: var(--font-display), Archivo, sans-serif;
   font-size: 1.75rem;
@@ -3796,7 +3903,8 @@ section#overview .tech-panel {
   color: var(--crimson);
 }
 
-.card .partner-track__note {
+.card .partner-track__note,
+.team__card .partner-track__note {
   margin: 0.1rem 0 0.75rem;
   color: var(--mute);
   font-size: 0.82rem;
@@ -4073,14 +4181,20 @@ section#overview .tech-panel {
 
 @media (min-width: 1020px) {
   .tech-services__layout {
-    grid-template-columns: 0.82fr 1.18fr;
-    gap: 3rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.15rem;
     align-items: start;
   }
 }
 
 .tech-services__head {
   max-width: 28rem;
+}
+
+@media (min-width: 1020px) {
+  .tech-services__head {
+    max-width: none;
+  }
 }
 
 .tech-services__head .label {
@@ -4611,8 +4725,8 @@ html[data-theme="dark"] .tech-quote::before {
   .how__card h3,
   .how__card p,
   .how__card a,
-  .how__line::after,
-  .how__line.is-current::before,
+  .how__rail-fill,
+  .how__rail-line::after,
   .theme-toggle svg,
   .back-to-top,
   .tech-flow-panel::before,
@@ -4644,8 +4758,9 @@ html[data-theme="dark"] .tech-quote::before {
     transform: none;
   }
 
-  .how__line::after {
-    transform: scaleX(1);
+  .how__rail-fill,
+  .how__rail-line::after {
+    transition: none;
   }
   .quotes__track {
     animation: none;

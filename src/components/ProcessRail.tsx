@@ -78,11 +78,20 @@ export function ProcessRail({
     return () => window.clearTimeout(holdTimer.current);
   }, []);
 
+  const atEnd = active === steps.length - 1;
+
   return (
     <ol
       className={`how__rail${columns === 4 ? " how__rail--4" : ""}`}
       ref={railRef}
       aria-label={label}
+      style={
+        {
+          "--active": active,
+          "--steps": steps.length,
+          "--mix": Math.pow(active / Math.max(steps.length - 1, 1), 1.35) * 100,
+        } as CSSProperties
+      }
       onMouseEnter={() => pause()}
       onMouseLeave={() => resume()}
       onFocusCapture={() => pause()}
@@ -92,12 +101,14 @@ export function ProcessRail({
         }
       }}
     >
+      <li className={`how__rail-line${atEnd ? " is-end" : ""}`} aria-hidden="true">
+        <span className="how__rail-fill" />
+      </li>
       {steps.map((step, index) => {
         const last = Math.max(steps.length - 1, 1);
         const t = index / last;
         /* Ease toward the ends so middle steps stay clearer red/blue, less muddy. */
         const mix = Math.pow(t, 1.35) * 100;
-        const done = active > index;
         const current = active === index;
         return (
           <li
@@ -122,11 +133,6 @@ export function ProcessRail({
               } as CSSProperties
             }
           >
-            <div className="how__track" aria-hidden="true">
-              <span
-                className={`how__line${done ? " is-filled" : ""}${current ? " is-current" : ""}`}
-              />
-            </div>
             <div className="how__card">
               <h3>{step.title}</h3>
               <p>{step.body}</p>

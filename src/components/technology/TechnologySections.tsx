@@ -95,20 +95,22 @@ export function TechnologySections() {
         </div>
       </section>
 
-      <section className="band" id="staff">
-        <div className="band__head">
-          <p className="label">{staff.label}</p>
-          <h2>{staff.title}</h2>
-          <p>{staff.lead}</p>
-        </div>
-        <div className="cards cards--3">
-          {staff.items.map((item) => (
-            <article key={item.title} className="card" data-tone="crimson">
-              <p className="label">{item.kicker}</p>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
+      <section className="band band--navy team" id="staff">
+        <div className="band__shell">
+          <div className="band__head">
+            <p className="label">{staff.label}</p>
+            <h2>{staff.title}</h2>
+            <p>{staff.lead}</p>
+          </div>
+          <div className="team__grid team__grid--3">
+            {staff.items.map((item) => (
+              <article key={item.title} className="team__card">
+                <p className="label">{item.kicker}</p>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

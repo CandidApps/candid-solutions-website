@@ -26,29 +26,31 @@ export function CandidPayBody() {
         </div>
       </section>
 
-      <section className="band" id="quote">
-        <div className="band__head">
-          <p className="label">{quote.label}</p>
-          <h2>{quote.title}</h2>
+      <section className="band band--navy team" id="quote">
+        <div className="band__shell">
+          <div className="band__head">
+            <p className="label">{quote.label}</p>
+            <h2>{quote.title}</h2>
+          </div>
+          <div className="team__grid team__grid--3">
+            {quote.items.map((item) => (
+              <article key={item.title} className="team__card">
+                <p className="label">{item.kicker}</p>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
+          <p className="pay-partners__label">{quote.partnersLabel}</p>
+          <ul className="pay-partners">
+            {quote.partners.map((name) => (
+              <li key={name}>{name}</li>
+            ))}
+            <li className="pay-partners__more">
+              (<em>and dozens more</em>)
+            </li>
+          </ul>
         </div>
-        <div className="cards cards--3">
-          {quote.items.map((item) => (
-            <article key={item.title} className="card" data-tone="pay">
-              <p className="label">{item.kicker}</p>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
-        </div>
-        <p className="pay-partners__label">{quote.partnersLabel}</p>
-        <ul className="pay-partners">
-          {quote.partners.map((name) => (
-            <li key={name}>{name}</li>
-          ))}
-          <li className="pay-partners__more">
-            (<em>and dozens more</em>)
-          </li>
-        </ul>
       </section>
 
       <section className="band" id="integrations">

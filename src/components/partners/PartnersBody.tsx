@@ -26,26 +26,27 @@ export function PartnersBody() {
         </div>
       </section>
 
-      <section className="band" id="tracks">
-        <div className="band__head">
-          <p className="label">{tracks.label}</p>
-          <h2>{tracks.title}</h2>
-          <p>{tracks.lead}</p>
-        </div>
-        <div className="cards cards--3">
-          {tracks.items.map((track) => (
-            <article
-              key={track.kicker}
-              className={`card${"featured" in track && track.featured ? " partner-track--featured" : ""}`}
-              data-tone="crimson"
-            >
-              <p className="label">{track.kicker}</p>
-              <p className="partner-track__rate">{track.rate}</p>
-              <p className="partner-track__note">{track.note}</p>
-              <h3>{track.title}</h3>
-              <p>{track.body}</p>
-            </article>
-          ))}
+      <section className="band band--navy team" id="tracks">
+        <div className="band__shell">
+          <div className="band__head">
+            <p className="label">{tracks.label}</p>
+            <h2>{tracks.title}</h2>
+            <p>{tracks.lead}</p>
+          </div>
+          <div className="team__grid team__grid--3">
+            {tracks.items.map((track) => (
+              <article
+                key={track.kicker}
+                className={`team__card${"featured" in track && track.featured ? " partner-track--featured" : ""}`}
+              >
+                <p className="label">{track.kicker}</p>
+                <p className="partner-track__rate">{track.rate}</p>
+                <p className="partner-track__note">{track.note}</p>
+                <h3>{track.title}</h3>
+                <p>{track.body}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -57,18 +58,20 @@ export function PartnersBody() {
         <ProcessRail steps={how.steps} label="Partner process" columns={4} />
       </section>
 
-      <section className="band">
-        <div className="band__head">
-          <p className="label">{fill.label}</p>
-          <h2>{fill.title}</h2>
-        </div>
-        <div className="cards cards--3">
-          {fill.items.map((item) => (
-            <article key={item.title} className="card" data-tone="crimson">
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
-          ))}
+      <section className="band band--navy team">
+        <div className="band__shell">
+          <div className="band__head">
+            <p className="label">{fill.label}</p>
+            <h2>{fill.title}</h2>
+          </div>
+          <div className="team__grid team__grid--3">
+            {fill.items.map((item) => (
+              <article key={item.title} className="team__card">
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 

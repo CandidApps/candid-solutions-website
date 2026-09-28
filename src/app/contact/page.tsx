@@ -31,7 +31,14 @@ export default function ContactPage() {
             <a className="mt-2 block text-xl font-semibold" href={site.phoneHref}>
               {site.phone}
             </a>
-            <p className="mt-1 text-sm text-muted">{site.hours}</p>
+            <div className="mt-3 space-y-3 text-sm text-muted">
+              {site.hours.map((row) => (
+                <p key={row.days}>
+                  <span className="block font-semibold text-fg">{row.days}</span>
+                  {row.time}
+                </p>
+              ))}
+            </div>
           </div>
           <div className="contact-card">
             <p className="text-xs font-semibold tracking-[0.16em] text-muted uppercase">
