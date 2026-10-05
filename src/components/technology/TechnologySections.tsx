@@ -41,24 +41,24 @@ export function TechnologySections() {
             <p className="label">{services.label}</p>
             <h2>{services.title}</h2>
             <p>{services.lead}</p>
+            <p className="tech-services__more">
+              {services.more}{" "}
+              <Link href="/contact">Get started</Link>
+            </p>
           </header>
           <div className="tech-services__grid">
             {services.items.map((item, i) => (
-              <article key={item.title}>
+              <Link key={item.title} href={item.href}>
                 <p className="label">{String(i + 1).padStart(2, "0")}</p>
                 <ServiceIcon index={i} />
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
         </div>
-        <p className="tech-shell tech-services__more">
-          {services.more}{" "}
-          <Link href="/contact">Get started</Link>
-        </p>
       </section>
 
       <section className="band">
@@ -102,9 +102,9 @@ export function TechnologySections() {
             <h2>{staff.title}</h2>
             <p>{staff.lead}</p>
           </div>
-          <div className="team__grid team__grid--3">
+          <div className="cc-stories">
             {staff.items.map((item) => (
-              <article key={item.title} className="team__card">
+              <article key={item.title} className="cc-story">
                 <p className="label">{item.kicker}</p>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -114,6 +114,7 @@ export function TechnologySections() {
         </div>
       </section>
 
+      <div className="cc-lower">
       <section className="how how--4 how--interactive" id="how">
         <div className="band__head how__intro">
           <p className="label">{process.label}</p>
@@ -126,6 +127,7 @@ export function TechnologySections() {
           columns={4}
         />
       </section>
+      </div>
 
       <section className="band">
         <div className="band__head">

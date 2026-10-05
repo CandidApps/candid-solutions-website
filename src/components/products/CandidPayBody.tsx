@@ -7,7 +7,7 @@ export function CandidPayBody() {
   const { overview, stats, quote, integrations, process, close } = candidPayPage;
 
   return (
-    <>
+    <div className="pay-body">
       <section className="band" id="overview">
         <div className="pay-overview">
           <div>
@@ -32,9 +32,9 @@ export function CandidPayBody() {
             <p className="label">{quote.label}</p>
             <h2>{quote.title}</h2>
           </div>
-          <div className="team__grid team__grid--3">
+          <div className="cc-stories">
             {quote.items.map((item) => (
-              <article key={item.title} className="team__card">
+              <article key={item.title} className="cc-story">
                 <p className="label">{item.kicker}</p>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -72,6 +72,7 @@ export function CandidPayBody() {
         </div>
       </section>
 
+      <div className="cc-lower">
       <section className="how how--4 how--interactive" id="how">
         <div className="band__head how__intro">
           <p className="label">{process.label}</p>
@@ -92,6 +93,7 @@ export function CandidPayBody() {
         visit={close.visit}
         visitHref={site.candidPay}
       />
-    </>
+      </div>
+    </div>
   );
 }

@@ -3,6 +3,32 @@ import { ProductClose } from "@/components/products/ProductClose";
 import { site } from "@/lib/site";
 import { candidIqPage } from "@/lib/products";
 
+const capabilityIcons = [
+  <svg key="spend" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M4 19V5M4 19h16" />
+    <path d="M8 15v-4M12 15V8M16 15v-6" />
+  </svg>,
+  <svg key="talk" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M5 16l-1 4 4-1 9-9-3-3-9 9z" />
+    <path d="M14 7l3 3" />
+  </svg>,
+  <svg key="vault" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M7 3h7l5 5v13H7z" />
+    <path d="M14 3v5h5M9 13h6M9 17h4" />
+  </svg>,
+  <svg key="flow" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M6 7h9M6 12h12M6 17h7" />
+    <path d="M15 5l3 2-3 2M18 15l3 2-3 2" />
+  </svg>,
+  <svg key="desk" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M5 15a7 7 0 0 1 14 0" />
+    <path d="M4 16h16v3H4zM9 16v-2M15 16v-2" />
+  </svg>,
+  <svg key="util" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M13 2L6 13h6l-1 9 8-12h-6l0-8z" />
+  </svg>,
+];
+
 export function CandidIqBody() {
   const {
     overview,
@@ -17,7 +43,7 @@ export function CandidIqBody() {
   } = candidIqPage;
 
   return (
-    <>
+    <div className="iq-body">
       <section className="iq-overview-wrap" id="overview">
         <div className="iq-overview">
           <div className="iq-overview__copy">
@@ -52,15 +78,14 @@ export function CandidIqBody() {
         />
       </section>
 
-      <section className="band band--navy team" id="operators">
-        <div className="band__shell">
-          <div className="band__head">
-            <p className="label">{operators.label}</p>
-            <h2>{operators.title}</h2>
-          </div>
-          <div className="team__grid">
+      <section className="band" id="operators">
+        <div className="band__head">
+          <p className="label">{operators.label}</p>
+          <h2>{operators.title}</h2>
+        </div>
+        <div className="team__grid">
             {operators.items.map((item) => (
-              <article key={item.title} className="team__card">
+              <article key={item.title} className="card">
                 <p className="label">{item.kicker}</p>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -71,7 +96,6 @@ export function CandidIqBody() {
                 </ul>
               </article>
             ))}
-          </div>
         </div>
       </section>
 
@@ -82,61 +106,75 @@ export function CandidIqBody() {
             <h2>{marketplace.title}</h2>
             <p>{marketplace.body}</p>
           </div>
-          <ul className="iq-points iq-points--lg">
-            {marketplace.points.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
+          <aside className="iq-frank" aria-label="Frank">
+            <div className="iq-frank__top">
+              <span>Frank</span>
+            </div>
+            <ul>
+              {marketplace.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+            <p className="iq-frank__save">
+              <strong>{how.stats[0].n}</strong>
+              <span>{how.stats[0].label}</span>
+            </p>
+          </aside>
         </div>
       </section>
 
-      <section className="band band--navy team iq-how" id="how">
-        <div className="band__shell">
-          <div className="band__head">
-            <p className="label">{how.label}</p>
-            <h2>{how.title}</h2>
-            <p>{how.lead}</p>
-          </div>
-          <ol>
-            {how.steps.map((step) => (
-              <li key={step.n}>
-                <span>{step.n}</span>
-                <div>
-                  <h3>{step.title}</h3>
-                  <p>{step.body}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <dl className="iq-how-stats">
-            {how.stats.map((item) => (
-              <div key={item.n}>
-                <dt>{item.n}</dt>
-                <dd>{item.label}</dd>
+      <section className="band iq-how" id="how">
+        <div className="band__head">
+          <p className="label">{how.label}</p>
+          <h2>{how.title}</h2>
+          <p>{how.lead}</p>
+        </div>
+        <ol>
+          {how.steps.map((step) => (
+            <li key={step.n}>
+              <span>{step.n}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.body}</p>
               </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
-      <section className="band" id="capabilities">
-        <div className="band__head">
-          <p className="label">{capabilities.label}</p>
-          <h2>{capabilities.title}</h2>
-        </div>
-        <div className="cards cards--3">
-          {capabilities.items.map((item) => (
-            <article key={item.title} className="card" data-tone="blue">
-              <p className="label">{item.n}</p>
-              <h3>{item.title}</h3>
-              <p>{item.body}</p>
-            </article>
+            </li>
           ))}
+        </ol>
+      </section>
+
+      <section className="iq-stats" aria-label={how.label}>
+        <dl>
+          {how.stats.map((item) => (
+            <div key={item.n}>
+              <dt>{item.n}</dt>
+              <dd>{item.label}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="iq-wash" id="capabilities">
+        <div className="iq-wash__inner">
+          <div className="band__head">
+            <p className="label">{capabilities.label}</p>
+            <h2>{capabilities.title}</h2>
+          </div>
+          <div className="cards cards--3">
+            {capabilities.items.map((item, i) => (
+              <article key={item.title} className="card" data-tone="blue">
+                <span className="iq-cap__icon">{capabilityIcons[i]}</span>
+                <p className="label">{item.n}</p>
+                <h3>{item.title}</h3>
+                <p>{item.body}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="band band--tight" id="plans">
-        <div className="band__head">
+      <section className="iq-plans-band" id="plans">
+        <div className="iq-wash__inner">
+          <div className="band__head">
           <p className="label">{plans.label}</p>
           <h2>{plans.title}</h2>
           <p>{plans.lead}</p>
@@ -162,9 +200,10 @@ export function CandidIqBody() {
             </article>
           ))}
         </div>
+        </div>
       </section>
 
-      <section className="band band--tight">
+      <section className="band iq-quotes">
         <div className="cards cards--3">
           {quotes.map((quote) => (
             <blockquote key={quote} className="card card--quote">
@@ -182,6 +221,6 @@ export function CandidIqBody() {
         visit={close.visit}
         visitHref={site.candidIq}
       />
-    </>
+    </div>
   );
 }

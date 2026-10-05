@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { MobilityField, MobilityHeadline, MobilityPreview } from "@/components/technology/MobilityField";
 
 type HeroCopy = {
   eyebrow: string;
@@ -22,38 +23,49 @@ export function ProductHero({
 }: {
   hero: HeroCopy;
   imageSrc: string;
-  variant: "pay" | "iq" | "partner" | "energy";
+  variant: "pay" | "iq" | "partner" | "energy" | "mobility";
 }) {
   const panelIsExternal = /^https?:/i.test(hero.panelLink.href);
 
   return (
     <section className={`tech-hero product-hero product-hero--${variant}`}>
-      <Image
-        src={imageSrc}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="tech-hero__img"
-      />
-      <div className="tech-hero__shade" aria-hidden="true" />
+      {variant === "mobility" ? <MobilityField /> : null}
+      {variant === "mobility" ? null : (
+        <Image
+          src={imageSrc}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="tech-hero__img"
+        />
+      )}
+      {variant === "mobility" ? null : <div className="tech-hero__shade" aria-hidden="true" />}
       <div className="tech-hero__stage">
         <div className="tech-hero__copy">
           <p className="label">{hero.eyebrow}</p>
-          <h1>
-            {hero.titleBefore}
-            <span className="product-hero__accent">{hero.titleAccent}</span>
-          </h1>
+          {variant === "mobility" ? (
+            <MobilityHeadline before={hero.titleBefore} />
+          ) : (
+            <h1>
+              {hero.titleBefore}
+              <span className="product-hero__accent">{hero.titleAccent}</span>
+            </h1>
+          )}
           <p className="tech-hero__lead">{hero.lead}</p>
-          <div className="tech-hero__actions">
-            <a href={hero.ghost.href} className="btn btn-ghost">
-              {hero.ghost.label}
-            </a>
-            <Link href={hero.solid.href} className="btn btn-solid">
-              {hero.solid.label}
-            </Link>
-          </div>
+          {variant === "mobility" ? <MobilityPreview /> : null}
+          {variant === "mobility" ? null : (
+            <div className="tech-hero__actions">
+              <a href={hero.ghost.href} className="btn btn-ghost">
+                {hero.ghost.label}
+              </a>
+              <Link href={hero.solid.href} className="btn btn-solid">
+                {hero.solid.label}
+              </Link>
+            </div>
+          )}
         </div>
+        <div className={variant === "mobility" ? "product-hero__side" : "product-hero__side product-hero__side--plain"}>
         <aside className="product-hero__panel">
           <p className="label">{hero.panelKicker}</p>
           {hero.panelAlt ? (
@@ -81,6 +93,17 @@ export function ProductHero({
             <a href={hero.panelLink.href}>{hero.panelLink.label} →</a>
           )}
         </aside>
+        {variant === "mobility" ? (
+          <div className="tech-hero__actions">
+            <a href={hero.ghost.href} className="btn btn-ghost">
+              {hero.ghost.label}
+            </a>
+            <Link href={hero.solid.href} className="btn btn-solid">
+              {hero.solid.label}
+            </Link>
+          </div>
+        ) : null}
+        </div>
       </div>
     </section>
   );

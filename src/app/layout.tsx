@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, Inter } from "next/font/google";
 import Script from "next/script";
 import { SiteShell } from "@/components/SiteShell";
+import { organizationJsonLd } from "@/lib/seo";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -21,12 +22,20 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Candid Solutions",
+    default: "Business technology, payments & IT",
     template: "%s – Candid Solutions",
   },
   description:
-    "Candid Solutions simplifies and transforms business technology and payments — clarity, savings, and operational improvement through tailored IT, payments, and commerce solutions.",
+    "Candid Solutions is a vendor-neutral IT consulting firm for business phone systems, payment processing, cybersecurity, and technology spend.",
   metadataBase: new URL(site.url),
+  openGraph: {
+    type: "website",
+    siteName: site.name,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+  },
   icons: {
     icon: "/brand/candid-icon.png",
   },
@@ -50,6 +59,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="theme-init" strategy="beforeInteractive">
           {themeInit}
         </Script>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd),
+          }}
+        />
         <a className="skip-link" href="#main">
           Skip to content
         </a>

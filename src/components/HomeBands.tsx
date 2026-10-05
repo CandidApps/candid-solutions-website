@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { desks, quotes, solutions, values } from "@/lib/site";
+import { desks, faqs, quotes, solutions, values } from "@/lib/site";
 
 export function HomeBands() {
   return (
@@ -44,21 +44,36 @@ export function HomeBands() {
           <div className="band__head band__head--split">
             <div>
               <p className="label">Solutions</p>
-              <h2>We match technology to how you operate.</h2>
+              <h2>Phone systems, payments, and IT matched to how you operate.</h2>
             </div>
             <Link href="/solutions" className="band__link">
               All solutions
             </Link>
           </div>
-          <div className="cards cards--3">
+          <div className="cc-stories">
             {solutions.map((item, i) => (
-              <article key={item.title} className="card card--navy">
+              <Link key={item.title} href={item.href} className="cc-story">
                 <p className="label">{String(i + 1).padStart(2, "0")}</p>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
-              </article>
+              </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="band" id="faq">
+        <div className="band__head">
+          <p className="label">Questions</p>
+          <h2>What buyers ask before they call.</h2>
+        </div>
+        <div className="faq-card">
+          {faqs.map((item, i) => (
+            <details key={item.q} className="faq-card__item" open={i === 0}>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
         </div>
       </section>
 

@@ -44,6 +44,7 @@ export const homeNav = [
   { href: "#working-with", label: "The team" },
   { href: "#desks", label: "What we built" },
   { href: "#solutions", label: "Solutions" },
+  { href: "#faq", label: "Questions" },
   { href: "#consultation", label: "Talk to us" },
 ] as const;
 
@@ -162,26 +163,55 @@ export const solutions = [
   {
     title: "Payment processing & POS",
     body: "Lower fees. Digital-first and self-service PoS. CandidPay is our payments ISO.",
+    href: "/solutions/candidpay",
   },
   {
-    title: "Contact Center & UCaaS",
-    body: "Match contact center and unified communications to how your teams actually work.",
+    title: "Contact center & phone systems",
+    body: "UCaaS, hosted voice, and contact center platforms matched to how your teams actually work.",
+    href: "/solutions/technology",
   },
   {
     title: "Internet, SD-WAN & network",
     body: "Business-class connectivity across locations. One point of contact, not a stack of tickets.",
+    href: "/solutions/technology",
   },
   {
     title: "Cloud & infrastructure",
     body: "Colo, hosting, SaaS engineered for your operations, not a vendor quota.",
+    href: "/solutions/technology",
   },
   {
     title: "Cybersecurity",
     body: "If you are connected, you are a target. Right-sized controls without buying every box.",
+    href: "/solutions/technology",
   },
   {
     title: "Technology expense management",
     body: "See the bill, the contract, and the service. Typically 25–30% lower across buckets.",
+    href: "/solutions/candidiq",
+  },
+] as const;
+
+export const faqs = [
+  {
+    q: "What is Candid Solutions?",
+    a: "Candid Solutions, Inc. is a vendor-neutral IT consulting firm serving commercial clients nationwide since 2006. We source business phone systems, payment processing, cloud, cybersecurity, and connectivity, and we sit on your side of the table.",
+  },
+  {
+    q: "What does it cost to work with Candid?",
+    a: "Vendor selection and the advisory are at no cost to you. We don’t move until you approve.",
+  },
+  {
+    q: "Do you handle payment processing and point of sale?",
+    a: "Yes. CandidPay is our payments ISO: merchant processing, statements, and POS for how your locations take money.",
+  },
+  {
+    q: "Can you review a phone or technology bill?",
+    a: "Yes. We start with a zero-cost look at invoices and contracts, then show credits, rates, and vendors worth changing. You decide what we implement.",
+  },
+  {
+    q: "Where does AI fit?",
+    a: "CandidIQ includes Frank, our AI that monitors contracts and technology spend. Candid specialists still make the calls and finish the work. You approve.",
   },
 ] as const;
 

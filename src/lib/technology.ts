@@ -20,26 +20,32 @@ export const technology = {
       {
         title: "Payment processing",
         body: "Lower fees. Digital-first and self-service POS. CandidPay is our payments ISO.",
+        href: "/solutions/payment-processing",
       },
       {
-        title: "Contact center",
-        body: "With more than 150 contact center vendors, we help you find the platform that matches how your teams actually work.",
+        title: "Contact center & phone systems",
+        body: "UCaaS, hosted voice, and contact center. More than 150 platforms, matched to how your teams place and take calls.",
+        href: "/solutions/contact-center",
       },
       {
         title: "Mobility",
         body: "Managed mobility that cuts the IT burden and the bill. End-to-end device and wireless management, one point of contact.",
+        href: "/solutions/mobility",
       },
       {
         title: "Cybersecurity",
         body: "If you are connected, you are a target. Right-sized controls so users reach applications without buying every box.",
+        href: "/solutions/cybersecurity",
       },
       {
         title: "Cloud infrastructure",
         body: "Cloud, hosting, and colocation. Engineers design and implement for your environment, not a vendor quota.",
+        href: "/solutions/cloud",
       },
       {
         title: "Internet & SD-WAN",
         body: "Business-class connectivity nationwide. Visibility across locations, one bill you can explain.",
+        href: "/solutions/internet",
       },
     ],
     more: "More services, still one team.",

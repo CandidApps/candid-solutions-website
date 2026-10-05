@@ -58,20 +58,18 @@ export function PartnersBody() {
         <ProcessRail steps={how.steps} label="Partner process" columns={4} />
       </section>
 
-      <section className="band band--navy team">
-        <div className="band__shell">
-          <div className="band__head">
-            <p className="label">{fill.label}</p>
-            <h2>{fill.title}</h2>
-          </div>
-          <div className="team__grid team__grid--3">
-            {fill.items.map((item) => (
-              <article key={item.title} className="team__card">
-                <h3>{item.title}</h3>
-                <p>{item.body}</p>
-              </article>
-            ))}
-          </div>
+      <section className="band">
+        <div className="band__head">
+          <p className="label">{fill.label}</p>
+          <h2>{fill.title}</h2>
+        </div>
+        <div className="cards cards--3">
+          {fill.items.map((item) => (
+            <article key={item.title} className="card">
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+            </article>
+          ))}
         </div>
       </section>
 

@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { CandidPayBody } from "@/components/products/CandidPayBody";
 import { PayGateways } from "@/components/products/PayGateways";
 import { ProductHero } from "@/components/products/ProductHero";
 import { ProductSubnav } from "@/components/products/ProductSubnav";
 import { candidPayPage } from "@/lib/products";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "CandidPay",
-  description:
-    "Payment processing and merchant services from Candid. Rates you can explain, hardware that fits, and a link to candidpay.app.",
-};
+export const metadata = pageMeta(
+  "/solutions/candidpay",
+  "Payment processing & point of sale",
+  "CandidPay is Candid’s payments ISO: merchant processing, POS, and QuickBooks Online sync, with rates you can explain.",
+);
 
 export default function CandidPayPage() {
   return (

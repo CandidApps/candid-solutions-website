@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
     );
 
     return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.candid.solutions" }],
+        destination: "https://candid.solutions/:path*",
+        permanent: true,
+      },
       ...exact,
       // Catch remaining WP blog posts
       {

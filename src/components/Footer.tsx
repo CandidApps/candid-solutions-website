@@ -76,8 +76,10 @@ export function Footer() {
         </div>
       </div>
       <p className="site-footer__legal">
-        © {new Date().getFullYear()} Candid Solutions, Inc. · Commitment ·
-        Innovation · Reputation · Excellence
+        © {new Date().getFullYear()} Candid Solutions, Inc. ·{" "}
+        <Link href="/privacy">Privacy</Link>
+        {" · "}
+        <Link href="/terms">Terms</Link>
       </p>
     </footer>
   );

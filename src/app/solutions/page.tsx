@@ -1,22 +1,22 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 import { PageBanner } from "@/components/PageBanner";
 import { SolutionsCatalog } from "@/components/solutions/SolutionsCatalog";
 
-export const metadata: Metadata = {
-  title: "Solutions",
-  description:
-    "Enterprise-level payments, contact center, network, cloud, cybersecurity, and expense management — sourced and managed by Candid.",
-};
+export const metadata = pageMeta(
+  "/solutions",
+  "Solutions",
+  "Technology, CandidPay, CandidIQ, and Energy. Four pages under one company. Open the one that matches the work.",
+);
 
 export default function SolutionsPage() {
   return (
     <>
       <PageBanner
         kicker="Solutions"
-        title="Enterprise-level technology, matched to the end client, not the vendor."
-        lead="No two customers are the same. We listen, collaborate, and use long-standing relationships with cloud, contact center, network, and colo providers to get world-class service at below-market cost."
+        title="All solutions, one company."
+        lead="Technology, payments, spend, and energy. Open the page that matches the work."
         ctaHref="/contact"
-        ctaLabel="Get a free solutions quote"
+        ctaLabel="Let’s Chat!"
         imageSrc="/brand/solutions-hero.png"
         imagePosition="center 45%"
         bright

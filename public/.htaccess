@@ -6,6 +6,9 @@
   RewriteEngine On
   RewriteBase /
 
+  RewriteCond %{HTTP_HOST} ^www\.candid\.solutions$ [NC]
+  RewriteRule ^ https://candid.solutions%{REQUEST_URI} [R=301,L]
+
   # Prefer HTTPS (uncomment if TLS terminates on this host)
   # RewriteCond %{HTTPS} !=on
   # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
@@ -23,12 +26,10 @@
   RewriteRule ^sitemap/?$ /sitemap.xml [R=301,L]
 
   # --- Legal ---
-  RewriteRule ^about/privacy-policy/?$ /about [R=301,L]
-  RewriteRule ^about/terms-and-conditions/?$ /about [R=301,L]
-  RewriteRule ^privacy-policy/?$ /about [R=301,L]
-  RewriteRule ^privacy/?$ /about [R=301,L]
-  RewriteRule ^terms-and-conditions/?$ /about [R=301,L]
-  RewriteRule ^terms/?$ /about [R=301,L]
+  RewriteRule ^about/privacy-policy/?$ /privacy [R=301,L]
+  RewriteRule ^privacy-policy/?$ /privacy [R=301,L]
+  RewriteRule ^about/terms-and-conditions/?$ /terms [R=301,L]
+  RewriteRule ^terms-and-conditions/?$ /terms [R=301,L]
 
   # --- Legacy marketing ---
   RewriteRule ^sap-s4hana\.html$ /solutions/technology [R=301,L]
@@ -42,26 +43,21 @@
   RewriteRule ^blog/.*$ / [R=301,L]
 
   # --- Old solution pages → Technology / products ---
-  RewriteRule ^solutions/cybersecurity/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/cyber-security/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/contact-center/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/customer-experience/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/cloud/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/cloud-infrastructure/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/sd-wan/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/internet/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/internet-sd-wan/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/mobility/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/managed-mobility/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/voip/?$ /solutions/technology [R=301,L]
-  RewriteRule ^solutions/ucaas/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/physical-security/?$ /solutions/technology [R=301,L]
+  RewriteRule ^solutions/cyber-security/?$ /solutions/cybersecurity [R=301,L]
+  RewriteRule ^solutions/customer-experience/?$ /solutions/contact-center [R=301,L]
+  RewriteRule ^solutions/cloud-infrastructure/?$ /solutions/cloud [R=301,L]
+  RewriteRule ^solutions/sd-wan/?$ /solutions/internet [R=301,L]
+  RewriteRule ^solutions/internet-sd-wan/?$ /solutions/internet [R=301,L]
+  RewriteRule ^solutions/managed-mobility/?$ /solutions/mobility [R=301,L]
+  RewriteRule ^solutions/voip/?$ /solutions/contact-center [R=301,L]
+  RewriteRule ^solutions/ucaas/?$ /solutions/contact-center [R=301,L]
   RewriteRule ^solutions/managed-services/?$ /solutions/technology [R=301,L]
   RewriteRule ^solutions/managed-it/?$ /solutions/technology [R=301,L]
   RewriteRule ^solutions/telecom-audits/?$ /solutions/candidiq [R=301,L]
   RewriteRule ^solutions/tem/?$ /solutions/candidiq [R=301,L]
   RewriteRule ^solutions/expense-management/?$ /solutions/candidiq [R=301,L]
-  RewriteRule ^solutions/payments/?$ /solutions/candidpay [R=301,L]
-  RewriteRule ^solutions/payment-processing/?$ /solutions/candidpay [R=301,L]
+  RewriteRule ^solutions/payments/?$ /solutions/payment-processing [R=301,L]
   RewriteRule ^solutions/industry-solutions/?$ /solutions [R=301,L]
   RewriteRule ^solutions/industry-solutions/commerce/?$ /solutions [R=301,L]
   RewriteRule ^solutions/industry-solutions/payments/?$ /solutions/candidpay [R=301,L]

@@ -13,9 +13,9 @@ export function WorkingWith() {
           <h2 id="team-heading">{workingWith.title}</h2>
           <p>{workingWith.lead}</p>
         </div>
-        <div className="team__grid">
+        <div className="cc-stories cc-stories--2">
           {workingWith.desks.map((desk) => (
-            <article key={desk.title} className="team__card">
+            <article key={desk.title} className="cc-story">
               <h3>{desk.title}</h3>
               <ul>
                 {desk.points.map((point) => (

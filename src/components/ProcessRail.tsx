@@ -17,10 +17,12 @@ export function ProcessRail({
   steps,
   label,
   columns = 4,
+  showNumbers = false,
 }: {
   steps: readonly ProcessRailStep[];
   label: string;
   columns?: 4 | 7;
+  showNumbers?: boolean;
 }) {
   const [active, setActive] = useState(0);
   const railRef = useRef<HTMLOListElement>(null);
@@ -134,6 +136,7 @@ export function ProcessRail({
             }
           >
             <div className="how__card">
+              {showNumbers ? <span className="how__n">{index + 1}</span> : null}
               <h3>{step.title}</h3>
               <p>{step.body}</p>
               {step.link ? (

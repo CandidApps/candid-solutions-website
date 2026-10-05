@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import Link from "next/link";
-import { site } from "@/lib/site";
 
 const KINETIC = "more";
 
@@ -29,20 +28,19 @@ export function Hero() {
               .
             </h1>
             <p className="hero__lead">
-              We began dealing with the carriers so you didn’t have to. Clients asked
-              for more: payments, cloud, cyber, spend. We grew with them. Today
-              Candid Solutions is a full-service IT consulting firm that owns{" "}
-              <a href={site.candidPay} rel="noopener noreferrer" target="_blank">
-                CandidPay
-              </a>{" "}
-              and{" "}
-              <a href={site.candidIq} rel="noopener noreferrer" target="_blank">
-                CandidIQ
-              </a>
-              . Visionary. Proactive. Client first.
+              Candid Solutions is a vendor-neutral IT consulting firm for business
+              phone systems, payment processing, and the technology around them. We
+              began dealing with the carriers so you didn’t have to. Clients asked
+              for more: payments, cloud, cyber, spend. Today the firm owns{" "}
+              <Link href="/solutions/candidpay">CandidPay</Link> and{" "}
+              <Link href="/solutions/candidiq">CandidIQ</Link>. Visionary.
+              Proactive. Client first.
             </p>
           </div>
           <div className="hero__actions">
+            <Link href="/contact" className="btn btn-solid">
+              Let’s Chat!
+            </Link>
             <a href="#story" className="btn btn-ghost">
               See our story
             </a>
@@ -77,7 +75,7 @@ export function Hero() {
             <li>Build what the market still won’t</li>
           </ul>
           <Link href="/contact" className="btn btn-solid">
-            Schedule a conversation
+            Let’s Chat!
           </Link>
         </aside>
       </div>

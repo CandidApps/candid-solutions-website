@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/Logo";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { nav, site } from "@/lib/site";
@@ -45,10 +45,38 @@ function NavLink({
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState<string | null>(null);
   const pathname = usePathname();
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setMenu(null);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menu) return;
+
+    function onKey(event: KeyboardEvent) {
+      if (event.key === "Escape") setMenu(null);
+    }
+
+    function onPointer(event: MouseEvent) {
+      if (!headerRef.current?.contains(event.target as Node)) setMenu(null);
+    }
+
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onPointer);
+    };
+  }, [menu]);
 
   return (
-    <header className={`site-header${open ? " is-open" : ""}`}>
+    <header
+      ref={headerRef}
+      className={`site-header${open ? " is-open" : ""}`}
+    >
       <div className="site-header__top">
         <p>
           Partner Program ·{" "}
@@ -64,22 +92,54 @@ export function SiteHeader() {
         <nav aria-label="Primary">
           {nav.map((item) =>
             "children" in item ? (
-              <div className="nav-drop" key={item.href}>
+              <div
+                className={`nav-drop${menu === item.href ? " is-open" : ""}`}
+                key={item.href}
+              >
                 <Link
                   href={item.href}
                   className="nav-drop__trigger"
-                  aria-haspopup="true"
                   aria-current={
                     pathname === item.href ||
                     pathname.startsWith(`${item.href}/`)
                       ? "page"
                       : undefined
                   }
+                  onClick={() => setMenu(null)}
                 >
                   {item.label}
-                  <span className="nav-drop__caret" aria-hidden="true" />
                 </Link>
-                <div className="nav-drop__menu" role="list">
+                <button
+                  type="button"
+                  className="nav-drop__caret-btn"
+                  aria-expanded={menu === item.href}
+                  aria-controls={`${item.label.toLowerCase()}-menu`}
+                  aria-label={
+                    menu === item.href
+                      ? `Close ${item.label} menu`
+                      : `Open ${item.label} menu`
+                  }
+                  onClick={() =>
+                    setMenu((current) =>
+                      current === item.href ? null : item.href,
+                    )
+                  }
+                >
+                  <span className="nav-drop__caret" aria-hidden="true" />
+                </button>
+                <div
+                  id={`${item.label.toLowerCase()}-menu`}
+                  className="nav-drop__menu"
+                  role="list"
+                >
+                  <div role="listitem">
+                    <NavLink
+                      href={item.href}
+                      label={`All ${item.label.toLowerCase()}`}
+                      current={pathname === item.href}
+                      onClick={() => setMenu(null)}
+                    />
+                  </div>
                   {item.children.map((child) => (
                     <div role="listitem" key={child.label}>
                       <NavLink
@@ -89,6 +149,7 @@ export function SiteHeader() {
                         current={
                           !isExternalChild(child) && pathname === child.href
                         }
+                        onClick={() => setMenu(null)}
                       />
                     </div>
                   ))}
@@ -138,6 +199,12 @@ export function SiteHeader() {
                 onClick={() => setOpen(false)}
               />
               <div className="nav-drop__menu">
+                <NavLink
+                  href={item.href}
+                  label={`All ${item.label.toLowerCase()}`}
+                  current={pathname === item.href}
+                  onClick={() => setOpen(false)}
+                />
                 {item.children.map((child) => (
                   <NavLink
                     key={child.label}

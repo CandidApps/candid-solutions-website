@@ -33,37 +33,23 @@ export default async function MonthlyStoryPage({ params }: Props) {
   return (
     <>
       <div className="page page--tight-bottom">
-        <p className="text-xs font-semibold tracking-[0.22em] text-red uppercase">
-          {story.kicker}
-        </p>
-        <h1 className="mt-3 max-w-3xl lg:max-w-5xl font-display text-4xl text-balance sm:text-5xl">
-          {story.title}
-        </h1>
-        <p className="mt-5 max-w-2xl lg:max-w-4xl text-lg leading-relaxed text-muted">
-          {story.teaser}
-        </p>
+        <p className="label">{story.kicker}</p>
+        <h1>{story.title}</h1>
+        <p className="page__lead">{story.teaser}</p>
       </div>
 
       <div className="page page--tight-top">
-        <article className="w-full max-w-2xl lg:max-w-4xl space-y-5">
+        <article className="doc doc--story">
           {story.body.map((p, i) => (
-            <p key={i} className="text-base leading-relaxed text-fg">
-              {p}
-            </p>
+            <p key={i}>{p}</p>
           ))}
         </article>
 
-        <div className="mt-14 flex flex-wrap items-center gap-4 border-t border-line pt-10">
-          <Link
-            href="/monthly"
-            className="text-sm font-semibold text-red hover:text-red-dark"
-          >
+        <div className="page__actions">
+          <Link href="/monthly" className="page__back">
             ← All monthly updates
           </Link>
-          <Link
-            href="/contact"
-            className="inline-block rounded-sm bg-red px-5 py-3 text-sm font-semibold text-white hover:bg-red-dark"
-          >
+          <Link href="/contact" className="btn btn-solid">
             Talk to {site.name}
           </Link>
         </div>
