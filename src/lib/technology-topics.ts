@@ -274,4 +274,40 @@ export const internetTopic = {
       body: "Consolidated billing or a bill per location. Tickets and the carrier calls sit with Candid either way.",
     },
   ],
+  more: {
+    label: "At a glance",
+    title: "Quoted for the location you actually have.",
+    points: [
+      {
+        title: "Fiber, ethernet, or cable",
+        body: "The quote starts with the wire. Fiber, ethernet, or cable, live from 160+ providers. A solutions engineer typically presents within 24–48 hours.",
+      },
+      {
+        title: "When a wire will not do",
+        body: "LTE and 5G are on the quote as a backup, or as a primary that is not fiber. Satellite is included where a wire will not get there.",
+      },
+      {
+        title: "The same design at every site",
+        body: "A second location uses the same design, and the same point of contact, instead of another stack of carrier tickets.",
+      },
+    ],
+  },
+  extra: {
+    label: "How it stays up",
+    title: "After the circuit is in, the account stays here.",
+    points: [
+      {
+        title: "Reachable when a circuit fails",
+        body: "The overlay keeps the location reachable when a circuit fails. Traffic takes the path that fits the application, and you can see it.",
+      },
+      {
+        title: "One rule at the edge",
+        body: "A firewall sits at the edge. The person is checked before an application opens. A branch and a remote user follow the same rule.",
+      },
+      {
+        title: "One bill, and the ticket stays here",
+        body: "One invoice, or a bill per location. Carrier calls and tickets sit with Candid either way.",
+      },
+    ],
+  },
 } as const satisfies TechnologyTopic;

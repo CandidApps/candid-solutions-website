@@ -208,19 +208,37 @@ export function TechnologyTopicPage({
               { href: "#extra", label: topic.extra.label },
             ]}
           />
-          <TopicOverview
-            id="coverage"
-            label={topic.sectionLabel}
-            title={topic.sectionTitle}
-            lead={topic.sectionLead}
-            points={topic.points}
-          />
-          <TopicBand
-            id="more"
-            label={topic.more.label}
-            title={topic.more.title}
-            points={topic.more.points}
-          />
+          {topic.path === "/solutions/internet" ? (
+            <TopicBand
+              id="coverage"
+              label={topic.sectionLabel}
+              title={topic.sectionTitle}
+              points={topic.points}
+            />
+          ) : (
+            <TopicOverview
+              id="coverage"
+              label={topic.sectionLabel}
+              title={topic.sectionTitle}
+              lead={topic.sectionLead}
+              points={topic.points}
+            />
+          )}
+          {topic.path === "/solutions/internet" ? (
+            <TopicOverview
+              id="more"
+              label={topic.more.label}
+              title={topic.more.title}
+              points={topic.more.points}
+            />
+          ) : (
+            <TopicBand
+              id="more"
+              label={topic.more.label}
+              title={topic.more.title}
+              points={topic.more.points}
+            />
+          )}
           <TopicWork
             id="extra"
             label={topic.extra.label}

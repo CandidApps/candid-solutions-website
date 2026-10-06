@@ -7618,75 +7618,15 @@ html[data-theme="dark"] .tech-quote::before {
   }
 }
 
-/* Internet & SD-WAN. Scoped so shared topic and close styles stay put. */
-body:has(.internet-page) {
-  --net-sm: 16px;
-  --net-md: 32px;
-  --net-lg: 64px;
-}
-
-@media (min-width: 960px) {
-  body:has(.internet-page) {
-    --net-lg: 96px;
-  }
-}
-
-.internet-page .cc-banner--topic .cc-banner__stage {
-  gap: var(--net-md);
-  padding-top: var(--net-lg);
-  padding-bottom: calc(var(--net-lg) / 2);
-}
-
-.internet-page .cc-banner.cc-banner--topic h1 {
-  max-width: none;
-  font-size: clamp(2.6rem, 4.8vw, 4.15rem);
-  line-height: 0.96;
-}
-
-.internet-page .cc-banner__lead {
-  max-width: 28rem;
-  margin-top: var(--net-sm);
-  font-size: 1rem;
-  line-height: 1.5;
-  color: color-mix(in srgb, var(--mute) 82%, var(--bg));
-}
-
-.internet-page .cc-banner__actions {
-  margin-top: var(--net-md);
-}
-
-.internet-page .cc-banner .cc-sheet {
-  width: 100%;
-  justify-self: stretch;
-}
-
-@media (min-width: 960px) {
-  .internet-page .cc-banner--topic .cc-banner__stage {
-    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.85fr);
-    align-items: center;
-    gap: var(--net-md);
-  }
-}
-
-.internet-page > #coverage {
-  padding-top: calc(var(--net-lg) / 2);
-  padding-bottom: var(--net-md);
-}
-
-.internet-page #coverage .band__head {
-  margin-bottom: var(--net-md);
-}
-
+/* Internet coverage: same card scale as the other topic bands, five items without an empty cell. */
 .internet-page #coverage .cc-stories {
   counter-reset: netcard;
-  grid-template-columns: 1fr;
-  gap: 18px;
 }
 
 .internet-page #coverage .cc-story {
   transition:
-    transform 200ms ease,
-    border-color 200ms ease;
+    transform var(--motion-duration-sm) var(--motion-ease),
+    border-color var(--motion-duration-sm) var(--motion-ease);
 }
 
 .internet-page #coverage .cc-story::before {
@@ -7707,36 +7647,21 @@ body:has(.internet-page) {
 
 .internet-page #coverage .cc-story h3,
 .internet-page #coverage .cc-story p {
-  margin-top: var(--net-sm);
+  margin-top: var(--space-sm);
 }
 
 .internet-page #coverage .cc-story:hover {
-  transform: translateY(-4px);
+  transform: translateY(calc(-1 * var(--motion-rise)));
   border-color: color-mix(in srgb, var(--blue) 55%, transparent);
 }
 
-@media (min-width: 720px) {
+@media (min-width: 960px) {
   .internet-page #coverage .cc-stories {
     grid-template-columns: 1fr 1fr;
   }
 
   .internet-page #coverage .cc-stories > :first-child {
     grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    column-gap: var(--net-md);
-    align-items: center;
-    padding: 1.7rem 1.8rem;
-  }
-
-  .internet-page #coverage .cc-stories > :first-child::before {
-    grid-row: 1 / span 2;
-    font-size: 1.45rem;
-  }
-
-  .internet-page #coverage .cc-stories > :first-child h3 {
-    margin-top: 0;
-    font-size: clamp(1.5rem, 2vw, 1.9rem);
   }
 }
 
@@ -7748,40 +7673,4 @@ body:has(.internet-page) {
   .internet-page #coverage .cc-story:hover {
     transform: none;
   }
-}
-
-body:has(.internet-page) .site-end::before {
-  background: linear-gradient(
-    105deg,
-    color-mix(in srgb, var(--crimson) 68%, var(--ink)) 0%,
-    color-mix(in srgb, var(--crimson) 22%, var(--ink)) 36%,
-    color-mix(in srgb, var(--blue) 24%, var(--ink)) 64%,
-    color-mix(in srgb, var(--blue) 66%, var(--ink)) 100%
-  );
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-body:has(.internet-page) .site-end::after {
-  content: none;
-}
-
-body:has(.internet-page) .cta-band__inner {
-  align-items: center;
-  padding-top: calc(var(--net-lg) - var(--net-md));
-  padding-bottom: var(--net-lg);
-}
-
-body:has(.internet-page) .cta-band h2 {
-  max-width: 14em;
-  font-size: clamp(2.05rem, 3.5vw, 3.35rem);
-  line-height: 1.02;
-  white-space: normal;
-}
-
-body:has(.internet-page) .cta-band .btn {
-  min-height: 3.4rem;
-  padding: 0.95rem 1.75rem;
-  font-size: 1rem;
-  font-weight: 700;
 }
