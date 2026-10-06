@@ -51,6 +51,8 @@ export function MobilityField() {
     if (!canvas) return;
     const context = canvas.getContext("2d");
     if (!context) return;
+    const surface: HTMLCanvasElement = canvas;
+    const ctx: CanvasRenderingContext2D = context;
 
     const nodes = buildNodes();
     const flyers = Array.from({ length: 12 }, (_, index) => ({
@@ -69,12 +71,12 @@ export function MobilityField() {
     let running = true;
 
     function resize() {
-      const parent = canvas.parentElement;
+      const parent = surface.parentElement;
       if (!parent) return;
       const rect = parent.getBoundingClientRect();
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.max(1, Math.floor(rect.width * dpr));
-      canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+      surface.width = Math.max(1, Math.floor(rect.width * dpr));
+      surface.height = Math.max(1, Math.floor(rect.height * dpr));
     }
 
     function roundRect(
@@ -96,9 +98,8 @@ export function MobilityField() {
     }
 
     function paint(time: number) {
-      const width = canvas.width;
-      const height = canvas.height;
-      const ctx = context;
+      const width = surface.width;
+      const height = surface.height;
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.fillStyle = INK;
       ctx.fillRect(0, 0, width, height);
@@ -218,7 +219,7 @@ export function MobilityField() {
     }
 
     const observer = new ResizeObserver(resize);
-    if (canvas.parentElement) observer.observe(canvas.parentElement);
+    if (surface.parentElement) observer.observe(surface.parentElement);
     resize();
 
     function loop(time: number) {
@@ -240,7 +241,7 @@ export function MobilityField() {
     }
 
     function onMove(event: PointerEvent) {
-      const rect = canvas.getBoundingClientRect();
+      const rect = surface.getBoundingClientRect();
       if (rect.width === 0 || rect.height === 0) return;
       pointer.tx = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
       pointer.ty = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
