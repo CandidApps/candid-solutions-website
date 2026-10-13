@@ -863,6 +863,7 @@ html[data-theme="dark"] .hero__panel h2 {
 
 html[data-theme="dark"] .hero__panel li {
   background: color-mix(in srgb, var(--blue) 16%, transparent);
+  color: var(--white);
 }
 
 @keyframes hero-open {
