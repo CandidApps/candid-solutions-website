@@ -1,0 +1,1495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuvei Chargeback Guide — Jan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nuvei-navy: #0d1f3c;
+    --nuvei-blue: #1a56db;
+    --nuvei-blue-light: #e8f0fe;
+    --nuvei-red: #e53935;
+    --nuvei-red-light: #fdecea;
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --accent-teal: #00bfa5;
+    --sidebar-w: 260px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--nuvei-navy);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .sidebar-logo .logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .sidebar-logo .logo-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--nuvei-red);
+    border-radius: 50%;
+    margin-left: 2px;
+    vertical-align: super;
+  }
+
+  .sidebar-meta {
+    padding: 12px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .sidebar-meta span {
+    font-size: 11px;
+    color: rgba(255,255,255,.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-meta p {
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  .nav-section {
+    padding: 20px 0 8px;
+  }
+
+  .nav-label {
+    padding: 0 24px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,.3);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 9px 24px;
+    color: rgba(255,255,255,.65);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all .18s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,.07);
+    border-left-color: var(--nuvei-red);
+  }
+
+  .nav-link.sub {
+    padding-left: 36px;
+    font-size: 12px;
+    color: rgba(255,255,255,.45);
+  }
+
+  .nav-link.sub:hover { color: rgba(255,255,255,.8); }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 20px 24px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    font-size: 11px;
+    color: rgba(255,255,255,.3);
+    line-height: 1.6;
+  }
+
+  /* ── MAIN ── */
+  /* ── TOP NAVBAR ── */
+  .topnav {
+    position: fixed;
+    top: 0; left: var(--sidebar-w); right: 0;
+    height: 52px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+    gap: 10px;
+    z-index: 90;
+    box-shadow: 0 1px 6px rgba(0,0,0,.06);
+  }
+
+  .topnav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all .18s;
+  }
+
+  .topnav-btn.secondary {
+    background: var(--bg);
+    color: var(--nuvei-navy);
+    border: 1px solid var(--border);
+  }
+
+  .topnav-btn.secondary:hover {
+    background: var(--nuvei-blue-light);
+    border-color: rgba(26,86,219,.25);
+    color: var(--nuvei-blue);
+  }
+
+  .topnav-btn.primary {
+    background: linear-gradient(135deg, #e53935, #c62828);
+    color: #fff;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 8px rgba(229,57,53,.35);
+    letter-spacing: .1px;
+  }
+
+  .topnav-btn.primary:hover {
+    background: linear-gradient(135deg, #ef5350, #e53935);
+    box-shadow: 0 4px 14px rgba(229,57,53,.45);
+    transform: translateY(-1px);
+  }
+
+  .topnav-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .topnav-dropdown {
+    position: relative;
+  }
+
+  .topnav-dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--nuvei-navy);
+    transition: all .18s;
+    user-select: none;
+  }
+
+  .topnav-dropdown-toggle:hover,
+  .topnav-dropdown.open .topnav-dropdown-toggle {
+    background: var(--nuvei-blue-light);
+    border-color: rgba(26,86,219,.25);
+    color: var(--nuvei-blue);
+  }
+
+  .topnav-dropdown-toggle svg {
+    width: 12px;
+    height: 12px;
+    transition: transform .18s;
+    flex-shrink: 0;
+  }
+
+  .topnav-dropdown.open .topnav-dropdown-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .topnav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    min-width: 200px;
+    z-index: 200;
+    overflow: hidden;
+    padding: 4px;
+  }
+
+  .topnav-dropdown.open .topnav-dropdown-menu {
+    display: block;
+  }
+
+  .topnav-dropdown-menu a {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--nuvei-navy);
+    text-decoration: none;
+    border-radius: 7px;
+    transition: background .12s;
+  }
+
+  .topnav-dropdown-menu a:hover {
+    background: var(--nuvei-blue-light);
+    color: var(--nuvei-blue);
+  }
+
+  .topnav-dropdown-menu .dd-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+  }
+
+  .topnav-dropdown-menu .dd-label {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .topnav-dropdown-menu .dd-sublabel {
+    font-size: 11px;
+    color: var(--text3);
+    font-weight: 400;
+  }
+
+  .dd-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0;
+  }
+
+  .main {
+    margin-left: var(--sidebar-w);
+    margin-top: 52px;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--nuvei-navy) 0%, #1a3a6b 60%, #0f2d52 100%);
+    padding: 72px 64px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,86,219,.25) 0%, transparent 70%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(229,57,53,.12) 0%, transparent 70%);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,.7);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 24px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent-teal);
+    border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 52px;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,.6);
+  }
+
+  .hero-sub {
+    color: rgba(255,255,255,.55);
+    font-size: 14px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-cards {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+
+  .hero-card {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px;
+    padding: 16px 20px;
+    flex: 1;
+    min-width: 140px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-card .hc-label {
+    font-size: 10px;
+    color: rgba(255,255,255,.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .hero-card .hc-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-top: 2px;
+  }
+
+  .hero-card .hc-value.red { color: #ff7961; }
+  .hero-card .hc-value.teal { color: var(--accent-teal); }
+
+  /* ── CONTENT ── */
+  .content {
+    padding: 56px 64px;
+    max-width: 860px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin-bottom: 56px;
+    animation: fadeUp .5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .section-number {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--nuvei-blue-light);
+    color: var(--nuvei-blue);
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--nuvei-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: var(--nuvei-navy);
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--nuvei-navy);
+    margin: 28px 0 10px;
+  }
+
+  .section p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--nuvei-red-light);
+    border-left: 4px solid var(--nuvei-red);
+    border-radius: 0 8px 8px 0;
+    padding: 16px 20px;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #7f1d1d;
+    font-weight: 500;
+  }
+
+  .callout-blue {
+    background: var(--nuvei-blue-light);
+    border-left-color: var(--nuvei-blue);
+    color: #1e3a8a;
+  }
+
+  /* ── STEP LIST ── */
+  .steps {
+    list-style: none;
+    counter-reset: step;
+    margin: 16px 0;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .steps li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    background: var(--nuvei-navy);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 2px;
+  }
+
+  .steps li span {
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+
+  .steps li strong { color: var(--text-primary); }
+
+  /* ── BULLET LIST ── */
+  .bullets {
+    list-style: none;
+    margin: 12px 0;
+  }
+
+  .bullets li {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-size: 14.5px;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+
+  .bullets li::before {
+    content: '';
+    flex-shrink: 0;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--nuvei-red);
+    margin-top: 8px;
+  }
+
+  .sub-bullets {
+    list-style: none;
+    margin: 8px 0 0 16px;
+  }
+
+  .sub-bullets li {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 13.5px;
+    line-height: 1.6;
+    align-items: flex-start;
+  }
+
+  .sub-bullets li::before {
+    content: '–';
+    color: var(--nuvei-blue);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── TABLE ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+  }
+
+  .data-table thead tr {
+    background: var(--nuvei-navy);
+    color: #fff;
+  }
+
+  .data-table th {
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .data-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+
+  .data-table tbody tr:last-child { border-bottom: none; }
+
+  .data-table tbody tr:hover { background: #f1f5f9; }
+
+  .data-table td {
+    padding: 13px 16px;
+    vertical-align: top;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .data-table td:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  /* ── FEE TABLE ── */
+  .fee-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 14px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+  }
+
+  .fee-table thead tr {
+    background: var(--nuvei-navy);
+    color: #fff;
+  }
+
+  .fee-table th {
+    padding: 13px 18px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .fee-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .15s;
+  }
+
+  .fee-table tbody tr:nth-child(even) { background: #f8fafc; }
+  .fee-table tbody tr:hover { background: var(--nuvei-blue-light); }
+  .fee-table tbody tr:last-child { border-bottom: none; }
+
+  .fee-table td {
+    padding: 14px 18px;
+    vertical-align: top;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .fee-table td:first-child {
+    font-weight: 600;
+    color: var(--text-primary);
+    width: 200px;
+  }
+
+  .fee-badge {
+    display: inline-block;
+    background: var(--nuvei-navy);
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    margin-left: 6px;
+  }
+
+  .fee-badge.red { background: var(--nuvei-red); }
+  .fee-badge.amber { background: #d97706; }
+
+  /* ── SCENARIO TABLE ── */
+  .scenario-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13.5px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.04);
+  }
+
+  .scenario-table thead tr {
+    background: var(--nuvei-blue);
+    color: #fff;
+  }
+
+  .scenario-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+
+  .scenario-table tbody tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .scenario-table tbody tr:last-child { border-bottom: none; }
+
+  .scenario-table td {
+    padding: 14px 16px;
+    vertical-align: top;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .scenario-table td:nth-child(3) {
+    font-weight: 600;
+    color: var(--nuvei-red);
+    white-space: nowrap;
+  }
+
+  .scenario-table td:nth-child(4) {
+    font-weight: 700;
+    color: var(--nuvei-navy);
+    white-space: nowrap;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 20px 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+
+  .info-card h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--nuvei-navy);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .info-card h4::before {
+    content: '';
+    width: 3px; height: 16px;
+    background: var(--nuvei-blue);
+    border-radius: 2px;
+    display: block;
+  }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow-diagram {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin: 24px 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+
+  .flow-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--nuvei-navy);
+    margin-bottom: 6px;
+  }
+
+  .flow-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .flow-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .flow-col-header {
+    background: var(--nuvei-navy);
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 8px 8px 0 0;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .flow-col-body {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 16px 14px;
+    min-height: 80px;
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .flow-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: var(--nuvei-blue-light);
+    border-radius: 6px;
+    line-height: 1.5;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    padding: 32px 64px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .page-footer a { color: var(--nuvei-blue); text-decoration: none; }
+  .page-footer a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    :root { --sidebar-w: 0px; }
+    .sidebar { display: none; }
+    .main { margin-left: 0; margin-top: 52px; }
+    .hero, .content { padding-left: 24px; padding-right: 24px; }
+    .hero h1 { font-size: 36px; }
+    .flow-cols { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════ SIDEBAR ═══════════════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-meta">
+    <span>Document</span>
+    <p>Chargeback Guide · Jan 2026</p>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Contents</div>
+    <a href="#prepare" class="nav-link">Initial Guidance</a>
+    <a href="#prevent" class="nav-link">Prevent Chargebacks</a>
+    <a href="#respond" class="nav-link">Respond to Chargebacks</a>
+    <a href="#first-notice" class="nav-link sub">↳ First Notice</a>
+    <a href="#second-notice" class="nav-link sub">↳ Second Notice</a>
+    <a href="#view-data" class="nav-link">View Chargeback Data</a>
+    <a href="#fees" class="nav-link">Sample Fee List</a>
+    <a href="#scenario" class="nav-link">Sample Scenario</a>
+    <a href="#flow-consumer" class="nav-link">Flow: Processing Error / Consumer</a>
+    <a href="#flow-fraud" class="nav-link">Flow: Fraud / Authorization</a>
+  </div>
+  <div class="nav-section">
+    <div class="nav-label">Reference</div>
+    <a href="dispute-types.html" class="nav-link">Chargeback Type / Status</a>
+    <a href="reason-code-database.html" class="nav-link">Reason Code Database</a>
+    <a href="merlink.html" class="nav-link">Merlink Portal</a>
+    <a href="rebuttal-builder.html" class="nav-link">Rebuttal Builder</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ MAIN ═══════════════════════════ -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Chargeback<br><em>Guide</em></h1>
+    <div class="hero-cards">
+      <div class="hero-card">
+        <div class="hc-label">Response Window</div>
+        <div class="hc-value teal">10 days</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-label">Chargeback Fee Range</div>
+        <div class="hc-value">$10–$40</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-label">Arbitration Fee (min)</div>
+        <div class="hc-value red">$500+</div>
+      </div>
+      <div class="hero-card">
+        <div class="hc-label">Max Rebuttal Pages</div>
+        <div class="hc-value">20 pp.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══ INITIAL GUIDANCE ══ -->
+    <section class="section" id="prepare">
+      <div class="section-eyebrow">
+        <div class="section-number">1</div>
+        <span class="section-tag">Overview</span>
+      </div>
+      <h2>Initial Guidance</h2>
+      <p>This is a <strong>managed service</strong> designed to ensure you are not losing money to chargebacks. The contacts and steps below are your starting point whenever a chargeback notice arrives.</p>
+
+      <!-- Contact Cards -->
+      <div style="display:flex;gap:16px;flex-wrap:wrap;margin:24px 0;">
+        <div style="flex:1;min-width:220px;background:var(--nuvei-navy);border-radius:12px;padding:22px 24px;color:#fff;">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:rgba(255,255,255,.45);margin-bottom:8px;">Chargeback Team</div>
+          <a href="tel:18666375467" style="font-size:22px;font-weight:700;color:#fff;text-decoration:none;letter-spacing:-0.5px;">1-866-637-5467</a>
+          <p style="font-size:13px;color:rgba(255,255,255,.6);margin-top:8px;margin-bottom:0;line-height:1.5;">Call when you receive an initial chargeback notice. Have your email open — they will walk you through submitting dispute information for best results.</p>
+        </div>
+        <div style="flex:1;min-width:220px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:22px 24px;box-shadow:0 1px 4px rgba(0,0,0,.04);">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-muted);margin-bottom:8px;">Merchant Support</div>
+          <a href="tel:18777723346" style="font-size:22px;font-weight:700;color:var(--nuvei-navy);text-decoration:none;letter-spacing:-0.5px;">1-877-772-3346</a>
+          <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;margin-bottom:0;line-height:1.5;">Can assist with navigating the Merchant Dashboard.</p>
+        </div>
+      </div>
+
+      <!-- What to do -->
+      <div class="info-card">
+        <h4>When You Receive a Chargeback Notice</h4>
+        <ol class="steps" style="margin-top:4px;">
+          <li><span><strong>Call the Chargeback Team at 1-866-637-5467</strong> with your chargeback email open. They will walk you through how to best submit the dispute information to ensure the best results.</span></li>
+          <li><span>Have the following information ready — all of it is available in the <strong>Merchant Dashboard → Disputes</strong> tab:
+            <ul class="sub-bullets" style="margin-top:8px;">
+              <li><strong>MID (Merchant ID)</strong> — your unique merchant account number</li>
+              <li><strong>Case Number</strong> — the unique identifier assigned to the chargeback case</li>
+              <li><strong>ARN (Acquirer Reference Number)</strong> — the unique transaction ID at the acquiring level</li>
+            </ul>
+          </span></li>
+          <li><span>Review the dispute details online at <a href="https://merchant.nuvei.com/disputes" style="color:var(--nuvei-blue);font-weight:600;">merchant.nuvei.com/disputes</a>.</span></li>
+        </ol>
+      </div>
+
+      <!-- Notices -->
+      <h3 style="margin-top:28px;">How You Receive Chargeback Notices</h3>
+      <p>Disputes with reply information are delivered through multiple channels so nothing is missed:</p>
+      <ul class="bullets">
+        <li>Email notices sent to <strong>primary account email address</strong></li>
+        <li>Separate notices via the <strong>Merchant Dashboard</strong> — log in and navigate to the Disputes tab</li>
+        <li>Physical documents <strong>mailed out</strong> for your records</li>
+        <li>Any additional information can be accessed by calling the <strong>Chargeback Team at 1-866-637-5467</strong></li>
+      </ul>
+
+      <div class="callout">
+        ⚠ There are fees involved at every stage of a dispute. The Chargeback Team can help you evaluate whether contesting a chargeback makes sense given the amount and fees involved.
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ PREVENT ══ -->
+    <section class="section" id="prevent">
+      <div class="section-eyebrow">
+        <div class="section-number">2</div>
+        <span class="section-tag">Best Practices</span>
+      </div>
+      <h2>Preventing Chargebacks</h2>
+      <p>The cardholder initiates chargebacks, so it is not possible to completely prevent them. However, there are steps you can take to reduce the risk.</p>
+
+      <ol class="steps">
+        <li><span>Close the batch every day; use auto-batch settings.</span></li>
+        <li><span>Use a clear DBA that customers will recognize on their bank statement.</span></li>
+        <li><span>Include your phone number on receipts so customers can call if they have questions.</span></li>
+        <li><span>State your return and refund policy clearly, and ensure customers acknowledge it.</span></li>
+        <li><span>Provide accurate descriptions and images of the products being sold.</span></li>
+        <li><span>Do not accept expired credit cards.</span></li>
+        <li><span>Do not accept a credit card to satisfy a debt caused by a dishonored cheque.</span></li>
+        <li><span>Obtain authorization for the full amount of the sale.</span></li>
+        <li><span>Verify the card using all available methods:
+          <ul class="sub-bullets" style="margin-top:8px;">
+            <li>In the US, verify the customer's name, address, and phone number using the issuing bank's Voice Authorization Centers.</li>
+            <li>Use the Processing Bank's fraud services, such as AVS (Address Verification) and CVV2.</li>
+          </ul>
+        </span></li>
+        <li><span>Charge the customer card at the time of shipping, unless you know there will be a delivery delay.</span></li>
+        <li><span>For card-absent transactions, inform the customer of the delivery method and expected delivery date.</span></li>
+        <li><span>Get signed proof of delivery.</span></li>
+        <li><span>Work with the customer to establish a solution <strong>before</strong> the chargeback occurs.</span></li>
+        <li><span><strong>Respond to a chargeback notice within 10 days</strong>, or else you forfeit your right to dispute it.</span></li>
+      </ol>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ RESPOND ══ -->
+    <section class="section" id="respond">
+      <div class="section-eyebrow">
+        <div class="section-number">3</div>
+        <span class="section-tag">Response Process</span>
+      </div>
+      <h2>Respond to Chargebacks</h2>
+
+      <!-- First Notice -->
+      <div id="first-notice">
+        <h3>How to respond to the first chargeback notice</h3>
+
+        <ol class="steps">
+          <li><span><strong>Do not issue a refund for the transaction.</strong> The customer has already been refunded.
+            <ul class="sub-bullets" style="margin-top:8px;">
+              <li>If you have already issued a refund, void the refund (if the batch is still open). If the batch is closed, include the refund receipt in the chargeback response.</li>
+            </ul>
+          </span></li>
+          <li><span>Following the instructions and timelines on the chargeback notification carefully, <strong>respond within 10 days</strong>; otherwise, you forfeit the right.</span></li>
+          <li><span>Note to expect a non-refundable chargeback fee on the processing statement. (American Express handles its own chargebacks.)</span></li>
+        </ol>
+
+        <div class="info-card">
+          <h4>Response Document Guidelines — First Notice</h4>
+          <ul class="bullets">
+            <li>Present rebuttal documents for each chargeback <strong>separately</strong>, rather than combining multiple responses.</li>
+            <li>Do not send photos of your documents. Documents must be as legible as if faxed or photocopied. Images will be converted to black-and-white 8.5×11-inch at 200×200 DPI.</li>
+            <li><strong>Do not submit:</strong> video files; links to external sources (copy and paste the material); documentation that does not address the cause of the chargeback.</li>
+            <li>Rebuttals should be <strong>no more than 20 pages</strong> (per Visa and Mastercard rules) and consolidated into a single PDF file.</li>
+            <li>All documents must be in <strong>English</strong> or include English translations (per Visa and Mastercard rules).</li>
+            <li>Even if the cardholder informs you that they have cancelled the dispute with their issuing bank, continue to provide the rebuttal documents so that the chargeback case can be reviewed and resolved. Include documentation indicating the Cardholder cancelled the dispute and/or legible screenshots of the conversation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Second Notice -->
+      <div id="second-notice">
+        <h3>How to respond to a second chargeback notice</h3>
+        <div class="callout">
+          ⚠ Fees will begin to accumulate at this point. It is rarely worth the expense and effort unless the disputed amount is very large.
+        </div>
+
+        <div class="info-card">
+          <h4>Response Document Guidelines — Second Notice</h4>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">Submit, at a minimum, documentation that matches the <strong>Reason Code</strong> provided in the notification.</p>
+          <ul class="bullets">
+            <li><strong>Credit previously issued on the same card account:</strong> Provide both sales and refund receipts.</li>
+            <li><strong>Transaction was manually entered:</strong> Provide a card imprint.</li>
+            <li><strong>Online or virtual terminal transactions:</strong> Proof of positive AVS and CVV2 responses.</li>
+            <li><strong>Goods were shipped:</strong> Include the tracking manifest and/or signed shipping receipt.</li>
+            <li>Sales receipt with confirmed PIN (or signature on receipt, if PIN is not possible).</li>
+            <li>Sales receipt signature.</li>
+            <li>Invoice for goods or services provided.</li>
+            <li>Description of goods or services provided.</li>
+            <li>Prove the cardholder participated in the transaction, received the goods or services, or benefited from the transaction.</li>
+            <li>Proof of correspondence (voice transcripts, email, SMS) illustrating that the merchant spoke to the cardholder attempting to rectify the situation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ VIEW DATA ══ -->
+    <section class="section" id="view-data">
+      <div class="section-eyebrow">
+        <div class="section-number">4</div>
+        <span class="section-tag">Reporting</span>
+      </div>
+      <h2>View Chargeback Data</h2>
+
+      <h3 id="card-present" style="display:none;"></h3>
+
+      <p>The <strong>Merchant Dashboard</strong> provides dispute data for your transactions. Log in at <a href="https://merchant.nuvei.com/disputes" style="color:var(--nuvei-blue);font-weight:600;">merchant.nuvei.com/disputes</a> and navigate to the <em>Disputes</em> tab to adjust search criteria. The current month's disputes will display by default.</p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Label</th>
+            <th>Definition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>MID</td>
+            <td>Merchant Identification Number</td>
+          </tr>
+          <tr>
+            <td>Date Filed</td>
+            <td>The case date was received from the Card Brand.</td>
+          </tr>
+          <tr>
+            <td>Date Resolved</td>
+            <td>The case date was updated.</td>
+          </tr>
+          <tr>
+            <td>Dispute Type</td>
+            <td>
+              <strong>First Chargeback:</strong> The first chargeback filed on the transaction.<br>
+              <strong>Allocation:</strong> Categorized as Fraud or Authorization.<br>
+              <strong>Collaboration:</strong> Categorized Customer Dispute or Processing Error.<br>
+              <strong>Collaboration Pre-Arbitration ("Second Chargeback"):</strong> Fighting the ruling on a chargeback representment before any Card Brand network's direct intervention. This can happen when a merchant wins the first chargeback, but the cardholder or issuer disputes a second time using new or updated information.
+            </td>
+          </tr>
+          <tr>
+            <td>Case Number</td>
+            <td>Unique identifier assigned to each chargeback case.</td>
+          </tr>
+          <tr>
+            <td>Card Type</td>
+            <td>Card type used in the transaction.</td>
+          </tr>
+          <tr>
+            <td>Amount</td>
+            <td>The disputed amount.</td>
+          </tr>
+          <tr>
+            <td>ARN</td>
+            <td><strong>Acquirer Reference Number.</strong> The unique transaction identification number at the acquiring level.</td>
+          </tr>
+          <tr>
+            <td>Reason Code</td>
+            <td>The Card-Brand Reason Code for the dispute. Hover over the ? to see the reason for the dispute.</td>
+          </tr>
+          <tr>
+            <td>Transaction Date</td>
+            <td>The date of the original transaction.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ FEES ══ -->
+    <section class="section" id="fees">
+      <div class="section-eyebrow">
+        <div class="section-number">5</div>
+        <span class="section-tag">Fee Schedule</span>
+      </div>
+      <h2>Sample Fee List</h2>
+      <div class="callout callout-blue">
+        ℹ Fees can vary based on many factors. The following is for <strong>sample purposes only</strong> and should not be relied on as a reference for the amount that will be charged.
+      </div>
+
+      <table class="fee-table">
+        <thead>
+          <tr>
+            <th>Fee Type</th>
+            <th>Description</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Chargeback Fee</td>
+            <td>Applied for each chargeback notification received for a specific merchant account. Covers the administrative costs of responding to the notification, including preparation and transmission of required paperwork.</td>
+            <td><span class="fee-badge">$10–$40</span></td>
+          </tr>
+          <tr>
+            <td>Dispute Resolution Fee</td>
+            <td>Applies when a merchant has a representment (reversal) on their account. When a customer initiates a chargeback through their issuing bank, the merchant can accept it or decline it (reverse it).</td>
+            <td><span class="fee-badge">$25</span></td>
+          </tr>
+          <tr>
+            <td>Mastercard Arbitration Fee</td>
+            <td>Charged to the party that withdraws or loses an arbitration or compliance case.</td>
+            <td><span class="fee-badge red">$575</span></td>
+          </tr>
+          <tr>
+            <td>Mastercard Technical Violation</td>
+            <td>Charged for a technical violation incurred during the dispute process.</td>
+            <td><span class="fee-badge amber">$200/violation</span></td>
+          </tr>
+          <tr>
+            <td>Pre-Arbitration Fee</td>
+            <td>Applied when an issuer and/or cardholder reviews the rebuttal and continues to dispute the transaction, or when a representment is submitted in the Visa allocation flow. Covers card brand and administrative costs including preparation and transmission of required documentation.</td>
+            <td><span class="fee-badge">$40</span></td>
+          </tr>
+          <tr>
+            <td>Retrieval Fee</td>
+            <td>Applied to each retrieval request received on a merchant account. Occurs when an issuing bank requires a copy of a transaction record. Covers the administrative costs of responding to the request.</td>
+            <td><span class="fee-badge">$10–$40</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ SCENARIO ══ -->
+    <section class="section" id="scenario">
+      <div class="section-eyebrow">
+        <div class="section-number">6</div>
+        <span class="section-tag">Walkthrough</span>
+      </div>
+      <h2>Sample Chargeback Scenario</h2>
+      <div class="callout callout-blue">
+        ℹ This is an example only. Fee amounts, trigger points, and timeframes may vary depending on several factors, such as the issuing bank and the contract signed.
+      </div>
+
+      <table class="scenario-table">
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Trigger</th>
+            <th>Fee</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ms. Smith goes to the school office to pay $100 for her daughter Maria's books. The school takes her payment information. Next week, they will give the books to Maria.</td>
+            <td>The processor withdraws money from the Smith account and deposits it into the school account.</td>
+            <td>Normal processing fees</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>When Ms. Smith gets her bank statement, she doesn't remember buying the books. She calls the school, and the usual staff person is out of the office. The relief worker calls the processor and asks for a copy of the transaction receipt.</td>
+            <td>The processor retrieves the transaction details and provides them to the bank.</td>
+            <td>Retrieval Fee</td>
+            <td>$40</td>
+          </tr>
+          <tr>
+            <td>Ms. Smith says they never received the books (Maria left them on the bus). Ms. Smith informs her bank, which initiates a chargeback.</td>
+            <td>The bank withdraws funds from the school account and issues a Chargeback Notification to the school.</td>
+            <td>Chargeback Fee</td>
+            <td>$25</td>
+          </tr>
+          <tr>
+            <td>The school receives the Chargeback Notification. This is the best time to resolve the issue with Ms. Smith. If they do not respond by the due date on the notification, they are deemed to have accepted the chargeback, and the story ends.</td>
+            <td>The school refuses the chargeback via Merlink (or other means). The school submits documentation (representment) to prove that they provided the goods.</td>
+            <td>Dispute Resolution Fee</td>
+            <td>$25</td>
+          </tr>
+          <tr>
+            <td>Bank receives documentation.</td>
+            <td>The bank must cover the administrative cost of reviewing the case and will send a Pre-arbitration notice of potential fees and timeline.</td>
+            <td>—</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>The school receives the Pre-Arbitration notice. If they do not respond by the due date, they are deemed to have accepted the chargeback and the story ends.</td>
+            <td>The losing party continues to protest the ruling and submits further documentation.</td>
+            <td>Pre-Arbitration Fee</td>
+            <td>$40</td>
+          </tr>
+          <tr>
+            <td>The bank receives further documentation.</td>
+            <td>Bank rules against the school: transaction money returned to Ms. Smith.<br>Bank rules for the school: transaction money returned to the school.<br><em>Note: The merchant is invoiced for the Arbitration fee.</em></td>
+            <td>Arbitration Fee</td>
+            <td>$500 (min)</td>
+          </tr>
+          <tr>
+            <td>The bank makes its final ruling.</td>
+            <td>The losing party will pay a fee for any Technical Violation that occurred during the process.</td>
+            <td>Technical Violation Fee</td>
+            <td>$200/item</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ FLOW 1 ══ -->
+    <section class="section" id="flow-consumer">
+      <div class="section-eyebrow">
+        <div class="section-number">7</div>
+        <span class="section-tag">Process Flow</span>
+      </div>
+      <h2>Chargeback Flow — Processing Error or Consumer Dispute</h2>
+      <p>This chart illustrates the decisions and actions taken by each role in the <strong>Collaboration</strong> chargeback process. All fees shown are levied on the Acquirer. Fee titles and trigger points may vary depending on several factors, such as the issuing bank and the contract signed.</p>
+
+      <div class="flow-diagram">
+        <div class="flow-title">Collaboration Chargeback</div>
+        <div class="flow-subtitle">Reason Codes 12.x (Processing Errors – Chargeback Fee) or 13.x (Consumer Dispute)</div>
+        <div class="flow-cols">
+          <div>
+            <div class="flow-col-header">Acquirer (Merchant)</div>
+            <div class="flow-col-body">
+              <strong>Representing?</strong><br><br>
+              → If <strong>Yes</strong>: Send Dispute Response<br>
+              → If <strong>No</strong>: End<br><br>
+              <strong>Accepts Pre-Arbitration Notice?</strong><br>
+              → If <strong>Yes</strong>: End<br>
+              → If <strong>No</strong>: Submit documentation<br><br>
+              → <em>Filing Arbitration?</em><br>
+              → If <strong>Yes</strong>: Submit documentation<br>
+              → If <strong>No</strong>: End<br><br>
+              Pays Filing Fee → <strong>End</strong>
+            </div>
+          </div>
+          <div>
+            <div class="flow-col-header">Card Brand</div>
+            <div class="flow-col-body">
+              Send money back to Acquirer via <em>Dispute Response Financial</em><br><br>
+              <span style="color:var(--nuvei-red);font-size:12px;">→ Yes (Pre-Arbitration Fee)</span><br><br>
+              Send money back to Issuer via <em>Representment Reversal</em><br>
+              <span style="color:var(--text-muted);font-size:12px;">Dispute Resolution Fee</span><br><br>
+              Review documentation<br><br>
+              <strong>Acquirer wins arbitration?</strong><br>
+              → If <strong>Yes</strong>: End<br>
+              → If <strong>No</strong> (Arbitration Fee): Send money back to Issuer via Representment Reversal<br>
+              <span style="color:var(--text-muted);font-size:12px;">Dispute Resolution Fee</span><br><br>
+              Sends Fee Collection for Filing Fee to Acquirer
+            </div>
+          </div>
+          <div>
+            <div class="flow-col-header">Issuer (Cardholder)</div>
+            <div class="flow-col-body">
+              End (if not representing)<br><br>
+              <strong>Sends Pre-Arbitration notice?</strong><br>
+              → If <strong>No</strong>: End<br><br>
+              <strong>Filing Arbitration?</strong><br>
+              → If <strong>No</strong>: End<br><br>
+              Receives money back → <strong>End</strong>
+            </div>
+          </div>
+        </div>
+        <div class="flow-note">
+          All fees levied on the Acquirer. Fee titles and trigger points may vary depending on the issuing bank and the contract signed.
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- ══ FLOW 2 ══ -->
+    <section class="section" id="flow-fraud">
+      <div class="section-eyebrow">
+        <div class="section-number">8</div>
+        <span class="section-tag">Process Flow</span>
+      </div>
+      <h2>Chargeback Flow — Fraud or Authorization Error</h2>
+      <p>This chart illustrates the decisions and actions taken by each role in the <strong>Allocation</strong> chargeback process. All fees shown are levied on the Acquirer. Fee titles and trigger points may vary depending on several factors, such as the issuing bank and the contract signed.</p>
+
+      <div class="flow-diagram">
+        <div class="flow-title">Allocation Chargeback</div>
+        <div class="flow-subtitle">Reason Codes 10.x (Fraud) or 11.x (Authorizations) – Chargeback Fee</div>
+        <div class="flow-cols">
+          <div>
+            <div class="flow-col-header">Acquirer (Merchant)</div>
+            <div class="flow-col-body">
+              <strong>Representing?</strong><br>
+              → If <strong>No</strong>: End<br>
+              → If <strong>Yes</strong>: Send Pre-arbitration Notice<br><br>
+              <strong>Filing Arbitration?</strong><br>
+              → If <strong>No</strong>: End<br>
+              → If <strong>Yes</strong>: Submit documentation<br><br>
+              Receives money back<br>
+              Pays Filing Fee → <strong>End</strong>
+            </div>
+          </div>
+          <div>
+            <div class="flow-col-header">Card Brand</div>
+            <div class="flow-col-body">
+              <span style="color:var(--nuvei-red);font-size:12px;">Pre-Arbitration Fee</span><br><br>
+              Review documentation<br><br>
+              <strong>Acquirer wins arbitration?</strong><br>
+              → If <strong>Yes</strong> (Dispute Resolution Fee): End<br>
+              → If <strong>No</strong> (Arbitration Fee): Send money back to Acquirer via Chargeback Reversal<br><br>
+              Sends Fee Collection for Filing Fee to Acquirer
+            </div>
+          </div>
+          <div>
+            <div class="flow-col-header">Issuer (Cardholder)</div>
+            <div class="flow-col-body">
+              <strong>Accepts Pre-Arbitration?</strong><br>
+              → If <strong>No</strong>: End<br>
+              → If <strong>Yes</strong> (Dispute Resolution Fee): Send Chargeback Reversal → <strong>End</strong>
+            </div>
+          </div>
+        </div>
+        <div class="flow-note">
+          All fees levied on the Acquirer. Fee titles and trigger points may vary depending on the issuing bank and the contract signed.
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+
+  <!-- FOOTER -->
+
+
+</main>
+
+<nav class="topnav">
+  <div class="topnav-dropdown" id="reportingDropdown">
+    <div class="topnav-dropdown-toggle" onclick="toggleDropdown('reportingDropdown')">
+      Reporting
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="topnav-dropdown-menu">
+      <a href="reason-code-database.html">
+        <div class="dd-icon">&#128203;</div>
+        <div class="dd-label">
+          Reason Codes
+          <span class="dd-sublabel">All codes by card network</span>
+        </div>
+      </a>
+      <a href="dispute-types.html">
+        <div class="dd-icon">&#128202;</div>
+        <div class="dd-label">
+          Chargeback Status
+          <span class="dd-sublabel">Portal type &amp; status guide</span>
+        </div>
+      </a>
+      <div class="dd-divider"></div>
+      <a href="https://merchant.nuvei.com/disputes" target="_blank">
+        <div class="dd-icon">&#127760;</div>
+        <div class="dd-label">
+          Merchant Dashboard
+          <span class="dd-sublabel">View disputes in Nuvei</span>
+        </div>
+      </a>
+      <a href="https://new.authorize.net/smb2/merchant/TransactionManagement/ManageTransactions" target="_blank">
+        <div class="dd-icon">&#128179;</div>
+        <div class="dd-label">
+          Authorize.Net Transactions
+          <span class="dd-sublabel">Manage transactions</span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="topnav-dropdown" id="merlinkDropdown">
+    <div class="topnav-dropdown-toggle" onclick="toggleDropdown('merlinkDropdown')">
+      Merlink
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="topnav-dropdown-menu">
+      <a href="merlink.html">
+        <div class="dd-icon">&#128196;</div>
+        <div class="dd-label">
+          Merlink Guide
+          <span class="dd-sublabel">Instructions &amp; overview</span>
+        </div>
+      </a>
+      <div class="dd-divider"></div>
+      <a href="https://www.merlinkdrs.com/" target="_blank">
+        <div class="dd-icon">&#127760;</div>
+        <div class="dd-label">
+          Merlink DRS
+          <span class="dd-sublabel">Full portal login</span>
+        </div>
+      </a>
+      <a href="https://merlinkresponse.com/" target="_blank">
+        <div class="dd-icon">&#128228;</div>
+        <div class="dd-label">
+          Merlink Response
+          <span class="dd-sublabel">Submit without login</span>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="topnav-divider"></div>
+  <a href="rebuttal-builder.html" class="topnav-btn primary">
+    &#9998;&nbsp; Build a Rebuttal
+  </a>
+</nav>
+
+<script>
+function toggleDropdown(id) {
+  var target = document.getElementById(id);
+  var isOpen = target.classList.contains('open');
+  document.querySelectorAll('.topnav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+  if (!isOpen) target.classList.add('open');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.topnav-dropdown')) {
+    document.querySelectorAll('.topnav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CandidPay — Merchant Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:     #0d1b2e;
+    --navy-mid: #152540;
+    --navy-lt:  #1e3558;
+    --gold:     #c9963a;
+    --gold-lt:  #e8b96a;
+    --teal:     #2db6a3;
+    --teal-lt:  #4fd4c0;
+    --white:    #f5f0e8;
+    --muted:    #8fa3bc;
+    --red:      #e05c5c;
+    --green:    #4caf82;
+    --purple:   #7b6fc8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ─── HEADER ─────────────────────────────────────── */
+  header {
+    background: linear-gradient(135deg, #091422 0%, var(--navy-mid) 60%, #1a3050 100%);
+    border-bottom: 1px solid rgba(201,150,58,0.4);
+    padding: 36px 56px 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,150,58,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .logo-block { display: flex; flex-direction: column; gap: 2px; }
+  .logo-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1;
+  }
+  .logo-name span { color: var(--gold); }
+  .logo-sub {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .header-badge { text-align: right; }
+  .header-badge .tag {
+    display: inline-block;
+    background: rgba(201,150,58,0.15);
+    border: 1px solid rgba(201,150,58,0.4);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+    margin-bottom: 6px;
+  }
+  .header-badge p { font-size: 12px; color: var(--muted); }
+
+  /* ─── LAYOUT ─────────────────────────────────────── */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 56px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  /* ─── SECTION HEADERS ────────────────────────────── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .section-label .pill {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .pill-gold   { background: rgba(201,150,58,0.18); color: var(--gold-lt);  border: 1px solid rgba(201,150,58,0.35); }
+  .pill-teal   { background: rgba(45,182,163,0.15); color: var(--teal-lt);  border: 1px solid rgba(45,182,163,0.3); }
+  .pill-red    { background: rgba(224,92,92,0.15);  color: #f08080;         border: 1px solid rgba(224,92,92,0.3); }
+  .pill-purple { background: rgba(123,111,200,0.15);color: #a89de8;         border: 1px solid rgba(123,111,200,0.3); }
+  .section-label h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    white-space: nowrap;
+  }
+  .section-label .line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(143,163,188,0.2), transparent);
+  }
+
+  /* ─── PROBLEM STRIP ──────────────────────────────── */
+  .problem-strip {
+    background: linear-gradient(135deg, rgba(224,92,92,0.08) 0%, rgba(30,53,88,0.6) 100%);
+    border: 1px solid rgba(224,92,92,0.25);
+    border-radius: 14px;
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+  }
+  .prob-divider { background: rgba(224,92,92,0.2); margin: 4px 0; }
+  .prob-item { padding: 0 28px; }
+  .prob-item:first-child { padding-left: 0; }
+  .prob-item:last-child  { padding-right: 0; }
+  .prob-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .prob-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #f08080;
+    line-height: 1;
+  }
+  .prob-value.danger { color: #e05c5c; }
+  .prob-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 5px;
+    font-style: italic;
+  }
+  .prob-note strong { color: var(--white); font-style: normal; }
+
+  /* ─── COMPARISON TABLE ───────────────────────────── */
+  .compare-wrap {
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid rgba(143,163,188,0.15);
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+  }
+  .compare-table thead tr { background: var(--navy-lt); }
+  .compare-table thead th {
+    padding: 14px 20px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(143,163,188,0.15);
+  }
+  .compare-table thead th.current-col { color: #f08080; }
+  .compare-table thead th.flat-col    { color: var(--teal-lt); }
+  .compare-table thead th.dual-col    { color: var(--gold-lt); }
+  .compare-table tbody tr {
+    border-bottom: 1px solid rgba(143,163,188,0.08);
+    transition: background 0.15s;
+  }
+  .compare-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+  .compare-table tbody tr:last-child { border-bottom: none; }
+  .compare-table tbody tr.total-row {
+    background: rgba(30,53,88,0.5);
+    border-top: 1px solid rgba(143,163,188,0.2);
+  }
+  .compare-table td { padding: 13px 20px; vertical-align: middle; }
+  .compare-table td.row-label { color: var(--white); font-weight: 500; font-size: 13px; }
+  .compare-table td.row-sub {
+    font-size: 11px; color: var(--muted); font-weight: 400;
+    display: block; margin-top: 1px;
+  }
+  .compare-table td.current-col { color: #f08080; }
+  .compare-table td.flat-col    { color: var(--teal-lt); }
+  .compare-table td.dual-col    { color: var(--gold-lt); }
+  .big-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 700;
+    display: block; line-height: 1.1;
+  }
+  .small-note { font-size: 11px; color: var(--muted); display: block; margin-top: 2px; }
+  .savings-badge {
+    display: inline-block;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 11px; font-weight: 600;
+    margin-top: 3px;
+  }
+  .save-green  { background: rgba(76,175,130,0.18); color: var(--green);   border: 1px solid rgba(76,175,130,0.3); }
+  .save-gold   { background: rgba(201,150,58,0.18); color: var(--gold-lt); border: 1px solid rgba(201,150,58,0.35); }
+  .save-none   { background: rgba(224,92,92,0.1);  color: #f08080;         border: 1px solid rgba(224,92,92,0.2); font-size:10px; }
+
+  /* ─── AGENT EARNINGS (full width, single card) ───── */
+  .earn-card {
+    background: linear-gradient(145deg, var(--navy-mid), var(--navy-lt));
+    border-radius: 14px;
+    padding: 28px 36px;
+    border: 1px solid rgba(45,182,163,0.2);
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 36px;
+    align-items: start;
+  }
+  .earn-card::after {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(45,182,163,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .earn-left { min-width: 200px; }
+  .earn-card-title {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .earn-main-stat {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .earn-stat-sub {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    max-width: 180px;
+  }
+  .earn-breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .earn-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+  }
+  .earn-row .label { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .earn-row .val   { font-size: 16px; font-weight: 600; color: var(--white); }
+  .earn-row .val.teal  { color: var(--teal-lt); }
+  .earn-row .val.green { color: var(--green); }
+
+  /* ─── TIER TABLE ─────────────────────────────────── */
+  .tier-section { margin-top: 20px; }
+  .tier-label {
+    font-size: 11px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .tier-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, rgba(143,163,188,0.2), transparent);
+  }
+  .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .tier-card {
+    border-radius: 14px; padding: 22px 22px 18px;
+    border: 1px solid; position: relative; overflow: hidden;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .tier-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .tier-card.tier-standard {
+    background: linear-gradient(145deg, rgba(21,37,64,0.9), rgba(30,53,88,0.6));
+    border-color: rgba(45,182,163,0.25);
+  }
+  .tier-card.tier-standard::before { background: var(--teal); }
+  .tier-card.tier-full {
+    background: linear-gradient(145deg, rgba(21,37,64,0.9), rgba(40,53,30,0.4));
+    border-color: rgba(201,150,58,0.3);
+  }
+  .tier-card.tier-full::before { background: var(--gold); }
+  .tier-card.tier-elite {
+    background: linear-gradient(145deg, rgba(21,37,64,0.9), rgba(45,30,88,0.4));
+    border-color: rgba(123,111,200,0.35);
+  }
+  .tier-card.tier-elite::before { background: #9b8fe8; }
+  .tier-name {
+    font-size: 13px; font-weight: 600; color: var(--white);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .tier-badge {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 20px;
+  }
+  .badge-teal   { background: rgba(45,182,163,0.18);  color: var(--teal-lt); border: 1px solid rgba(45,182,163,0.3); }
+  .badge-gold   { background: rgba(201,150,58,0.18);  color: var(--gold-lt); border: 1px solid rgba(201,150,58,0.35); }
+  .badge-purple { background: rgba(123,111,200,0.18); color: #a89de8;        border: 1px solid rgba(123,111,200,0.3); }
+  .tier-volume  { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .tier-pct {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px; font-weight: 700; line-height: 1;
+  }
+  .tier-pct.teal   { color: var(--teal); }
+  .tier-pct.gold   { color: var(--gold); }
+  .tier-pct.purple { color: #9b8fe8; }
+  .tier-pct span   { font-size: 22px; }
+  .tier-pct-sub    { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .tier-duties {
+    display: flex; flex-direction: column; gap: 5px;
+    padding-top: 10px; border-top: 1px solid rgba(143,163,188,0.1);
+  }
+  .duty {
+    font-size: 11.5px; display: flex;
+    align-items: flex-start; gap: 7px; line-height: 1.4;
+  }
+  .duty-icon { flex-shrink: 0; margin-top: 1px; }
+  .duty.on   { color: var(--white); opacity: 0.85; }
+  .duty.on   .duty-icon { color: var(--green); }
+  .duty.off  { color: var(--muted); opacity: 0.4; text-decoration: line-through; text-decoration-color: rgba(143,163,188,0.25); }
+  .tier-cap-note {
+    background: rgba(224,92,92,0.07);
+    border: 1px solid rgba(224,92,92,0.2);
+    border-radius: 10px; padding: 14px 20px; margin-top: 6px;
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 12.5px; color: var(--muted); line-height: 1.55;
+  }
+  .tier-cap-note .cap-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tier-cap-note strong { color: #f08080; }
+
+  /* ─── EXAMPLE CALLOUT ────────────────────────────── */
+  .example-box {
+    background: linear-gradient(135deg, rgba(201,150,58,0.06), rgba(30,53,88,0.5));
+    border: 1px solid rgba(201,150,58,0.2);
+    border-radius: 14px;
+    padding: 22px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin-top: 16px;
+  }
+  .ex-icon { font-size: 36px; flex-shrink: 0; }
+  .ex-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 600;
+    color: var(--gold-lt); margin-bottom: 4px;
+  }
+  .ex-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .ex-body strong { color: var(--white); }
+  .ex-stats { display: flex; gap: 28px; margin-left: auto; flex-shrink: 0; }
+  .ex-stat { text-align: center; }
+  .ex-stat .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-weight: 700;
+    display: block; line-height: 1;
+  }
+  .ex-stat .lbl {
+    font-size: 10px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+    display: block; margin-top: 3px;
+  }
+
+  /* ─── WHY CANDIDPAY ──────────────────────────────── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .why-card {
+    background: var(--navy-mid);
+    border-radius: 12px;
+    padding: 22px 24px;
+    border: 1px solid rgba(143,163,188,0.12);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .why-card:hover { border-color: rgba(201,150,58,0.3); transform: translateY(-2px); }
+  .why-icon { font-size: 24px; margin-bottom: 10px; }
+  .why-title { font-weight: 600; font-size: 14px; color: var(--white); margin-bottom: 6px; }
+  .why-body  { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+  .why-body em { color: var(--gold-lt); font-style: normal; font-weight: 500; }
+
+  /* ─── FOOTER ─────────────────────────────────────── */
+  footer {
+    border-top: 1px solid rgba(143,163,188,0.12);
+    margin: 0 56px;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+  footer span { color: var(--gold); font-weight: 500; }
+
+  /* ─── ANIMATIONS ─────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  main > * { animation: fadeUp 0.5s ease both; }
+  main > *:nth-child(1) { animation-delay: 0.05s; }
+  main > *:nth-child(2) { animation-delay: 0.12s; }
+  main > *:nth-child(3) { animation-delay: 0.19s; }
+  main > *:nth-child(4) { animation-delay: 0.26s; }
+  main > *:nth-child(5) { animation-delay: 0.33s; }
+
+  @media print {
+    body { background: #0d1b2e; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    main > * { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ░░ HEADER ░░ -->
+<header>
+  <div class="logo-block">
+    <div class="logo-name">Candid<span>Pay</span></div>
+    <div class="logo-sub">Merchant Services — Payment Processing</div>
+  </div>
+  <div class="header-badge">
+    <div class="tag">Confidential · Partner Use Only</div>
+    <p>Transparent Pricing · U.S.-Based Support · Agent Residuals</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ░░ SECTION 1 — THE PROBLEM ░░ -->
+  <section>
+    <div class="section-label">
+      <div class="pill pill-red">The Problem</div>
+      <h2>What Merchants Are Actually Paying</h2>
+      <div class="line"></div>
+    </div>
+    <div class="problem-strip">
+      <div class="prob-item">
+        <div class="prob-label">Rate Promised by Processor</div>
+        <div class="prob-value">2.1–2.3%</div>
+        <div class="prob-note">Quoted during the sales process — <strong>sounds great</strong> on paper</div>
+      </div>
+      <div class="prob-divider"></div>
+      <div class="prob-item">
+        <div class="prob-label">True Effective Rate After All Fees</div>
+        <div class="prob-value danger">3.2%+</div>
+        <div class="prob-note">Monthly fees, PCI penalties, interchange downgrades &amp; processor markup quietly stack up every single month</div>
+      </div>
+      <div class="prob-divider"></div>
+      <div class="prob-item">
+        <div class="prob-label">Worst Case — Real Example</div>
+        <div class="prob-value danger">4%+</div>
+        <div class="prob-note"><strong>Northwest Trophy &amp; Awards</strong> — uncovered in a recent Candid<em>Pay</em> statement analysis; significant hidden fees, markup, and a PCI non-compliance penalty</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 2 — PRICING COMPARISON ░░ -->
+  <section>
+    <div class="section-label">
+      <div class="pill pill-teal">Pricing Options</div>
+      <h2>Candid<em>Pay</em> vs. Current Processor — $100,000 Monthly Volume Example</h2>
+      <div class="line"></div>
+    </div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th style="width:28%">Category</th>
+            <th class="current-col">⚠️ &nbsp;Current Processor</th>
+            <th class="flat-col">✦ &nbsp;Candid<em>Pay</em> — Flat Rate</th>
+            <th class="dual-col">✦ &nbsp;Candid<em>Pay</em> — Dual Pricing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-label">Credit Card Rate<span class="row-sub">Quoted / presented to merchant</span></td>
+            <td class="current-col">
+              <span class="big-num">2.1–2.3%</span>
+              <span class="small-note">Quoted rate — not what you actually pay</span>
+            </td>
+            <td class="flat-col">
+              <span class="big-num">3.0%</span>
+              <span class="small-note">All-in flat rate — no surprises, ever</span>
+            </td>
+            <td class="dual-col">
+              <span class="big-num">3.5%</span>
+              <span class="small-note">Passed to cardholder — merchant pays nothing on credit cards</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-label">ACH / Bank Transfer Rate<span class="row-sub">Per transaction</span></td>
+            <td class="current-col">
+              <span class="big-num">Varies</span>
+              <span class="small-note">$0.25–$1.50 + percentage — often buried in statement</span>
+            </td>
+            <td class="flat-col">
+              <span class="big-num">Included</span>
+              <span class="small-note">Bundled within the flat rate structure</span>
+            </td>
+            <td class="dual-col">
+              <span class="big-num">1.5%</span>
+              <span class="small-note">Low-cost card alternative — significantly cheaper for the merchant</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-label">True Effective Rate<span class="row-sub">After all fees, penalties &amp; markup</span></td>
+            <td class="current-col">
+              <span class="big-num">3.2–4%+</span>
+              <span class="small-note">Industry reality — can easily exceed 4% once fees are totaled</span>
+            </td>
+            <td class="flat-col">
+              <span class="big-num">3.0%</span>
+              <span class="small-note">What we quote is exactly what you pay — always</span>
+            </td>
+            <td class="dual-col">
+              <span class="big-num">~0%</span>
+              <span class="small-note">Credit card processing cost is fully offset to the cardholder</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-label">Hidden Fees &amp; PCI Penalties<span class="row-sub">Monthly surprise line items</span></td>
+            <td class="current-col">
+              <span class="big-num">Yes</span>
+              <span class="small-note">PCI non-compliance, batch fees, statement fees, annual fees — all common</span>
+            </td>
+            <td class="flat-col">
+              <span class="big-num">None</span>
+              <span class="small-note">Transparent, itemized billing — zero hidden charges</span>
+            </td>
+            <td class="dual-col">
+              <span class="big-num">None</span>
+              <span class="small-note">Transparent, itemized billing — zero hidden charges</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="row-label">Minimum Monthly Volume<span class="row-sub">Card swipes + ACH combined</span></td>
+            <td class="current-col">
+              <span class="big-num">Varies</span>
+              <span class="small-note">Often includes minimums, monthly fees regardless of volume</span>
+            </td>
+            <td class="flat-col">
+              <span class="big-num">$10,000</span>
+              <span class="small-note">No maximum volume cap — scale without penalty</span>
+            </td>
+            <td class="dual-col">
+              <span class="big-num">$10,000</span>
+              <span class="small-note">No maximum volume cap — scale without penalty</span>
+            </td>
+          </tr>
+          <tr class="total-row">
+            <td class="row-label" style="font-size:14px;font-weight:600;">💳 &nbsp;Merchant Cost on $100K/mo<span class="row-sub">Bottom-line monthly out-of-pocket</span></td>
+            <td class="current-col">
+              <span class="big-num">$3,200 – $4,000+</span>
+              <div class="savings-badge save-none">Overpaying every month</div>
+            </td>
+            <td class="flat-col">
+              <span class="big-num">$3,000</span>
+              <div class="savings-badge save-green">Save $200 – $1,000+/mo</div>
+            </td>
+            <td class="dual-col">
+              <span class="big-num">$0 – $150</span>
+              <div class="savings-badge save-gold">Save $3,050 – $3,850+/mo</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 3 — AGENT EARNINGS ░░ -->
+  <section>
+    <div class="section-label">
+      <div class="pill pill-gold">Agent Earnings</div>
+      <h2>Your Residual Income — Merchant Services</h2>
+      <div class="line"></div>
+    </div>
+
+    <!-- BASE MARGIN CARD -->
+    <div class="earn-card">
+      <div class="earn-left">
+        <div class="earn-card-title">Candid<em>Pay</em> Margin on Volume</div>
+        <div class="earn-main-stat">50–80<span style="font-size:32px;"> bps</span></div>
+        <div class="earn-stat-sub">Average margin earned by Candid<em>Pay</em> on credit card processing volume. Agents receive a percentage of that residual — every month, automatically, for the life of the account.</div>
+      </div>
+      <div class="earn-breakdown">
+        <div class="earn-row">
+          <span class="label">Candid<em>Pay</em> Margin on $100K/mo</span>
+          <span class="val teal">$500 – $800 / month</span>
+        </div>
+        <div class="earn-row">
+          <span class="label">Standard Agent Share (20–30%)</span>
+          <span class="val green">$100 – $240 / month</span>
+        </div>
+        <div class="earn-row">
+          <span class="label">Full-Service Agent Share (up to 50%)</span>
+          <span class="val green">$250 – $400 / month</span>
+        </div>
+        <div class="earn-row">
+          <span class="label">Elite Agent Share (up to 65%)</span>
+          <span class="val green">$325 – $520 / month</span>
+        </div>
+        <div class="earn-row">
+          <span class="label">Portfolio of 10 Merchants — Full-Service</span>
+          <span class="val green">$30,000 – $48,000 / year</span>
+        </div>
+        <div class="earn-row">
+          <span class="label">No Volume Cap — Residual Grows With You</span>
+          <span class="val teal">Unlimited upside</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIERED COMPENSATION -->
+    <div class="tier-section">
+      <div class="tier-label">Agent Compensation Tiers — The More You Handle, The More You Earn</div>
+      <div class="tier-grid">
+
+        <!-- TIER 1 — STANDARD -->
+        <div class="tier-card tier-standard">
+          <div>
+            <div class="tier-name">
+              Standard Agent
+              <span class="tier-badge badge-teal">Entry Level</span>
+            </div>
+            <div class="tier-volume">All volume levels — Candid<em>Pay</em> handles operations</div>
+          </div>
+          <div>
+            <div class="tier-pct teal">20–30<span>%</span></div>
+            <div class="tier-pct-sub">of Candid<em>Pay</em> margin, paid monthly</div>
+          </div>
+          <div class="tier-duties">
+            <div class="duty on"><span class="duty-icon">✓</span> Prospect &amp; close the merchant</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Submit the account to Candid<em>Pay</em></div>
+            <div class="duty off"><span class="duty-icon">–</span> Onboarding &amp; paperwork</div>
+            <div class="duty off"><span class="duty-icon">–</span> Identity &amp; compliance verification</div>
+            <div class="duty off"><span class="duty-icon">–</span> Equipment shipping &amp; logistics</div>
+            <div class="duty off"><span class="duty-icon">–</span> Equipment setup &amp; configuration</div>
+            <div class="duty off"><span class="duty-icon">–</span> Merchant training &amp; support</div>
+          </div>
+        </div>
+
+        <!-- TIER 2 — FULL SERVICE -->
+        <div class="tier-card tier-full">
+          <div>
+            <div class="tier-name">
+              Full-Service Agent
+              <span class="tier-badge badge-gold">Recommended</span>
+            </div>
+            <div class="tier-volume">$100,000 – $1,000,000 / month in volume</div>
+          </div>
+          <div>
+            <div class="tier-pct gold">Up to 50<span>%</span></div>
+            <div class="tier-pct-sub">of Candid<em>Pay</em> margin, paid monthly</div>
+          </div>
+          <div class="tier-duties">
+            <div class="duty on"><span class="duty-icon">✓</span> Prospect &amp; close the merchant</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Complete onboarding &amp; paperwork</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Identity &amp; compliance verification</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Equipment shipping &amp; logistics</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Equipment setup &amp; configuration</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Merchant training &amp; ongoing support</div>
+          </div>
+        </div>
+
+        <!-- TIER 3 — ELITE -->
+        <div class="tier-card tier-elite">
+          <div>
+            <div class="tier-name">
+              Elite Volume Agent
+              <span class="tier-badge badge-purple">High Volume</span>
+            </div>
+            <div class="tier-volume">$1,000,001 – $10,000,000 / month in volume</div>
+          </div>
+          <div>
+            <div class="tier-pct purple">Up to 65<span>%</span></div>
+            <div class="tier-pct-sub">of Candid<em>Pay</em> margin, paid monthly</div>
+          </div>
+          <div class="tier-duties">
+            <div class="duty on"><span class="duty-icon">✓</span> Prospect &amp; close the merchant</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Complete onboarding &amp; paperwork</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Identity &amp; compliance verification</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Equipment shipping &amp; logistics</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Equipment setup &amp; configuration</div>
+            <div class="duty on"><span class="duty-icon">✓</span> Merchant training &amp; ongoing support</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CAP NOTE -->
+      <div class="tier-cap-note">
+        <div class="cap-icon">⚠️</div>
+        <div>
+          <strong>Important:</strong> Candid<em>Pay</em> maintains significant operational costs including infrastructure, compliance, underwriting, agent support, and backend processing. For this reason, <strong>agent compensation will not exceed 65% under any standard arrangement.</strong> Exceptions beyond this threshold are extraordinarily rare and reserved for highly unusual circumstances reviewed directly by Candid<em>Pay</em> leadership. The 65% ceiling exists to ensure Candid<em>Pay</em> can continue delivering the world-class support and operational excellence that keeps your merchants happy — and your residuals intact.
+        </div>
+      </div>
+    </div>
+
+    <div class="example-box">
+      <div class="ex-icon">📈</div>
+      <div>
+        <div class="ex-headline">Full-Service Agent — Real Scenario</div>
+        <div class="ex-body">A full-service agent running <strong>5 merchants at $100K/mo</strong> each — handling onboarding, setup, and training — earns up to <strong>$2,000/mo ($24,000/yr)</strong> in residuals from a single cohort. Scale to 20 merchants at the same volume and you're looking at <strong>$8,000/mo in passive income</strong> — from accounts you onboarded once and Candid<em>Pay</em>'s transparency keeps happy indefinitely.</div>
+      </div>
+      <div class="ex-stats">
+        <div class="ex-stat">
+          <span class="num" style="color:var(--gold);">50%</span>
+          <span class="lbl">Max Share</span>
+        </div>
+        <div class="ex-stat">
+          <span class="num" style="color:var(--green);">$400</span>
+          <span class="lbl">Per Merchant / mo</span>
+        </div>
+        <div class="ex-stat">
+          <span class="num" style="color:var(--teal);">$8K+</span>
+          <span class="lbl">20 Merchants / mo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ SECTION 4 — WHY CANDIDPAY ░░ -->
+  <section>
+    <div class="section-label">
+      <div class="pill pill-purple">Why Candid<em>Pay</em></div>
+      <h2>More Than a Processor — A True Business Partner</h2>
+      <div class="line"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🇺🇸</div>
+        <div class="why-title">100% U.S.-Based &amp; Local</div>
+        <div class="why-body">We are a <em>locally operated American company</em> — not an overseas call center. When merchants need someone, they reach a real person who knows their account, their business, and their industry.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-title">World-Class Support</div>
+        <div class="why-body">Our support goes far beyond troubleshooting. Many of our clients consider Candid<em>Pay</em> an <em>extension of their accounting and finance teams</em> — from statement analysis to reconciliation guidance and day-to-day payment questions.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📊</div>
+        <div class="why-title">Transparent Pricing — Always</div>
+        <div class="why-body">No hidden fees. No PCI penalty surprises. No bait-and-switch rates. <em>What we quote is exactly what merchants pay.</em> This is our core promise — and it makes your job as an agent dramatically easier to close and retain accounts.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <div class="why-title">Easy Onboarding &amp; Fast Activation</div>
+        <div class="why-body">Our streamlined digital onboarding gets merchants processing quickly. Integrated tools handle identity verification, underwriting, and compliance — <em>less paperwork for you, faster go-live for the merchant.</em></div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔍</div>
+        <div class="why-title">Free Statement Analysis</div>
+        <div class="why-body">We analyze any prospect's current processing statement — identifying hidden fees, markup, and interchange downgrades — and provide a <em>professional, branded report</em> you can present on the spot to close the deal with confidence.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">♾️</div>
+        <div class="why-title">No Volume Cap. Ever.</div>
+        <div class="why-body">From a small retailer to a high-volume enterprise, <em>Candid<em>Pay</em> scales with every merchant.</em> Minimum $10K/month to get started — and absolutely no ceiling on how large your book of business grows.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div>© 2026 <span>Candid<em>Pay</em></span> · Candid Solutions · All Rights Reserved</div>
+  <div>Agent &amp; Partner Confidential — Not for Distribution</div>
+  <div>candid.solutions</div>
+  <div>candidpay.app</div>
+</footer>
+
+</body>
+</html>

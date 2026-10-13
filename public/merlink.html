@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merlink Portal Instructions — Nuvei</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --nuvei-navy: #0d1f3c;
+    --nuvei-blue: #1a56db;
+    --nuvei-blue-light: #e8f0fe;
+    --nuvei-red: #e53935;
+    --nuvei-red-light: #fdecea;
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --accent-teal: #00bfa5;
+    --sidebar-w: 260px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    background: var(--nuvei-navy);
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .sidebar-logo .logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #fff;
+    letter-spacing: -0.5px;
+  }
+
+  .sidebar-logo .logo-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    background: var(--nuvei-red);
+    border-radius: 50%;
+    margin-left: 2px;
+    vertical-align: super;
+  }
+
+  .sidebar-meta {
+    padding: 12px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,.1);
+  }
+
+  .sidebar-meta span {
+    font-size: 11px;
+    color: rgba(255,255,255,.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .sidebar-meta p {
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  .nav-section { padding: 20px 0 8px; }
+
+  .nav-label {
+    padding: 0 24px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,.3);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 9px 24px;
+    color: rgba(255,255,255,.65);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 400;
+    transition: all .18s;
+    border-left: 3px solid transparent;
+    line-height: 1.4;
+  }
+
+  .nav-link:hover {
+    color: #fff;
+    background: rgba(255,255,255,.07);
+    border-left-color: var(--nuvei-red);
+  }
+
+  .nav-link.active {
+    color: #fff;
+    background: rgba(255,255,255,.07);
+    border-left-color: var(--nuvei-red);
+  }
+
+  .nav-link.sub {
+    padding-left: 36px;
+    font-size: 12px;
+    color: rgba(255,255,255,.45);
+  }
+
+  .nav-link.sub:hover { color: rgba(255,255,255,.8); }
+
+  .sidebar-footer {
+    margin-top: auto;
+    padding: 20px 24px;
+    border-top: 1px solid rgba(255,255,255,.1);
+    font-size: 11px;
+    color: rgba(255,255,255,.3);
+    line-height: 1.6;
+  }
+
+  /* ── MAIN ── */
+  .main { margin-left: var(--sidebar-w); min-height: 100vh; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, var(--nuvei-navy) 0%, #1a3a6b 60%, #0f2d52 100%);
+    padding: 72px 64px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,86,219,.25) 0%, transparent 70%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(229,57,53,.12) 0%, transparent 70%);
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 11px;
+    color: rgba(255,255,255,.7);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 24px;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent-teal);
+    border-radius: 50%;
+  }
+
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 48px;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    max-width: 600px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: rgba(255,255,255,.6);
+  }
+
+  .hero-sub {
+    color: rgba(255,255,255,.55);
+    font-size: 14px;
+    margin-top: 16px;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── CONTENT ── */
+  .content {
+    padding: 52px 64px 80px;
+    max-width: 860px;
+  }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 56px; }
+
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .section-number {
+    width: 28px; height: 28px;
+    background: var(--nuvei-navy);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .section-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--nuvei-navy);
+    margin-bottom: 16px;
+    letter-spacing: -0.3px;
+  }
+
+  .section h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 28px 0 12px;
+  }
+
+  .section p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+
+  .section ul, .section ol {
+    color: var(--text-secondary);
+    padding-left: 22px;
+    margin-bottom: 14px;
+  }
+
+  .section li { margin-bottom: 6px; }
+
+  .section a { color: var(--nuvei-blue); text-decoration: none; }
+  .section a:hover { text-decoration: underline; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+
+  /* ── CALLOUTS ── */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 14px;
+    margin: 20px 0;
+    line-height: 1.6;
+  }
+
+  .callout-blue {
+    background: var(--nuvei-blue-light);
+    border-left: 3px solid var(--nuvei-blue);
+    color: #1e3a5f;
+  }
+
+  .callout-red {
+    background: var(--nuvei-red-light);
+    border-left: 3px solid var(--nuvei-red);
+    color: #7f1d1d;
+  }
+
+  .callout-amber {
+    background: #fdf3e0;
+    border-left: 3px solid #d97706;
+    color: #5a3300;
+  }
+
+  /* ── PORTAL CARDS ── */
+  .portal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .portal-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    transition: box-shadow .18s;
+  }
+
+  .portal-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+
+  .portal-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--nuvei-navy);
+    margin-bottom: 8px;
+  }
+
+  .portal-card p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .portal-card a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--nuvei-blue);
+    text-decoration: none;
+  }
+
+  .portal-card a:hover { text-decoration: underline; }
+
+  /* ── STEPS ── */
+  .case-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .case-block-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 16px;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .step:last-child { margin-bottom: 0; }
+
+  .step-num {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--nuvei-blue-light);
+    border: 1px solid rgba(26,86,219,.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--nuvei-blue);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-body { flex: 1; }
+
+  .step-body p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  .step-body p + p { margin-top: 8px; }
+
+  .step-note {
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    background: var(--bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border-left: 2px solid var(--border);
+  }
+
+  /* ── FIELDS ── */
+  .fields-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+    margin: 14px 0 20px;
+  }
+
+  .field-pill {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+
+  /* ── LIFECYCLE TABLES ── */
+  .lifecycle-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 12px 0 24px;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .lifecycle-table th {
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .lifecycle-table td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  .lifecycle-table tr:last-child td { border-bottom: none; }
+
+  .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: var(--nuvei-blue-light);
+    color: var(--nuvei-blue);
+    border: 1px solid rgba(26,86,219,.15);
+    white-space: nowrap;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 14px 0;
+  }
+
+  .timeline-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+
+  .timeline-row:last-child { border-bottom: none; }
+
+  .timeline-brand {
+    min-width: 110px;
+    font-weight: 600;
+    color: var(--nuvei-navy);
+  }
+
+  .timeline-days { color: var(--text-secondary); }
+
+  /* ── FAQ ── */
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-q {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .faq-a {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── FOOTER ── */
+  .page-footer {
+    background: var(--nuvei-navy);
+    color: rgba(255,255,255,.35);
+    font-size: 12px;
+    padding: 24px 64px;
+    margin-left: var(--sidebar-w);
+  }
+
+  /* ── BACK LINK ── */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,.5);
+    text-decoration: none;
+    margin-bottom: 28px;
+    transition: color .15s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .back-link:hover { color: rgba(255,255,255,.85); }
+  .back-link::before { content: '←'; }
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="sidebar-meta">
+    <span>Knowledge Base</span>
+    <p>Chargeback & Disputes</p>
+  </div>
+  <nav class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-link" href="#portals">MerLink Portals</a>
+    <a class="nav-link" href="#notifications">Notification Emails</a>
+    <a class="nav-link" href="#step1">Step 1 — Review</a>
+    <a class="nav-link" href="#step2">Step 2 — Gather Docs</a>
+    <a class="nav-link" href="#step3">Step 3 — Submit via MerLink</a>
+    <a class="nav-link sub" href="#standard">Standard Chargeback</a>
+    <a class="nav-link sub" href="#prearb">Pre-Arbitration</a>
+    <a class="nav-link" href="#lifecycle">Dispute Lifecycle</a>
+    <a class="nav-link sub" href="#visa-auth">Visa — Auth & Fraud</a>
+    <a class="nav-link sub" href="#visa-consumer">Visa — Processing & Consumer</a>
+    <a class="nav-link sub" href="#mastercard">Mastercard</a>
+    <a class="nav-link" href="#next">What Happens Next</a>
+    <a class="nav-link" href="#faq">FAQ</a>
+  </nav>
+  <div class="nav-section">
+    <div class="nav-label">Related</div>
+    <a class="nav-link" href="chargeback_guide.html">Chargeback Guide</a>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <a href="chargeback_guide.html" class="back-link">Back to Chargeback Guide</a>
+    <div class="hero-badge">Portal Instructions</div>
+    <h1>How to View &amp; Respond to <em>Chargebacks</em></h1>
+    <p class="hero-sub">A chargeback response is your opportunity to dispute a cardholder's claim by providing supporting documentation. This guide covers the full lifecycle — from receiving a notification to tracking the outcome in the Nuvei Merchant Dashboard.</p>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- Portals -->
+    <section class="section" id="portals">
+      <div class="section-eyebrow">
+        <div class="section-number">1</div>
+        <span class="section-tag">Overview</span>
+      </div>
+      <h2>MerLink Portals</h2>
+      <p>MerLink provides two separate portals for managing disputes. Both can be used to submit responses, but they offer different levels of access.</p>
+
+      <div class="portal-grid">
+        <div class="portal-card">
+          <h4>MerLink DRS Remote</h4>
+          <p>Full dispute portal. Log in to manage cases, review dispute statuses, and upload documentation from any location.</p>
+          <a href="https://www.merlinkdrs.com" target="_blank">merlinkdrs.com ↗</a>
+        </div>
+        <div class="portal-card">
+          <h4>MerLink DRS Response</h4>
+          <p>Lightweight response-only tool. Use this to submit documentation for a specific case without needing full portal access.</p>
+          <a href="https://merlinkresponse.com" target="_blank">merlinkresponse.com ↗</a>
+        </div>
+      </div>
+
+      <div class="callout callout-blue">
+        ℹ Responses can be submitted via <strong>merlinkresponse.com</strong> regardless of whether you have been granted access to the full MerLink portal. If you have portal access, you can also log in to <strong>merlinkdrs.com</strong> to review dispute details before responding.
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Notifications -->
+    <section class="section" id="notifications">
+      <div class="section-eyebrow">
+        <div class="section-number">2</div>
+        <span class="section-tag">Notifications</span>
+      </div>
+      <h2>Chargeback Notification Emails</h2>
+      <p>You will receive a chargeback notification email in two situations:</p>
+      <ul>
+        <li>When a new chargeback occurs</li>
+        <li>When the status of an existing chargeback changes</li>
+      </ul>
+      <p>The email includes a snapshot of the Dispute tab from the Nuvei Merchant Dashboard, including: Dispute Date, Type, Amount, ARN, Transaction Date, card type, and MID. For full details, log in to the Merchant Dashboard directly.</p>
+      <div class="callout callout-blue">
+        ℹ If you received a notification but the chargeback is not listed in your portal, it is likely a retrieval request, inquiry, or a pre-arbitration notification where a debit has not yet been initiated.
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Step 1 -->
+    <section class="section" id="step1">
+      <div class="section-eyebrow">
+        <div class="section-number">3</div>
+        <span class="section-tag">Step 1</span>
+      </div>
+      <h2>Review the Chargeback in the Merchant Dashboard</h2>
+      <p>Log in to the Nuvei Merchant Dashboard and navigate to the Chargebacks section. Each chargeback record includes the following fields:</p>
+
+      <div class="fields-grid">
+        <div class="field-pill">Merchant ID (MID)</div>
+        <div class="field-pill">DBA Name</div>
+        <div class="field-pill">Date</div>
+        <div class="field-pill">Date Filed</div>
+        <div class="field-pill">Date Resolved</div>
+        <div class="field-pill">Case Number</div>
+        <div class="field-pill">Card Type</div>
+        <div class="field-pill">Amount of Dispute</div>
+        <div class="field-pill">ARN</div>
+        <div class="field-pill">Auth # (AUTH)</div>
+        <div class="field-pill">Reason Code</div>
+        <div class="field-pill">Transaction Date</div>
+      </div>
+
+      <p>Use the column settings to hide fields you don't need, so you can focus on the most relevant information.</p>
+      <div class="callout callout-blue">
+        ℹ <strong>Important:</strong> The Authorization Number (AUTH #) is the common reference for a chargeback throughout its entire lifecycle. The Case Number will change each time there is a money movement or action on the case — the AUTH # stays the same.
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Step 2 -->
+    <section class="section" id="step2">
+      <div class="section-eyebrow">
+        <div class="section-number">4</div>
+        <span class="section-tag">Step 2</span>
+      </div>
+      <h2>Gather Your Documentation</h2>
+      <p>You must upload supporting documents to the MerLink portal within <strong>10 days</strong> of receiving the chargeback notification. Failure to respond within the required window results in an automatic loss.</p>
+
+      <div class="callout callout-red">
+        ⚠ <strong>Do not issue a refund.</strong> Once a chargeback has been initiated and funds have been debited from your account, issuing a refund is not an acceptable response — it results in your account being debited twice for the same transaction.
+      </div>
+
+      <p>Before submitting, collect the following:</p>
+      <ul>
+        <li><strong>Case number</strong> — found on the chargeback notice or in your Merchant Dashboard</li>
+        <li><strong>Case amount</strong> — the disputed dollar amount</li>
+        <li><strong>Email address</strong> — the address you will use to submit the response</li>
+        <li><strong>Supporting documentation</strong> — signed agreements, invoices, purchase orders, shipping confirmations, or other relevant evidence</li>
+      </ul>
+      <p>We recommend preparing a brief one-paragraph written summary that clearly communicates the key facts of the transaction. You will have the opportunity to include this in the Merchant Comments field during the response process.</p>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Step 3 -->
+    <section class="section" id="step3">
+      <div class="section-eyebrow">
+        <div class="section-number">5</div>
+        <span class="section-tag">Step 3</span>
+      </div>
+      <h2>Submit Your Response via MerLink</h2>
+      <p>Go to <a href="https://merlinkresponse.com" target="_blank">merlinkresponse.com</a> (or log in to <a href="https://www.merlinkdrs.com" target="_blank">merlinkdrs.com</a> if you have portal access). Enter your Case Number, Case Amount, and Email Address, then click <strong>Upload File</strong>. Follow the steps for your case type below.</p>
+
+      <div class="case-block" id="standard">
+        <p class="case-block-label">Standard Chargeback</p>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body"><p>Click <strong>Challenge</strong> to begin your upload. This button must be clicked before attaching any documentation.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><p>Click <strong>Choose File</strong> and upload your documentation. Accepted formats: PDF, JPEG, or TIF — maximum file size 10 MB.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><p>Click <strong>Submit</strong>. Files uploaded before 2:00 PM Eastern Time are typically available the next business day. A confirmation message will appear on screen when the upload is successful.</p></div>
+        </div>
+      </div>
+
+      <div class="case-block" id="prearb">
+        <p class="case-block-label">Pre-Arbitration Chargeback</p>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <p>On the pre-arbitration upload screen, check the acknowledgment box before submitting:</p>
+            <p class="step-note">"I understand my pre-arbitration response may be submitted to the issuer and possibly go to arbitration. Should it be ruled in the issuing bank's favor, I will be responsible for the disputed amount and could be liable for filing fees."</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body"><p>Click <strong>Choose File</strong> and upload your documentation (PDF, JPEG, or TIF; max 10 MB).</p></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body"><p>Click <strong>Submit</strong>. You will see a confirmation displaying "Image uploaded" along with your case number and case amount.</p></div>
+        </div>
+      </div>
+
+      <div class="callout callout-amber">
+        ⚠ <strong>No email confirmation is sent for successful document submission.</strong> Watch for the on-screen confirmation message to confirm your upload went through. The issuing bank will not send status updates directly to you during the dispute process.
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Lifecycle -->
+    <section class="section" id="lifecycle">
+      <div class="section-eyebrow">
+        <div class="section-number">6</div>
+        <span class="section-tag">Reference</span>
+      </div>
+      <h2>Dispute Lifecycle by Card Type</h2>
+      <p>Each chargeback has a lifecycle defined by its Dispute Type, which describes the chargeback's status at each stage. The Dispute Type column in the Merchant Dashboard reflects the current stage.</p>
+
+      <h3 id="visa-auth">Visa — Authorization &amp; Fraud-Related Disputes</h3>
+      <table class="lifecycle-table">
+        <thead><tr><th>Dispute Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge">Allocation Dispute</span></td><td>New Visa chargeback in the Allocation flow.</td></tr>
+          <tr><td><span class="badge">Allocation Pre-Arbitration</span></td><td>Visa pre-arb sent directly to issuer without debiting the merchant (e.g., system recognized an existing credit).</td></tr>
+          <tr><td><span class="badge">Allocation Arbitration</span></td><td>Visa's ruling on the Allocation Pre-Arbitration case.</td></tr>
+          <tr><td><span class="badge">Allocation Reversal</span></td><td>Merchant attempt to rebut an Allocation Dispute.</td></tr>
+          <tr><td><span class="badge">Allocation Reversal Pre-Arbitration</span></td><td>Merchant rebuttal documentation has been submitted.</td></tr>
+          <tr><td><span class="badge">Allocation Reversal Arbitration</span></td><td>Visa's final ruling on the case.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="visa-consumer">Visa — Processing Error &amp; Consumer Disputes</h3>
+      <table class="lifecycle-table">
+        <thead><tr><th>Dispute Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge">Collaboration Dispute</span></td><td>New Visa chargeback in the Collaboration flow (Processing Error and Consumer Dispute).</td></tr>
+          <tr><td><span class="badge">Collaboration Reversal</span></td><td>Merchant attempt to rebut a Collaboration Dispute.</td></tr>
+          <tr><td><span class="badge">Collaboration Pre-Arbitration</span></td><td>Issuer's escalation after a merchant rebuttal, in the Collaboration flow.</td></tr>
+          <tr><td><span class="badge">Collaboration Arbitration Ruling</span></td><td>Visa's final ruling on the chargeback case.</td></tr>
+        </tbody>
+      </table>
+
+      <h3 id="mastercard">Mastercard — General Chargebacks</h3>
+      <table class="lifecycle-table">
+        <thead><tr><th>Dispute Type</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge">First Chargeback</span></td><td>Initial dispute filed by the customer.</td></tr>
+          <tr><td><span class="badge">First Reversal</span></td><td>Merchant rebuttal of the chargeback.</td></tr>
+          <tr><td><span class="badge">Pre-Arbitration</span></td><td>Issuer escalation following the merchant's rebuttal.</td></tr>
+          <tr><td><span class="badge">Arbitration Mastercard</span></td><td>Case submitted to Mastercard for final review and ruling.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr class="divider">
+
+    <!-- What Happens Next -->
+    <section class="section" id="next">
+      <div class="section-eyebrow">
+        <div class="section-number">7</div>
+        <span class="section-tag">Outcomes</span>
+      </div>
+      <h2>What Happens Next?</h2>
+      <p>The final stage of a chargeback depends on the outcome. If the merchant prevails, the process typically ends with a <strong>Reversal</strong> and the disputed funds are returned. If the cardholder challenges the decision, the case proceeds to <strong>Arbitration</strong> — the final step.</p>
+      <p>The issuing bank does not share detailed status information during the dispute process. When a chargeback is filed, the disputed amount is debited to the merchant. If the bank rules in the merchant's favor, the funds are returned. Note that even after a merchant win, the cardholder may still pursue arbitration.</p>
+      <p>Each card brand has a different window for arbitration. If the dispute status has not changed within the applicable window and funds have not been returned, the dispute can be considered lost:</p>
+
+      <div class="timeline-block">
+        <div class="timeline-row"><span class="timeline-brand">Visa</span><span class="timeline-days">30 days</span></div>
+        <div class="timeline-row"><span class="timeline-brand">Mastercard</span><span class="timeline-days">44 days</span></div>
+        <div class="timeline-row"><span class="timeline-brand">Discover</span><span class="timeline-days">30 days</span></div>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="section-eyebrow">
+        <div class="section-number">8</div>
+        <span class="section-tag">FAQ</span>
+      </div>
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <p class="faq-q">How do I know if my documents were submitted successfully?</p>
+        <p class="faq-a">A confirmation message appears on screen when documents are successfully uploaded. There is no email confirmation sent for successful submissions.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Will the bank notify me about the chargeback status?</p>
+        <p class="faq-a">No. The issuing bank or credit card company does not send status updates directly to merchants during the dispute process. Monitor the Dispute Type column in the Merchant Dashboard to track progress.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Why does the case number keep changing?</p>
+        <p class="faq-a">The Case Number changes each time there is a money movement or action on the dispute. Use the Authorization Number (AUTH #) as your consistent reference — it remains the same throughout the chargeback lifecycle.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">What if I have portal access — do I still use merlinkresponse.com?</p>
+        <p class="faq-a">You can use either portal. Merchants with access to MerLink DRS Remote (merlinkdrs.com) can review and respond to disputes there. Merchants without portal access can always submit responses directly at merlinkresponse.com.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Who should I contact for help with a specific chargeback?</p>
+        <p class="faq-a">Contact your merchant account provider's risk or chargeback support team for questions about a specific case.</p>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+
+
+
+</main>
+</body>
+</html>

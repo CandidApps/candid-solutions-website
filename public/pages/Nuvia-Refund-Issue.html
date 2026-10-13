@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settlement Discrepancy Report — April 24, 2026 | Nuvia Dental Implant Centers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0d; --paper: #faf8f4; --cream: #f0ece3; --rule: #d4cfc4;
+    --accent: #b91c1c; --accent-light: #fef2f2; --accent-mid: #fecaca;
+    --warn: #b45309; --warn-light: #fffbeb;
+    --ok: #166534; --ok-light: #f0fdf4;
+    --blue: #1d4ed8; --blue-light: #eff6ff;
+    --purple: #6d28d9; --purple-light: #f5f3ff;
+    --muted: #6b6560;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'Playfair Display', serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+  .header { background: var(--ink); color: var(--paper); padding: 48px 64px 40px; position: relative; overflow: hidden; }
+  .header::before { content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,transparent,transparent 80px,rgba(255,255,255,.02) 80px,rgba(255,255,255,.02) 81px); pointer-events:none; }
+  .header-label { font-family:var(--mono); font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:rgba(255,255,255,.4); margin-bottom:16px; }
+  .header h1 { font-family:var(--serif); font-size:38px; font-weight:700; line-height:1.15; max-width:640px; margin-bottom:8px; }
+  .header-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,.65); margin-bottom:32px; }
+  .header-meta { display:flex; gap:48px; flex-wrap:wrap; }
+  .meta-item label { font-family:var(--mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(255,255,255,.35); display:block; margin-bottom:4px; }
+  .meta-item span { font-family:var(--mono); font-size:13px; color:rgba(255,255,255,.85); }
+
+  .alert-banner { background:var(--accent); color:white; padding:16px 64px; display:flex; align-items:center; gap:14px; font-weight:500; font-size:13px; }
+  .alert-icon { font-size:18px; flex-shrink:0; }
+
+  .page { max-width:1100px; margin:0 auto; padding:0 64px; }
+
+  .section { padding:52px 0 0; }
+  .section-head { display:flex; align-items:baseline; gap:16px; margin-bottom:28px; padding-bottom:14px; border-bottom:1.5px solid var(--rule); }
+  .section-num { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:.1em; flex-shrink:0; }
+  .section-title { font-family:var(--serif); font-size:22px; font-weight:600; }
+
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:32px; }
+  .stat-card { background:var(--cream); border:1px solid var(--rule); padding:24px 24px 20px; }
+  .stat-card.danger { background:var(--accent-light); border-color:#fca5a5; }
+  .stat-card.warn { background:var(--warn-light); border-color:#fcd34d; }
+  .stat-card.ok { background:var(--ok-light); border-color:#86efac; }
+  .stat-label { font-family:var(--mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .stat-card.danger .stat-label { color:#b91c1c; }
+  .stat-card.warn .stat-label { color:var(--warn); }
+  .stat-value { font-family:var(--mono); font-size:30px; font-weight:500; line-height:1; margin-bottom:6px; }
+  .stat-card.danger .stat-value { color:var(--accent); }
+  .stat-card.warn .stat-value { color:var(--warn); }
+  .stat-sub { font-size:12px; color:var(--muted); }
+
+  .prose { max-width:780px; color:#3d3a36; font-size:14px; line-height:1.75; margin-bottom:28px; }
+  .prose p+p { margin-top:12px; }
+  .prose strong { color:var(--ink); font-weight:600; }
+
+  .callout { border-left:3px solid var(--accent); background:var(--accent-light); padding:20px 24px; margin-bottom:24px; }
+  .callout.warn { border-color:var(--warn); background:var(--warn-light); }
+  .callout.info { border-color:var(--blue); background:var(--blue-light); }
+  .callout.ok { border-color:#16a34a; background:var(--ok-light); }
+  .callout.purple { border-color:var(--purple); background:var(--purple-light); }
+  .callout-head { font-family:var(--mono); font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  .callout.warn .callout-head { color:var(--warn); }
+  .callout.info .callout-head { color:var(--blue); }
+  .callout.ok .callout-head { color:var(--ok); }
+  .callout.purple .callout-head { color:var(--purple); }
+  .callout-body { font-size:13.5px; color:var(--ink); line-height:1.65; }
+
+  .table-wrap { overflow-x:auto; margin-bottom:32px; border:1px solid var(--rule); }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  thead { background:var(--ink); color:white; }
+  thead th { padding:12px 16px; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; text-align:left; font-weight:400; white-space:nowrap; }
+  thead th.right { text-align:right; }
+  tbody tr { border-bottom:1px solid var(--rule); transition:background .1s; }
+  tbody tr:hover { background:var(--cream); }
+  tbody td { padding:11px 16px; vertical-align:middle; }
+  tbody td.right { text-align:right; font-family:var(--mono); font-size:12px; }
+  tbody td.mono { font-family:var(--mono); font-size:11px; color:var(--muted); }
+  .badge { display:inline-block; padding:2px 8px; font-family:var(--mono); font-size:10px; letter-spacing:.05em; border-radius:2px; font-weight:500; white-space:nowrap; }
+  .badge-danger { background:var(--accent-mid); color:var(--accent); }
+  .badge-ok { background:#bbf7d0; color:var(--ok); }
+  .badge-neutral { background:var(--cream); color:var(--muted); border:1px solid var(--rule); }
+  .badge-purple { background:#ede9fe; color:var(--purple); }
+  .neg { color:var(--accent); font-weight:600; }
+  .pos { color:var(--ok); font-weight:600; }
+  .zero { color:var(--muted); }
+  tr.critical-row { background:#fff1f1 !important; }
+  tr.critical-row:hover { background:#ffe4e4 !important; }
+  tr.other-row { background:var(--purple-light) !important; }
+  tr.other-row:hover { background:#ede9fe !important; }
+  tr.ok-row { background:var(--ok-light) !important; }
+  tr.total-row { background:#f5f3ef !important; font-weight:600; border-top:2px solid var(--ink) !important; }
+  tr.sep-row td { background:#1e1b18; color:rgba(255,255,255,.7); font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:7px 16px; }
+
+  .loc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(310px,1fr)); gap:16px; margin-bottom:32px; }
+  .loc-card { border:1px solid var(--rule); background:white; padding:20px; position:relative; }
+  .loc-card.critical { border-color:#fca5a5; background:var(--accent-light); }
+  .loc-top-badge { position:absolute; top:12px; right:12px; }
+  .loc-name { font-weight:600; font-size:13px; margin-bottom:4px; padding-right:90px; }
+  .loc-mid { font-family:var(--mono); font-size:10px; color:var(--muted); margin-bottom:14px; }
+  .loc-row { display:flex; justify-content:space-between; align-items:center; padding:5px 0; border-bottom:1px solid rgba(0,0,0,.05); font-size:12.5px; }
+  .loc-row:last-child { border-bottom:none; }
+  .loc-key { color:var(--muted); }
+  .loc-val { font-family:var(--mono); font-size:12px; font-weight:500; }
+  .loc-val.neg { color:var(--accent); }
+  .loc-val.muted { color:var(--muted); font-style:italic; }
+
+  .footer { background:var(--cream); border-top:1px solid var(--rule); padding:36px 64px; margin-top:64px; display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:24px; }
+  .footer-brand { font-family:var(--serif); font-size:16px; font-weight:600; margin-bottom:4px; }
+  .footer-sub { font-size:12px; color:var(--muted); margin-top:4px; }
+  .footer-right { font-family:var(--mono); font-size:11px; color:var(--muted); text-align:right; }
+  .footer-right div+div { margin-top:4px; }
+
+  @media (max-width:700px) { .header,.footer { padding:32px 24px; } .page { padding:0 24px; } .header h1 { font-size:26px; } }
+  @media print { .header,.alert-banner,thead,.callout { -webkit-print-color-adjust:exact; print-color-adjust:exact; } .section,.loc-card { page-break-inside:avoid; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Confidential · Processor Dispute Documentation</div>
+  <h1>Settlement Discrepancy Report</h1>
+  <div class="header-sub">April 24, 2026 Negative Batch Anomaly — Nuvei Processor Escalation</div>
+  <div class="header-meta">
+    <div class="meta-item"><label>Submitted By</label><span>Nuvia Dental Implant Centers</span></div>
+    <div class="meta-item"><label>Processor</label><span>Nuvei</span></div>
+    <div class="meta-item"><label>Incident Date</label><span>April 24, 2026</span></div>
+    <div class="meta-item"><label>Report Prepared</label><span>May 6, 2026</span></div>
+    <div class="meta-item"><label>Locations Affected</label><span>17 of 21 batches</span></div>
+  </div>
+</div>
+
+<div class="alert-banner">
+  <span class="alert-icon">⚠</span>
+  <span><strong>Zero Recovery on April 24 Negative Batches.</strong> Cross-referencing Transaction, Batch, and Funding reports confirms that not one of the 17 negative batches closed on April 24, 2026 has received a Settlement/Payment recovery. All 10 Settlement/Payment entries in the Funding Report trace to negative batches from other dates. The full $69,521.93 remains outstanding.</span>
+</div>
+
+<div class="page">
+
+  <!-- SECTION 1: EXECUTIVE SUMMARY -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Executive Summary</h2>
+    </div>
+    <div class="prose">
+      <p>On <strong>April 24, 2026</strong>, Nuvia Dental Implant Centers processed <strong>41 refund transactions</strong> totaling <strong>$79,522.93</strong> across 17 locations. These produced 17 negative batch closings with a combined net of <strong>−$69,521.93</strong>. Under standard processing protocol, each negative batch should generate a Settlement/Payment debit against the merchant's account to fund the cardholder credits.</p>
+      <p>By cross-referencing all three data sources — the <strong>Transaction Report</strong> (BatchId per transaction), the <strong>Batch Report</strong> (batch net per BatchId), and the <strong>Funding Report</strong> (Settlement events per MID) — it is possible to trace every Settlement/Payment entry to its originating batch. This analysis confirms that <strong>all 10 Settlement/Payment entries in the Funding Report correspond to negative batches from dates other than April 24</strong>: two to pre-4/24 batches outside the reporting window, and eight to post-4/24 batches on April 28, April 30, and May 1 that Nuvei settled on their normal 2–4 day cycle.</p>
+      <p><strong>Not one of the 17 April 24 negative batches has received any Settlement/Payment recovery.</strong> Nuvei has continued processing subsequent batches normally while the April 24 negative batches — totaling <strong>$69,521.93</strong> — remain entirely unsettled twelve days later.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card danger">
+        <div class="stat-label">4/24 Negative Batches — Total Unrecovered</div>
+        <div class="stat-value">$69,522</div>
+        <div class="stat-sub">0 of 17 negative batches have any Settlement/Payment</div>
+      </div>
+      <div class="stat-card danger">
+        <div class="stat-label">4/24 Negative Batches With Recovery</div>
+        <div class="stat-value">0 of 17</div>
+        <div class="stat-sub">Every Settlement/Payment traces to a different date's batch</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="stat-label">Refund Transactions on 4/24</div>
+        <div class="stat-value">41</div>
+        <div class="stat-sub">$79,522.93 across 17 affected locations</div>
+      </div>
+      <div class="stat-card warn">
+        <div class="stat-label">Days Since Incident</div>
+        <div class="stat-value">12</div>
+        <div class="stat-sub">No recovery action taken as of May 6, 2026</div>
+      </div>
+      <div class="stat-card ok">
+        <div class="stat-label">Subsequent Negative Batches Settled Normally</div>
+        <div class="stat-value">8</div>
+        <div class="stat-sub">Post-4/24 negative batches processed correctly in 2–4 days</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Settlement/Payment Entries (All Dates)</div>
+        <div class="stat-value">10</div>
+        <div class="stat-sub">All 10 traced to non-4/24 batch sources</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: METHODOLOGY -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Methodology: Three-Way Reconciliation</h2>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-head">ℹ How the Reports Were Linked</div>
+      <div class="callout-body">
+        The Transaction Report contains a <strong>BatchId</strong> field on every transaction. Grouping transactions by BatchId and summing amounts produces the net for each batch — which can be verified against the Batch Report (covering 4/24 only) where BatchIds and net amounts align exactly. The Funding Report does not contain a BatchId field, but each Settlement/Payment entry can be matched to a specific batch by: <strong>(1) same MID, (2) matching amount</strong> (Settlement/Payment amount = batch net), and <strong>(3) funding date falling 1–5 days after the batch date</strong>, consistent with standard settlement timing. Every Settlement/Payment entry in the Funding Report was traced using this method. All 10 matched to non-April 24 source batches.
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-head">ℹ What Is a Settlement/Payment Entry</div>
+      <div class="callout-body">
+        In the Funding Report, <strong>FundingEvent = "Settlement" / FundingType = "Payment"</strong> is the entry Nuvei generates when a batch closes negative. It represents the debit applied to the merchant's bank account to fund the cardholder refund credits. Other negative entries in the Funding Report — Monthly Fee deductions, Chargeback/Payment entries, Authorization/Dispute fees — are entirely unrelated to batch settlement and were excluded from this analysis.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: PROOF — EVERY PAYMENT TRACED TO ITS BATCH -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Proof: Every Settlement/Payment Traced to Its Source Batch</h2>
+    </div>
+    <div class="prose">
+      <p>The table below lists all 10 Settlement/Payment entries from the Funding Report, each traced to its originating batch via the Transaction Report. <strong>None originates from an April 24 batch.</strong> The bottom section of the table then lists all 17 April 24 negative batches — each with zero matching Settlement/Payment entries.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Settlement/Payment Date</th>
+            <th>Location</th>
+            <th>MID</th>
+            <th class="right">Payment Amt</th>
+            <th>Source Batch ID</th>
+            <th>Batch Date</th>
+            <th class="right">Batch Net</th>
+            <th>Days to Fund</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="sep-row"><td colspan="9">Settlement/Payment Entries — All Traced to Non-4/24 Batches</td></tr>
+          <tr class="other-row">
+            <td class="mono">04/24/2026</td>
+            <td>Fresno</td>
+            <td class="mono">912201108349</td>
+            <td class="right neg">−$900.00</td>
+            <td class="mono">Pre-4/24 batch</td>
+            <td class="mono">Before 4/24</td>
+            <td class="right neg">−$900.00</td>
+            <td class="right">N/A</td>
+            <td><span class="badge badge-purple">Pre-report</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">04/24/2026</td>
+            <td>Reading</td>
+            <td class="mono">912201110907</td>
+            <td class="right neg">−$1,000.00</td>
+            <td class="mono">Pre-4/24 batch</td>
+            <td class="mono">Before 4/24</td>
+            <td class="right neg">−$1,000.00</td>
+            <td class="right">N/A</td>
+            <td><span class="badge badge-purple">Pre-report</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">04/30/2026</td>
+            <td>Indianapolis</td>
+            <td class="mono">912201105022</td>
+            <td class="right neg">−$850.00</td>
+            <td class="mono">2010866689</td>
+            <td class="mono">04/28/2026</td>
+            <td class="right neg">−$850.00</td>
+            <td class="right">+2 days</td>
+            <td><span class="badge badge-neutral">4/28 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/04/2026</td>
+            <td>Bellevue</td>
+            <td class="mono">912201104991</td>
+            <td class="right neg">−$200.00</td>
+            <td class="mono">2011016433</td>
+            <td class="mono">05/01/2026</td>
+            <td class="right neg">−$200.00</td>
+            <td class="right">+3 days</td>
+            <td><span class="badge badge-neutral">5/1 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/05/2026</td>
+            <td>Nashville</td>
+            <td class="mono">912201104678</td>
+            <td class="right neg">−$19,050.00</td>
+            <td class="mono">2011160931</td>
+            <td class="mono">05/01/2026</td>
+            <td class="right neg">−$19,050.00</td>
+            <td class="right">+4 days</td>
+            <td><span class="badge badge-neutral">5/1 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/05/2026</td>
+            <td>Tampa</td>
+            <td class="mono">912201104694</td>
+            <td class="right neg">−$850.00</td>
+            <td class="mono">2011160921</td>
+            <td class="mono">05/01/2026</td>
+            <td class="right neg">−$850.00</td>
+            <td class="right">+4 days</td>
+            <td><span class="badge badge-neutral">5/1 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/05/2026</td>
+            <td>Brookfield</td>
+            <td class="mono">912201108315</td>
+            <td class="right neg">−$4,300.00</td>
+            <td class="mono">2011160914</td>
+            <td class="mono">04/30/2026</td>
+            <td class="right neg">−$4,300.00</td>
+            <td class="right">+5 days</td>
+            <td><span class="badge badge-neutral">4/30 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/05/2026</td>
+            <td>Parsippany</td>
+            <td class="mono">912201110865</td>
+            <td class="right neg">−$6,000.00</td>
+            <td class="mono">2011160915</td>
+            <td class="mono">05/01/2026</td>
+            <td class="right neg">−$6,000.00</td>
+            <td class="right">+4 days</td>
+            <td><span class="badge badge-neutral">5/1 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/05/2026</td>
+            <td>Moorestown</td>
+            <td class="mono">912201110873</td>
+            <td class="right neg">−$1,850.00</td>
+            <td class="mono">2011160919</td>
+            <td class="mono">05/01/2026</td>
+            <td class="right neg">−$1,850.00</td>
+            <td class="right">+4 days</td>
+            <td><span class="badge badge-neutral">5/1 batch</span></td>
+          </tr>
+          <tr class="other-row">
+            <td class="mono">05/05/2026</td>
+            <td>Nuvia Dental — Salt Lake City</td>
+            <td class="mono">912201115880</td>
+            <td class="right neg">−$700.00</td>
+            <td class="mono">2011160933</td>
+            <td class="mono">05/01/2026</td>
+            <td class="right neg">−$700.00</td>
+            <td class="right">+4 days</td>
+            <td><span class="badge badge-neutral">5/1 batch</span></td>
+          </tr>
+          <!-- April 24 batches with no recovery -->
+          <tr class="sep-row"><td colspan="9">April 24 Negative Batches — Zero Settlement/Payment Recovery Found</td></tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td><strong>Moorestown</strong></td>
+            <td class="mono">912201110873</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583722</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$41,000.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>St. Louis</td>
+            <td class="mono">912201104934</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583351</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$4,650.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Dublin</td>
+            <td class="mono">912201104975</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583694</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$4,618.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Tampa</td>
+            <td class="mono">912201104694</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583698</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$3,150.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Brookfield</td>
+            <td class="mono">912201108315</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583498</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$2,800.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Reading</td>
+            <td class="mono">912201110907</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583731</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$2,365.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Bellevue</td>
+            <td class="mono">912201104991</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010593318</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$1,850.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Nashville</td>
+            <td class="mono">912201104678</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010587540</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$1,550.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Indianapolis</td>
+            <td class="mono">912201105022</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583405</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$1,249.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Fort Worth</td>
+            <td class="mono">912201111236</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583156</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$1,000.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Harrison</td>
+            <td class="mono">912201110899</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583721</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$1,000.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Louisville</td>
+            <td class="mono">912201110915</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583737</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$1,000.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Fort Mill</td>
+            <td class="mono">912201108331</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583113</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$900.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Wellesley</td>
+            <td class="mono">912201110857</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583407</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$850.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Nuvia Dental — Salt Lake City</td>
+            <td class="mono">912201115880</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010587490</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$700.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Fresno</td>
+            <td class="mono">912201108349</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010593329</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$500.00</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="critical-row">
+            <td class="mono zero">—</td>
+            <td>Parsippany</td>
+            <td class="mono">912201110865</td>
+            <td class="right zero">$0</td>
+            <td class="mono">2010583720</td>
+            <td class="mono">04/24/2026</td>
+            <td class="right neg">−$339.93</td>
+            <td class="right zero">Not funded</td>
+            <td><span class="badge badge-danger">No recovery</span></td>
+          </tr>
+          <tr class="total-row">
+            <td colspan="6"><strong>Total April 24 Negative Batch Exposure</strong></td>
+            <td class="right neg">−$69,521.93</td>
+            <td class="right neg">$0 recovered</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout ok">
+      <div class="callout-head">✓ Confirmation: Nuvei's Settlement Engine Is Working for Other Dates</div>
+      <div class="callout-body">
+        The data demonstrates that Nuvei's negative batch settlement process is functioning correctly for batches created after April 24. The 8 post-4/24 negative batches (on 4/28, 4/30, and 5/1) each received a matching Settlement/Payment debit within 2–5 business days — the expected settlement cycle. This confirms the April 24 failure is <strong>specific to that date's batch cycle</strong>, not a systemic ongoing issue. Something caused the April 24 batch settlement run to skip or fail, and it has not been corrected.
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: LOCATION DETAIL -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">April 24 Negative Batches — Location Detail</h2>
+    </div>
+
+    <div class="loc-grid">
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">CRITICAL</span>
+        <div class="loc-name">Moorestown, NJ</div>
+        <div class="loc-mid">MID 912201110873 · Batch 2010583722</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">3</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$42,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$41,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$41,000.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">St. Louis, MO</div>
+        <div class="loc-mid">MID 912201104934 · Batch 2010583351</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">4</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$4,800.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$4,650.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$4,650.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Dublin, OH</div>
+        <div class="loc-mid">MID 912201104975 · Batch 2010583694</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">5</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$5,618.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$4,618.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$4,618.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Tampa, FL</div>
+        <div class="loc-mid">MID 912201104694 · Batch 2010583698</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">2</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$3,300.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$3,150.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$3,150.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Brookfield, WI</div>
+        <div class="loc-mid">MID 912201108315 · Batch 2010583498</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">3 (Batch report: 4)</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$2,800.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$2,800.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Reading, PA</div>
+        <div class="loc-mid">MID 912201110907 · Batch 2010583731</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">3</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$2,365.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$2,365.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$2,365.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Bellevue, WA</div>
+        <div class="loc-mid">MID 912201104991 · Batch 2010593318</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1 (Batch report: 2)</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$1,850.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$1,850.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Nashville, TN</div>
+        <div class="loc-mid">MID 912201104678 · Batch 2010587540</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">3</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$3,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$1,550.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$1,550.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Indianapolis, IN</div>
+        <div class="loc-mid">MID 912201105022 · Batch 2010583405</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">2</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$2,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$1,249.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None (4/30 payment = 4/28 batch)</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$1,249.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Fort Worth, TX</div>
+        <div class="loc-mid">MID 912201111236 · Batch 2010583156</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$1,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$1,000.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Harrison, NY</div>
+        <div class="loc-mid">MID 912201110899 · Batch 2010583721</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$1,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None (neg. entries = chargebacks/fees)</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$1,000.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Louisville, KY</div>
+        <div class="loc-mid">MID 912201110915 · Batch 2010583737</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$1,000.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$1,000.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Fort Mill, SC</div>
+        <div class="loc-mid">MID 912201108331 · Batch 2010583113</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">4</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$3,200.00</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$900.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$900.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Wellesley, MA</div>
+        <div class="loc-mid">MID 912201110857 · Batch 2010583407</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$850.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$850.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Nuvia Dental — Salt Lake City</div>
+        <div class="loc-mid">MID 912201115880 · Batch 2010587490</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$700.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None (5/5 payment = 5/1 batch)</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$700.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Fresno, CA</div>
+        <div class="loc-mid">MID 912201108349 · Batch 2010593329</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">1</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$500.00</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None (4/24 payment = pre-4/24 batch)</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$500.00</span></div>
+      </div>
+
+      <div class="loc-card critical">
+        <span class="badge badge-danger loc-top-badge">NO RECOVERY</span>
+        <div class="loc-name">Parsippany, NJ</div>
+        <div class="loc-mid">MID 912201110865 · Batch 2010583720</div>
+        <div class="loc-row"><span class="loc-key">Refund Transactions</span><span class="loc-val">2</span></div>
+        <div class="loc-row"><span class="loc-key">Return Amount</span><span class="loc-val neg">−$1,339.93</span></div>
+        <div class="loc-row"><span class="loc-key">Batch Net</span><span class="loc-val neg">−$339.93</span></div>
+        <div class="loc-row"><span class="loc-key">Settlement/Payment for this batch</span><span class="loc-val muted">None (5/5 payment = 5/1 batch)</span></div>
+        <div class="loc-row"><span class="loc-key">Amount Owed</span><span class="loc-val neg">−$339.93</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 5: ISSUES & REQUESTS -->
+  <div class="section" style="padding-bottom:64px;">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Issues Presented &amp; Actions Requested from Nuvei</h2>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:36px">#</th>
+            <th>Issue</th>
+            <th>Evidence</th>
+            <th>Action Required</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono" style="text-align:center">1</td>
+            <td><strong>All 17 negative batches from April 24, 2026 have received zero Settlement/Payment recovery — $69,521.93 fully outstanding</strong></td>
+            <td>Three-way reconciliation in Section 03: every Settlement/Payment entry in the Funding Report traces to a non-4/24 source batch by MID, matching amount, and settlement timing</td>
+            <td>Immediately issue Settlement/Payment debits for all 17 April 24 negative batches totaling $69,521.93. Provide a same-day written commitment with timeline.</td>
+          </tr>
+          <tr>
+            <td class="mono" style="text-align:center">2</td>
+            <td><strong>Nuvei's settlement engine processed subsequent negative batches correctly — confirming this is an April 24-specific failure, not a systemic issue</strong></td>
+            <td>8 post-4/24 negative batches (4/28, 4/30, 5/1) each received matching Settlement/Payment debits within 2–5 business days. April 24 batches were skipped entirely.</td>
+            <td>Provide root cause analysis identifying why the April 24 settlement batch run failed or was skipped, and what controls failed to detect and escalate the exception.</td>
+          </tr>
+          <tr>
+            <td class="mono" style="text-align:center">3</td>
+            <td><strong>Cardholder refund credit status for all 41 refund transactions on April 24 must be confirmed</strong></td>
+            <td>41 refund transactions totaling $79,522.93 were processed across 17 locations; if the merchant-side Settlement/Payment was never issued, it is unclear whether cardholder credits were disbursed through the card network</td>
+            <td>Confirm in writing whether each of the 41 refund transactions was successfully credited to the cardholder. If not, immediately process the cardholder credits.</td>
+          </tr>
+          <tr>
+            <td class="mono" style="text-align:center">4</td>
+            <td><strong>Moorestown batch of −$41,000 represents 59% of total exposure and requires urgent individual escalation</strong></td>
+            <td>Batch 2010583722 (MID 912201110873): 3 refund transactions totaling −$42,000; batch net −$41,000; zero Settlement/Payment recovery in 12 days</td>
+            <td>Treat this location as a separate critical escalation. Confirm status of 3 specific cardholder refunds. Provide a dedicated resolution contact.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout">
+      <div class="callout-head">⚑ Notice of Escalation</div>
+      <div class="callout-body">
+        If written confirmation of resolution — including Settlement/Payment issuance for all 17 April 24 batches and confirmation of cardholder credit status — is not received within <strong>5 business days</strong> of this report, Nuvia Dental Implant Centers reserves the right to escalate through Visa and Mastercard network dispute channels, and to pursue all available remediation options. The data presented herein was derived directly from Nuvei-issued reporting and constitutes a complete documentary record of the failure.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div>
+    <div class="footer-brand">Nuvia Dental Implant Centers</div>
+    <div class="footer-sub">Settlement Discrepancy Report · April 24, 2026 Batch Anomaly</div>
+    <div class="footer-sub">Prepared for submission to Nuvei Payment Processing</div>
+  </div>
+  <div class="footer-right">
+    <div>Report Date: May 6, 2026</div>
+    <div>Sources: TransactionReport, BatchReport, FundingReport (4/24–5/6/2026)</div>
+    <div>Method: BatchId cross-reference across all three reports</div>
+    <div style="margin-top:8px;color:#b91c1c;font-weight:600;">CONFIDENTIAL — PROCESSOR DISPUTE DOCUMENTATION</div>
+  </div>
+</div>
+
+</body>
+</html>

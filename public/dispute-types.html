@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chargeback Type / Status — Nuvei</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1f3c;--blue:#1a56db;--blue-light:#e8f0fe;--red:#e53935;--red-light:#fdecea;--amber:#d97706;--amber-light:#fdf3e0;--green:#059669;--green-light:#d1fae5;--text:#1a1a2e;--text2:#4a5568;--text3:#718096;--border:#e2e8f0;--bg:#f8fafc;--white:#fff;--sidebar:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
+
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar);height:100vh;background:var(--navy);overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sidebar-meta{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sidebar-meta span{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
+.sidebar-meta p{color:rgba(255,255,255,.7);font-size:12px;margin-top:3px;}
+.nav-section{padding:16px 0 8px;}
+.nav-label{padding:0 24px 8px;font-size:10px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;}
+.nav-link{display:block;padding:8px 24px;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;line-height:1.4;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--red);}
+.nav-link.active{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--red);}
+.nav-link.sub{padding-left:36px;font-size:12px;color:rgba(255,255,255,.4);}
+.nav-link.sub:hover{color:rgba(255,255,255,.8);}
+
+.main{margin-left:var(--sidebar);min-height:100vh;}
+
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3a6b 60%,#0f2d52 100%);padding:64px 64px 52px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(26,86,219,.25) 0%,transparent 70%);}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:20px;}
+.hero-badge::before{content:'';width:6px;height:6px;background:#00bfa5;border-radius:50%;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:46px;color:#fff;line-height:1.1;letter-spacing:-1px;max-width:600px;position:relative;z-index:1;}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,.55);}
+.hero-sub{color:rgba(255,255,255,.55);font-size:14px;margin-top:14px;max-width:560px;position:relative;z-index:1;}
+
+.content{padding:48px 64px 80px;}
+
+.intro-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:48px;}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;}
+.stat-num{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);line-height:1;}
+.stat-label{font-size:12px;color:var(--text3);margin-top:3px;}
+
+.section{margin-bottom:52px;}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.section-badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:6px;text-transform:uppercase;letter-spacing:.8px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--navy);}
+
+.cards-grid{display:flex;flex-direction:column;gap:10px;}
+.status-card{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .15s;}
+.status-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.card-inner{display:grid;grid-template-columns:200px 1fr 90px 90px 110px 100px;gap:0;align-items:stretch;}
+.card-cell{padding:14px 16px;font-size:13px;border-right:1px solid var(--border);display:flex;flex-direction:column;justify-content:center;}
+.card-cell:last-child{border-right:none;}
+.card-name{font-weight:600;color:var(--text);font-size:14px;line-height:1.3;}
+.card-sub{font-size:11px;color:var(--text3);margin-top:3px;font-weight:400;}
+.card-desc{color:var(--text2);font-size:13px;line-height:1.55;}
+.cell-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:5px;}
+
+.funds-out{color:#b91c1c;font-weight:600;font-size:13px;}
+.funds-in{color:#059669;font-weight:600;font-size:13px;}
+.funds-none{color:var(--text3);font-size:13px;}
+
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+.pill-yes{background:#fdecea;color:#b91c1c;}
+.pill-no{background:#f1f5f9;color:var(--text3);}
+.pill-win{background:#d1fae5;color:#065f46;}
+.pill-pending{background:#fdf3e0;color:#92400e;}
+.pill-possible{background:#e8f0fe;color:#1e40af;}
+.pill-na{background:#f1f5f9;color:var(--text3);}
+
+.action-text{font-size:12px;color:var(--text2);line-height:1.5;}
+
+.table-header{display:grid;grid-template-columns:200px 1fr 90px 90px 110px 100px;gap:0;background:var(--bg);border:1px solid var(--border);border-radius:10px 10px 0 0;border-bottom:none;padding:8px 0;}
+.table-header-cell{padding:6px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);border-right:1px solid var(--border);}
+.table-header-cell:last-child{border-right:none;}
+.cards-grid-with-header{border:1px solid var(--border);border-radius:0 0 12px 12px;overflow:hidden;}
+.cards-grid-with-header .status-card{border-radius:0;border:none;border-bottom:1px solid var(--border);}
+.cards-grid-with-header .status-card:last-child{border-bottom:none;}
+
+.divider{border:none;border-top:1px solid var(--border);margin:48px 0;}
+
+@media(max-width:900px){
+  .main{margin-left:0;}
+  .content{padding:32px 24px 60px;}
+  .hero{padding:48px 24px 40px;}
+  .intro-grid{grid-template-columns:1fr 1fr;}
+  .card-inner{grid-template-columns:1fr;border:none;}
+  .card-cell{border-right:none;border-bottom:1px solid var(--border);padding:10px 14px;}
+  .table-header{display:none;}
+  .cards-grid-with-header{border-radius:12px;}
+  .cards-grid-with-header .status-card{border-radius:0;}
+  .cards-grid-with-header .status-card:first-child{border-radius:12px 12px 0 0;}
+  .cards-grid-with-header .status-card:last-child{border-radius:0 0 12px 12px;}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sidebar-meta">
+    <span>Knowledge Base</span>
+    <p>Chargeback &amp; Disputes</p>
+  </div>
+  <nav class="nav-section">
+    <div class="nav-label">On this page</div>
+    <a class="nav-link" href="#pre-chargeback">Pre-Chargeback</a>
+    <a class="nav-link" href="#initial">Initial Chargeback</a>
+    <a class="nav-link" href="#rebuttal">Rebuttal Submitted</a>
+    <a class="nav-link" href="#escalation">Issuer Escalation</a>
+    <a class="nav-link" href="#second-wins">Second-Round Wins</a>
+    <a class="nav-link" href="#collections">Collections &amp; Compliance</a>
+  </nav>
+  <div class="nav-section">
+    <div class="nav-label">Related</div>
+    <a class="nav-link" href="chargeback_guide.html">Chargeback Guide</a>
+    <a class="nav-link" href="reason-code-database.html">Reason Code Database</a>
+    <a class="nav-link" href="merlink.html">Merlink Portal</a>
+    <a class="nav-link" href="rebuttal-builder.html">Rebuttal Builder</a>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="hero">
+    <div class="hero-badge">Portal Reference</div>
+    <h1>Chargeback Type <em>&amp; Status</em></h1>
+    <p class="hero-sub">Every dispute type and status you'll see in the Nuvei portal — what it means, which direction funds move, what action is required, and whether it represents a merchant win.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="intro-grid">
+      <div class="stat-card"><div class="stat-num">19</div><div class="stat-label">Total status types</div></div>
+      <div class="stat-card"><div class="stat-num">10 days</div><div class="stat-label">Typical response window</div></div>
+      <div class="stat-card"><div class="stat-num">1-866-637-5467</div><div class="stat-label">Call after uploading rebuttal</div></div>
+      <div class="stat-card"><div class="stat-num">merlinkresponse.com</div><div class="stat-label">Upload portal</div></div>
+    </div>
+
+
+    <div class="section" id="pre-chargeback">
+      <div class="section-header">
+        <span class="section-badge" style="background:#e8f0fe;color:#1e40af;">Pre-Chargeback</span>
+        <span class="section-title">Pre-Chargeback</span>
+      </div>
+      <div class="table-header">
+        <div class="table-header-cell">Status type</div>
+        <div class="table-header-cell">What it means</div>
+        <div class="table-header-cell">Funds</div>
+        <div class="table-header-cell">Response?</div>
+        <div class="table-header-cell">What to do</div>
+        <div class="table-header-cell">Merchant wins?</div>
+      </div>
+      <div class="cards-grid-with-header">
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Retrieval</div>
+              <div class="card-sub">All networks</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Issuer requests a copy of the original transaction docs (receipt, invoice) on the cardholder's behalf. No funds have moved — this is research, not a dispute. Ignoring it often triggers an automatic First Chargeback.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-none">None</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Respond immediately with receipt, invoice, or requested docs via MerLink.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-na">N/A</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">AMEX Inquiry</div>
+              <div class="card-sub">American Express</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">American Express equivalent of a Retrieval. Amex requests transaction information before escalating. No debit yet, but missing the deadline leads directly to an AMEX Chargeback.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-none">None</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Provide requested documentation promptly. Amex deadlines are strict and shorter than other networks.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-na">N/A</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="initial">
+      <div class="section-header">
+        <span class="section-badge" style="background:#fdecea;color:#b91c1c;">Initial Chargeback</span>
+        <span class="section-title">Initial Chargeback</span>
+      </div>
+      <div class="table-header">
+        <div class="table-header-cell">Status type</div>
+        <div class="table-header-cell">What it means</div>
+        <div class="table-header-cell">Funds</div>
+        <div class="table-header-cell">Response?</div>
+        <div class="table-header-cell">What to do</div>
+        <div class="table-header-cell">Merchant wins?</div>
+      </div>
+      <div class="cards-grid-with-header">
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">First Chargeback</div>
+              <div class="card-sub">Visa / Mastercard / Discover</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">The issuer has formally filed a dispute on the cardholder's behalf. A reason code is assigned and funds are debited from your account. This is the primary stage to fight — submit your strongest evidence here.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Submit full rebuttal + evidence via MerLink. Call 1-866-637-5467 with case number after uploading.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">AMEX Chargeback</div>
+              <div class="card-sub">American Express</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Amex's formal dispute stage. Funds are debited. Because Amex acts as both issuer and network, there is no neutral arbitration — Amex makes the final ruling. A strong first response is critical.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Submit a complete rebuttal referencing the Amex reason code (A, C, F, or P series). Call 1-866-637-5467 after uploading.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Allocation</div>
+              <div class="card-sub">Visa — 10.x / 11.x codes</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Visa's dispute flow for fraud and authorization chargebacks. Liability is determined by whether EMV and authentication rules were followed. Limited merchant recourse if the terminal was non-compliant.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Review terminal EMV compliance. Submit chip read receipts and terminal certification if available.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Collaboration</div>
+              <div class="card-sub">Visa — 12.x / 13.x codes</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Visa's dispute flow for processing errors and consumer disputes. A true back-and-forth process — the merchant submits evidence and the issuer reviews it. Best odds for a well-prepared rebuttal.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Submit full rebuttal with all supporting evidence via MerLink. This flow gives merchants the strongest opportunity to win.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Second Chargeback</div>
+              <div class="card-sub">Mastercard</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">After the merchant submitted a rebuttal (First Reversal), the issuer rejected the evidence and re-filed. A second debit hits your account. This is the issuer's final attempt before arbitration.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Submit additional or stronger evidence via MerLink addressing gaps from the first rebuttal. Call 1-866-637-5467 with case number.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="rebuttal">
+      <div class="section-header">
+        <span class="section-badge" style="background:#fdf3e0;color:#92400e;">Rebuttal Submitted</span>
+        <span class="section-title">Merchant Rebuttal Submitted</span>
+      </div>
+      <div class="table-header">
+        <div class="table-header-cell">Status type</div>
+        <div class="table-header-cell">What it means</div>
+        <div class="table-header-cell">Funds</div>
+        <div class="table-header-cell">Response?</div>
+        <div class="table-header-cell">What to do</div>
+        <div class="table-header-cell">Merchant wins?</div>
+      </div>
+      <div class="cards-grid-with-header">
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">First Reversal</div>
+              <div class="card-sub">Visa / Mastercard / Discover</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">The merchant challenged a First Chargeback and the issuer accepted the evidence. Funds are returned. A win — but monitor for escalation, as the cardholder can still request Pre-Arbitration.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-in">In ↑</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Monitor for escalation. No action required unless it moves to Incoming PreArbitration.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-win">Yes ✓</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">AMEX Reversal</div>
+              <div class="card-sub">American Express</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Amex ruled in the merchant's favor and reversed the chargeback. Disputed funds are returned. Final outcome — Amex does not have a pre-arbitration escalation path like Visa and Mastercard.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-in">In ↑</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">No action required. Dispute is resolved in the merchant's favor.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-win">Yes ✓</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Allocation Reversal</div>
+              <div class="card-sub">Visa</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Merchant has submitted a rebuttal to an Allocation dispute. Documentation has been sent to Visa for review under the Allocation liability framework. Outcome is pending — Visa will determine which party bears liability.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-none">Pending</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Await Visa's liability determination. Ensure terminal compliance documentation was included in the submission.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-pending">Pending</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Collaboration Reversal</div>
+              <div class="card-sub">Visa</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Merchant has submitted a rebuttal to a Collaboration dispute. The issuer is reviewing the evidence. If accepted, funds are returned and the dispute closes. If rejected, it escalates to Collaboration PreArbitration.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-none">Pending</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Await the issuer's decision. If escalated to PreArbitration, decide whether to accept or fight further.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-pending">Pending</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="escalation">
+      <div class="section-header">
+        <span class="section-badge" style="background:#fdecea;color:#b91c1c;">Issuer Escalation</span>
+        <span class="section-title">Issuer Escalation — Second Round</span>
+      </div>
+      <div class="table-header">
+        <div class="table-header-cell">Status type</div>
+        <div class="table-header-cell">What it means</div>
+        <div class="table-header-cell">Funds</div>
+        <div class="table-header-cell">Response?</div>
+        <div class="table-header-cell">What to do</div>
+        <div class="table-header-cell">Merchant wins?</div>
+      </div>
+      <div class="cards-grid-with-header">
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Incoming PreArbitration</div>
+              <div class="card-sub">Visa / Mastercard / Discover</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">After the merchant won a First Reversal, the issuer is escalating to Pre-Arbitration — signaling intent to take the case to the card network for a final ruling. A second debit hits your account. If no response is made, the case goes to arbitration automatically at the merchant's expense.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Decide: accept the loss or escalate to arbitration. If fighting, submit additional evidence and acknowledge the Pre-Arb disclaimer. Call 1-866-637-5467 immediately.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Collaboration PreArbitration</div>
+              <div class="card-sub">Visa</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">After the merchant submitted a Collaboration Reversal, the issuer escalated. Visa will make the final determination. A second debit hits your account. Proceeding to arbitration carries filing fees if Visa rules against the merchant.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Weigh the dispute amount against arbitration filing fees. If fighting, submit final evidence and confirm the pre-arb acknowledgment via MerLink. Call 1-866-637-5467.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="second-wins">
+      <div class="section-header">
+        <span class="section-badge" style="background:#d1fae5;color:#065f46;">Second-Round Win</span>
+        <span class="section-title">Second-Round Merchant Wins</span>
+      </div>
+      <div class="table-header">
+        <div class="table-header-cell">Status type</div>
+        <div class="table-header-cell">What it means</div>
+        <div class="table-header-cell">Funds</div>
+        <div class="table-header-cell">Response?</div>
+        <div class="table-header-cell">What to do</div>
+        <div class="table-header-cell">Merchant wins?</div>
+      </div>
+      <div class="cards-grid-with-header">
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Second Reversal</div>
+              <div class="card-sub">Mastercard</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Merchant successfully challenged a Second Chargeback with additional evidence. The issuer accepted and funds are returned again. Strong outcome — dispute is typically closed at this stage.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-in">In ↑</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">No action required. Monitor to confirm the dispute is fully closed.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-win">Yes ✓</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" id="collections">
+      <div class="section-header">
+        <span class="section-badge" style="background:#f1f5f9;color:#475569;">Collections</span>
+        <span class="section-title">Collections &amp; Compliance</span>
+      </div>
+      <div class="table-header">
+        <div class="table-header-cell">Status type</div>
+        <div class="table-header-cell">What it means</div>
+        <div class="table-header-cell">Funds</div>
+        <div class="table-header-cell">Response?</div>
+        <div class="table-header-cell">What to do</div>
+        <div class="table-header-cell">Merchant wins?</div>
+      </div>
+      <div class="cards-grid-with-header">
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Incoming Collection</div>
+              <div class="card-sub">All networks</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">The issuer is collecting funds from the merchant outside the normal chargeback cycle — typically for compliance violations, penalty fees, or network-assessed charges. Funds are debited directly without the standard dispute flow.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Contact Nuvei to understand the basis for the collection. Provide compliance documentation promptly if disputed.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Outgoing Collection</div>
+              <div class="card-sub">All networks</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Nuvei or the acquirer is sending a collection to the issuer on the merchant's behalf — typically for fee corrections or settlement adjustments in the merchant's favor.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-in">In ↑</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">No action typically required. Coordinate with Nuvei if additional documentation is needed to support the collection.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-possible">Possible</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Incoming Compliance</div>
+              <div class="card-sub">All networks</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">The issuing bank has filed a compliance case claiming a card network rule violation — not a standard consumer dispute. This bypasses the normal chargeback flow and goes directly to the network. More serious than a standard chargeback.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-out">Out ↓</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-yes">Required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Provide compliance documentation to Nuvei immediately. These cases are time-sensitive with limited recourse if a violation is confirmed.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-yes">Not yet</span>
+            </div>
+          </div>
+        </div>
+        <div class="status-card">
+          <div class="card-inner">
+            <div class="card-cell">
+              <div class="card-name">Outgoing Compliance</div>
+              <div class="card-sub">All networks</div>
+            </div>
+            <div class="card-cell">
+              <div class="card-desc">Nuvei or the acquirer is filing a compliance case against the issuing bank on the merchant's behalf — typically used when the issuer violated network rules during the dispute process (e.g., filed outside the allowed time window or used an invalid reason code).</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Funds</div>
+              <div class="funds-none">None</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Response?</div>
+              <span class="pill pill-no">Not required</span>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">What to do</div>
+              <div class="action-text">Coordinate with Nuvei. Provide any documentation requested to support the compliance filing against the issuer.</div>
+            </div>
+            <div class="card-cell">
+              <div class="cell-label">Merchant wins?</div>
+              <span class="pill pill-possible">Possible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+</body>
+</html>

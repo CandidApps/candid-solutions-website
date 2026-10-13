@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script type="application/json" id="speaker-notes">
+[
+  "Title slide. Introduce this as a handoff deck for the new program partner on the Happen Bank side.",
+  "Set the stage: what Patient Notify is and why it exists — the NY/CA self-service compliance requirement is the core driver.",
+  "Walk through the five-step lifecycle at a high level before going deeper on ordering and messaging.",
+  "Cover the monthly ordering cadence — emphasize the Monday/Wednesday rhythm and the 5-day print/ship SLA.",
+  "This is the compliant patient-facing mechanism — emphasize double opt-in and Client ID routing.",
+  "Reporting closes the loop — note the new 2026 dashboard is coming.",
+  "Show the physical materials so the new hire recognizes them in the field.",
+  "Be honest but constructive about adoption — this sets up the recommendations.",
+  "These are a starting proposal — flag clearly that we want their input before finalizing.",
+  "Clarify cadence and who owns what day-to-day.",
+  "Close with the 30/60/90 and the renewal framing — this is the ask.",
+  ""
+]
+</script>
+</helmet>
+<x-import component-from-global-scope="deck-stage" from="./deck-stage.js" width="1920" height="1080" hint-size="100%,100%" data-uneditable="">
+
+<section data-label="Title" style="width:1920px;height:1080px;background:#232222;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:120px;box-sizing:border-box;font-family:'Inter',sans-serif;position:relative;overflow:hidden;" data-speaker-notes="Title slide. Introduce this as a handoff deck for the new program partner on the Happen Bank side." data-om-slide-id="b689cf67">
+  <div style="position:absolute;top:0;left:0;right:0;height:10px;background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 45%,#FD4621 100%);"></div>
+  <img src="happen-logo.svg" alt="Happen Bank" style="width:320px;height:auto;filter:brightness(0) invert(1);margin-bottom:56px;">
+  <h1 style="font-family:'Poppins',sans-serif;font-weight:800;font-size:76px;line-height:1.1;color:#FFFFFF;margin:0 0 24px 0;max-width:80%;">Patient Notify Marketing Program</h1>
+  <p style="font-family:'Poppins',sans-serif;font-weight:500;font-size:30px;color:rgba(255,255,255,0.85);margin:0;">A program overview, rebrand walkthrough, and recommendations for growth</p>
+  <p style="font-family:'Inter',sans-serif;font-weight:500;font-size:30px;color:rgba(255,255,255,0.6);margin:60px 0 0 0;">Prepared for the Happen Bank Patient Notify team · 2026</p>
+</section>
+
+<section data-label="Program Overview" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Set the stage: what Patient Notify is and why it exists — the NY/CA self-service compliance requirement is the core driver." data-om-slide-id="de95e8f1">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">Program Overview</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 48px 0;max-width:75%;">What Patient Notify does for Happen Bank</h2>
+  <div style="display:flex;gap:48px;flex:1;">
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;">
+      <p style="font-size:24px;line-height:1.6;color:#3A3A3A;margin:0;">A growing number of states — including New York and California — now require patients to complete third-party financing applications on their <strong style="color:#1A1A1A;">own device</strong>, not an office computer or staff-assisted form.</p>
+      <p style="font-size:24px;line-height:1.6;color:#3A3A3A;margin:0;">Patient Notify keeps Happen Bank's dental and medical office partners compliant while making financing easy for patients to discover and apply for themselves — via QR code or text.</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px;justify-content:center;">
+      <div style="background:#F7F1ED;border-radius:4px;padding:28px 32px;">
+        <p style="margin:0 0 6px 0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:rgb(38,38,255);">We manage</p>
+        <p style="margin:0;font-size:28px;color:#3A3A3A;line-height:1.5;">Office onboarding, printed materials, fulfillment, and reporting</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:4px;padding:28px 32px;">
+        <p style="margin:0 0 6px 0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:rgb(38,38,255);">Happen Bank provides</p>
+        <p style="margin:0;font-size:28px;color:#3A3A3A;line-height:1.5;">The office list, the financing product, and the credit application</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:4px;padding:28px 32px;">
+        <p style="margin:0 0 6px 0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:rgb(38,38,255);">Patients get</p>
+        <p style="margin:0;font-size:28px;color:#3A3A3A;line-height:1.5;">A compliant, self-serve way to apply from their own phone</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-label="How It Works Today" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Walk through the five-step lifecycle at a high level before going deeper on ordering and messaging." data-om-slide-id="503abd39">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">The Current Program</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 64px 0;">How it works today, end to end</h2>
+  <div style="display:flex;gap:28px;flex:1;">
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#F7F1ED;border-top:6px solid rgb(38,38,255);border-radius:4px;padding:32px 26px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:32px;color:rgb(38,38,255);">01</p>
+      <p style="margin:0;font-size:28px;font-weight:600;color:#1A1A1A;">Office List Upload</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Happen Bank uploads new &amp; existing offices to our portal.</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#F7F1ED;border-top:6px solid #AD11E3;border-radius:4px;padding:32px 26px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:32px;color:#AD11E3;">02</p>
+      <p style="margin:0;font-size:28px;font-weight:600;color:#1A1A1A;">Package Selection</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Full marketing kit or a specific reorder is chosen per office.</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#F7F1ED;border-top:6px solid #D91E8C;border-radius:4px;padding:32px 26px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:32px;color:#D91E8C;">03</p>
+      <p style="margin:0;font-size:28px;font-weight:600;color:#1A1A1A;">Print &amp; Ship</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Materials print and ship, with a welcome email and tracking sent to the office.</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#F7F1ED;border-top:6px solid #d3603f;border-radius:4px;padding:32px 26px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:32px;color:#d3603f;">04</p>
+      <p style="margin:0;font-size:28px;font-weight:600;color:#1A1A1A;">In-Office Activation</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Patients scan the QR code or text to apply directly from their own device.</p>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#F7F1ED;border-top:6px solid #FD4621;border-radius:4px;padding:32px 26px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:32px;color:#FD4621;">05</p>
+      <p style="margin:0;font-size:28px;font-weight:600;color:#1A1A1A;">Reporting Loop</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Delivery, adoption, and engagement are reported back monthly.</p>
+    </div>
+  </div>
+</section>
+
+<section data-label="New Location &amp; Ordering Process" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Cover the monthly ordering cadence — emphasize the Monday/Wednesday rhythm and the 5-day print/ship SLA." data-om-slide-id="fd8c2063">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">The Current Program</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 64px 0;">The new location &amp; ordering cadence</h2>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;position:relative;">
+    <div style="position:absolute;left:24px;right:24px;top:50%;height:3px;background:rgba(38,38,255,0.2);"></div>
+    <div style="display:flex;justify-content:space-between;position:relative;">
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:0 18px;">
+        <div style="width:20px;height:20px;border-radius:50%;background:rgb(38,38,255);"></div>
+        <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#1A1A1A;">New Order</p>
+        <p style="margin:0;font-size:24px;color:#3A3A3A;line-height:1.5;">Submitted 1st (and optionally 3rd) Monday of the month</p>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:0 18px;">
+        <div style="width:20px;height:20px;border-radius:50%;background:#AD11E3;"></div>
+        <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#1A1A1A;">Invoice</p>
+        <p style="margin:0;font-size:24px;color:#3A3A3A;line-height:1.5;">Sent within two business days of the order</p>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:0 18px;">
+        <div style="width:20px;height:20px;border-radius:50%;background:#D91E8C;"></div>
+        <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#1A1A1A;">Print &amp; Ship</p>
+        <p style="margin:0;font-size:24px;color:#3A3A3A;line-height:1.5;">Shipped within 5 business days of a paid invoice</p>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:0 18px;">
+        <div style="width:20px;height:20px;border-radius:50%;background:#d3603f;"></div>
+        <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#1A1A1A;">Welcome Email</p>
+        <p style="margin:0;font-size:24px;color:#3A3A3A;line-height:1.5;">Sent 1–3 days before arrival with tracking info</p>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding:0 18px;">
+        <div style="width:20px;height:20px;border-radius:50%;background:#FD4621;"></div>
+        <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#1A1A1A;">Monthly Report</p>
+        <p style="margin:0;font-size:24px;color:#3A3A3A;line-height:1.5;">Deliveries &amp; adoption shared with Happen Bank</p>
+      </div>
+    </div>
+  </div>
+  <p style="margin:64px 0 0 0;font-size:26px;color:#3A3A3A;">Reorders are simple, submitted through the app, and shipped every two weeks.</p>
+</section>
+
+<section data-label="SMS/QR Compliance Flow" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="This is the compliant patient-facing mechanism — emphasize double opt-in and Client ID routing." data-om-slide-id="7bf0ee77">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">The Current Program</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 20px 0;">The compliant SMS / QR flow</h2>
+  <p style="font-size:28px;color:#3A3A3A;margin:0 0 56px 0;max-width:70%;">This is the piece that keeps offices compliant in states requiring patient self-service applications.</p>
+  <div style="display:flex;gap:28px;flex:1;align-items:stretch;">
+    <div style="flex:1;background:#F7F1ED;border-top:6px solid rgb(38,38,255);border-radius:4px;padding:36px 32px;display:flex;flex-direction:column;gap:14px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);">1. Signage in office</p>
+      <p style="margin:0;font-size:25px;line-height:1.6;color:#3A3A3A;">Placards let patients scan a QR code or text a Client ID to receive the financing application link — no staff involvement needed.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-top:6px solid #AD11E3;border-radius:4px;padding:36px 32px;display:flex;flex-direction:column;gap:14px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#AD11E3;">2. Double opt-in SMS</p>
+      <p style="margin:0;font-size:25px;line-height:1.6;color:#3A3A3A;">Texting the shortcode triggers an opt-in message; replying YES delivers the application link by SMS.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-top:6px solid #FD4621;border-radius:4px;padding:36px 32px;display:flex;flex-direction:column;gap:14px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#FD4621;">3. Landing page</p>
+      <p style="margin:0;font-size:25px;line-height:1.6;color:#3A3A3A;">The patient lands on a Happen Bank application page routed by their office's unique Client ID.</p>
+    </div>
+  </div>
+  <p style="margin:48px 0 0 0;font-size:24px;color:#3A3A3A;">No marketing follow-up is sent after opt-in — this is a one-time, patient-initiated conversation.</p>
+</section>
+
+<section data-label="Client Portal &amp; Direct Messaging" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Cover the portal login path, the direct-messaging tool as a second application path, and the SMS/QR mechanics behind the scenes.">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">The Current Program</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 48px 0;">Client portal &amp; direct messaging</h2>
+  <div style="display:flex;gap:28px;flex:1;">
+    <div style="flex:1;background:#F7F1ED;border-top:6px solid rgb(38,38,255);border-radius:4px;padding:36px 32px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:rgb(38,38,255);">Portal invitation & login</p>
+      <p style="margin:0;font-size:24px;line-height:1.55;color:#3A3A3A;">Each office contact is provisioned a Client Portal account, timed with their shipment. User onboarding/offboarding is managed by us as new staff join or leave.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-top:6px solid #AD11E3;border-radius:4px;padding:36px 32px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#AD11E3;">Direct messaging tool</p>
+      <p style="margin:0;font-size:24px;line-height:1.55;color:#3A3A3A;">Beyond passive signage, office staff can send an application link directly to a named patient by email from the portal, tracked as Sent &rarr; Opened &rarr; Link Clicked, with one follow-up attempt allowed.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-top:6px solid #FD4621;border-radius:4px;padding:36px 32px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#FD4621;">SMS volume & QR generation</p>
+      <p style="margin:0;font-size:24px;line-height:1.55;color:#3A3A3A;">Plan includes 500k SMS messages/year; additional 250k blocks are $3,000. QR codes are generated in bulk from the office list, with new codes created automatically as offices are added.</p>
+    </div>
+  </div>
+</section>
+
+<section data-label="Reporting &amp; Visibility" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Reporting closes the loop — note the new 2026 dashboard is coming." data-om-slide-id="918e4992">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">The Current Program</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 56px 0;">Reporting &amp; visibility</h2>
+  <div style="display:flex;gap:48px;flex:1;">
+    <div style="flex:1;display:flex;flex-direction:column;gap:22px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);">Email path</p>
+      <p style="margin:0;font-size:27px;line-height:1.6;color:#3A3A3A;">When a patient is emailed from the client portal, status is tracked as: Email Sent → Email Opened → Application Link Clicked. One follow-up attempt is available.</p>
+      <p style="margin:36px 0 0 0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);">SMS path</p>
+      <p style="margin:0;font-size:27px;line-height:1.6;color:#3A3A3A;">Patient-initiated SMS is tracked as: SMS Initiated → Opted In → Link Clicked. Name and email are not captured for this path.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:44px;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:24px;color:#1A1A1A;">Monthly to Happen Bank</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">Deliveries and adoption are shared at the end of each month, feeding into a new 2026 performance dashboard built specifically for this partnership.</p>
+    </div>
+  </div>
+</section>
+
+
+
+<section data-label="New Marketing Collateral" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:70px 100px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Show the physical materials so the new hire recognizes them in the field." data-om-slide-id="046ad869">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 12px 0;">What's Changing</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:44px;color:#1A1A1A;margin:0 0 28px 0;">The newly rebranded materials</h2>
+  <p style="font-size: 26px; line-height: 1.6; color: #3A3A3A; margin: 0 0 48px 0; max-width: 85%; width: 1444px; height: 47px">Below are the new Happen marketing materials provided to locations to display in their offices as part of the Patient Notify program.</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;flex:1;min-height:0;">
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0;align-items:center;justify-content:center;">
+      <img src="rebrand-welcome-letter-final.png" alt="Happen Bank Welcome Letter" style="width:100%;height:auto;max-height:100%;object-fit:contain;border:1px solid rgba(0,0,0,0.08);border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,0.08);">
+      <p style="margin:0;text-align:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:24px;color:#1A1A1A;">Welcome Letter</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0;align-items:center;justify-content:center;">
+      <img src="collateral-table-tent.png" alt="Happen Bank Table Tent" style="width:100%;height:auto;max-height:100%;object-fit:contain;border:1px solid rgba(0,0,0,0.08);border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,0.08);">
+      <p style="margin:0;text-align:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:24px;color:#1A1A1A;">Table Tent</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0;align-items:center;justify-content:center;">
+      
+      <img src="collateral-small-sticker.png" alt="Happen Bank Small Sticker" style="width:100%;height:auto;max-height:100%;object-fit:contain;border:1px solid rgba(0,0,0,0.08);border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,0.08);"><p style="margin:0;text-align:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:24px;color:#1A1A1A;">Small Sticker</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;min-height:0;align-items:center;justify-content:center;">
+      <img src="collateral-qr-cling.png" alt="Happen Bank QR Cling" style="width:100%;height:auto;max-height:100%;object-fit:contain;border:1px solid rgba(0,0,0,0.08);border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,0.08);">
+      <p style="margin:0;text-align:center;font-family:'Poppins',sans-serif;font-weight:600;font-size:24px;color:#1A1A1A;">QR Cling</p>
+    </div>
+  </div>
+</section>
+
+<section data-label="Marketing Materials Pricing" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Be honest but constructive about adoption — this sets up the recommendations." data-om-slide-id="06d6014e">
+  
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 20px 0;">Marketing materials: pricing &amp; fulfillment</h2>
+  <p style="font-size: 26px; line-height: 1.6; color: #3A3A3A; margin: 0 0 48px 0; max-width: 85%; width: 1444px; height: 47px">Printing and shipping for physical materials are billed separately from the platform fee, at actual cost per order.</p>
+  <div style="display:flex;gap:32px;flex:1;">
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:18px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:rgb(38,38,255);">Full-size Packet (9×12.5in)</p>
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:40px;color:#1A1A1A;">~$13.00</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Includes Branded envelope, Welcome Letter, Table Tents (set of 2), 9 QR Cling Sticker Labels, and shipped in a branded Happen cardboard carrier — all included in the packet cost.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:18px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#AD11E3;">Small-size Packet (6×8in)</p>
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:40px;color:#1A1A1A;">~$11.00</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Includes Branded envelope, smaller Welcome Letter, 15 3×3 stickers, and shipped in a branded Happen cardboard carrier — all included in the packet cost.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:18px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:26px;color:#FD4621;">Shipping (per order)</p>
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:40px;color:#1A1A1A;">$7.86–$10.09</p>
+      <p style="margin:0;font-size:24px;line-height:1.5;color:#3A3A3A;">Varies by destination &amp; weight. Peak-season carrier surcharges apply (~$0.40, rising to ~$0.60 around Thanksgiving).</p>
+    </div>
+  </div>
+  <p style="margin:44px 0 0 0;font-size:24px;color:#3A3A3A;">All design, vendor coordination, and fulfillment logistics are managed by Candid as part of the platform scope; printing/shipping costs are invoiced at actual cost.</p>
+</section>
+
+<section data-label="Where We Are Today" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="These are a starting proposal — flag clearly that we want their input before finalizing." data-om-slide-id="76edbec3">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#FD4621;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">Honest Assessment</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 48px 0;max-width:80%;">The program hasn't hit its potential yet</h2>
+  <div style="display:flex;gap:40px;flex:1;">
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:36px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#1A1A1A;">Awareness in-office</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">Materials aren't always displayed consistently, and front-desk turnover means new staff often aren't aware the program exists.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:36px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#1A1A1A;">Patient awareness</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">Patients don't always notice the signage or understand what scanning the QR code will do for them.</p>
+    </div>
+    <div style="flex:1;background:#F7F1ED;border-radius:6px;padding:36px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:28px;color:#1A1A1A;">Reinforcement</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">There's little proactive follow-up with offices that go quiet — low-engagement locations aren't flagged and re-activated.</p>
+    </div>
+  </div>
+  <p style="margin:48px 0 0 0;font-size:28px;color:#1A1A1A;font-weight:600;">The rebrand is a natural moment to reset engagement and prove renewal value.</p>
+</section>
+
+<section data-label="Recommendations" style="width:1920px;height:1080px;background:#FFFDFB;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Clarify cadence and who owns what day-to-day." data-om-slide-id="34e5151a">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">Draft — For Discussion</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 48px 0;">Recommendations to drive adoption</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px;flex:1;">
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:rgb(38,38,255);flex:none;width:44px;">01</p>
+      <p style="margin:0;font-size:27px;line-height:1.55;color:#3A3A3A;"><strong style="color:#1A1A1A;">Re-launch with the rebrand.</strong> Pair fresh materials with a short refresher for front-desk staff at every active office.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:#AD11E3;flex:none;width:44px;">02</p>
+      <p style="margin:0;font-size:27px;line-height:1.55;color:#3A3A3A;"><strong style="color:#1A1A1A;">A 60-second quick-start.</strong> A simple card or short video showing exactly where to place materials and how the QR/text flow works.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:#D91E8C;flex:none;width:44px;">03</p>
+      <p style="margin:0;font-size:27px;line-height:1.55;color:#3A3A3A;"><strong style="color:#1A1A1A;">Proactive dashboard alerts.</strong> Flag offices with zero scans in 30 days and trigger a check-in before they go fully dormant.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:#d3603f;flex:none;width:44px;">04</p>
+      <p style="margin:0;font-size:27px;line-height:1.55;color:#3A3A3A;"><strong style="color:#1A1A1A;">Light-touch check-in calls.</strong> Tie reorders to a brief call so materials aren't just reprinted, but re-engaged with.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:#FD4621;flex:none;width:44px;">05</p>
+      <p style="margin:0;font-size:27px;line-height:1.55;color:#3A3A3A;"><strong style="color:#1A1A1A;">Spotlight champion offices.</strong> Share monthly performance with Happen Bank and highlight top-performing locations as a model for others.</p>
+    </div>
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:28px;color:rgb(38,38,255);flex:none;width:44px;">06</p>
+      <p style="margin:0;font-size:27px;line-height:1.55;color:#3A3A3A;"><strong style="color:#1A1A1A;">Simplify the ask.</strong> Reduce friction anywhere staff still need to intervene — the goal is a fully patient-driven experience.</p>
+    </div>
+  </div>
+</section>
+
+<section data-label="Working Together" style="width:1920px;height:1080px;background:#F7F1ED;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;" data-speaker-notes="Close with the 30/60/90 and the renewal framing — this is the ask." data-om-slide-id="febe19b1">
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:rgb(38,38,255);letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">How We'll Work Together</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#1A1A1A;margin:0 0 56px 0;">Roles &amp; cadence going forward</h2>
+  <div style="display:flex;gap:48px;flex:1;">
+    <div style="flex:1;background:#fff;border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#1A1A1A;">Happen Bank</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">Maintains the office list, approves order &amp; reorder packages, and partners with us on outreach for low-engagement locations.</p>
+    </div>
+    <div style="flex:1;background:#fff;border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#1A1A1A;">Patient Notify Team</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">Owns fulfillment, the SMS/QR platform, monthly reporting, and the new performance dashboard.</p>
+    </div>
+    <div style="flex:1;background:#fff;border-radius:6px;padding:40px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#1A1A1A;">Monthly cadence</p>
+      <p style="margin:0;font-size:26px;line-height:1.6;color:#3A3A3A;">A shared performance review at month-end to track adoption and agree on next actions together.</p>
+    </div>
+  </div>
+</section>
+
+<section data-label="Next Steps" style="width:1920px;height:1080px;background:#232222;display:flex;flex-direction:column;padding:100px 120px;box-sizing:border-box;font-family:'Inter',sans-serif;position:relative;overflow:hidden;" data-speaker-notes="" data-om-slide-id="e5f1a6f8">
+  <div style="position:absolute;top:0;left:0;right:0;height:10px;background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 45%,#FD4621 100%);"></div>
+  <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:30px;color:#FD4621;letter-spacing:0.04em;text-transform:uppercase;margin:0 0 16px 0;">Next Steps</p>
+  <h2 style="font-family:'Poppins',sans-serif;font-weight:700;font-size:48px;color:#fff;margin:0 0 56px 0;">A 30 / 60 / 90 day plan</h2>
+  <div style="display:flex;gap:32px;flex:1;">
+    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;padding:36px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:26px;color:#FD4621;">Days 1–30</p>
+      <p style="margin:0;font-size:27px;line-height:1.6;color:#fff;">Rebrand rollout to all active offices, refreshed materials shipped, and quick-start guide distributed.</p>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;padding:36px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:26px;color:#FD4621;">Days 31–60</p>
+      <p style="margin:0;font-size:27px;line-height:1.6;color:#fff;">Dashboard alerts live; first proactive check-in outreach to lowest-engagement offices.</p>
+    </div>
+    <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:8px;padding:36px;display:flex;flex-direction:column;gap:16px;">
+      <p style="margin:0;font-family:'Poppins',sans-serif;font-weight:800;font-size:26px;color:#FD4621;">Days 61–90</p>
+      <p style="margin:0;font-size:27px;line-height:1.6;color:#fff;">First joint performance review, champion offices identified, renewal conversation begins.</p>
+    </div>
+  </div>
+  <p style="margin:56px 0 0 0;font-size:28px;color:rgba(255,255,255,0.85);">Our goal: make the renewal decision easy by showing real, growing adoption.</p>
+</section>
+
+</x-import>
+
+</x-dc>
+</body>
+</html>

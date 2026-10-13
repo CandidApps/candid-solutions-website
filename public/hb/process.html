@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <style>
+    html{scroll-behavior:smooth;overflow-x:clip}
+    body{margin:0;overflow-x:clip}
+    ::selection{background:rgba(38,38,255,0.15)}
+    @media (max-width:820px){
+      nav{padding:14px 20px !important;flex-wrap:wrap !important;gap:10px !important;}
+      nav > div{margin-left:0 !important;gap:14px 18px !important;flex-wrap:wrap !important;}
+      nav img{width:120px !important;}
+      section{padding-left:22px !important;padding-right:22px !important;padding-top:56px !important;padding-bottom:56px !important;}
+      div[style*="grid-template-columns"]{grid-template-columns:minmax(0,1fr) !important;}
+      div[style*="grid-template-columns"] > *{min-width:0 !important;}
+      h1{font-size:clamp(30px,8vw,44px) !important;}
+      h2{font-size:26px !important;}
+      #recSticky{display:none !important;}
+      .recItem{min-height:auto !important;align-items:flex-start !important;padding:32px 0 !important;}
+      .recItem .recNum{color:#FD4621 !important;}
+      .recItem .recTitle{color:#fff !important;}
+      .recItem .recDetail{color:rgba(255,255,255,0.82) !important;}
+      .recItem .recLabel{color:#FD4621 !important;}
+      .recItem .recBar{background:#FD4621 !important;}
+      .recMobileShot{display:block !important;max-width:100% !important;}
+      .recMobileWrap{position:relative !important;max-width:100% !important;}
+      #recommendations{overflow-x:hidden !important;}
+    }
+  </style>
+</helmet>
+
+<div style="font-family:'Rethink Sans',sans-serif;color:#1A1A1A;background:#FFFDFB;">
+
+  <nav style="position:sticky;top:0;z-index:50;background:rgba(255,253,251,0.92);backdrop-filter:blur(8px);border-bottom:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;padding:18px 64px;box-sizing:border-box;">
+    <img src="happen-logo-orange.svg" alt="Happen Bank" style="width:150px;height:auto;" />
+    <div style="display:flex;gap:28px;margin-left:48px;">
+      <a href="#overview" style="font-size:14px;font-weight:600;color:#3A3A3A;text-decoration:none;white-space:nowrap;">Overview</a>
+      <a href="#process" style="font-size:14px;font-weight:600;color:#3A3A3A;text-decoration:none;white-space:nowrap;">Process</a>
+      <a href="#rebrand" style="font-size:14px;font-weight:600;color:#3A3A3A;text-decoration:none;white-space:nowrap;">Rebrand</a>
+      <a href="#recommendations" style="font-size:14px;font-weight:600;color:#3A3A3A;text-decoration:none;white-space:nowrap;">Enhancements</a>
+      <a href="#next-steps" style="font-size:14px;font-weight:600;color:rgb(38,38,255);text-decoration:none;white-space:nowrap;">Next Steps</a>
+    </div>
+  </nav>
+
+  <section style="min-height:640px;background:#232222;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 64px;box-sizing:border-box;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 45%,#FD4621 100%);"></div>
+    <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:#FD4621;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 20px 0;">2026 Program</p>
+    <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:clamp(40px,5vw,68px);line-height:1.1;color:#fff;margin:0 0 20px 0;max-width:780px;">Patient Notify Marketing Program</h1>
+    <p style="font-size:20px;color:rgba(255,255,255,0.75);margin:0 0 32px 0;max-width:640px;line-height:1.6;">A living overview of the program, the 2026 rebrand, and our recommendations to drive renewal-ready adoption.</p>
+    <a href="#overview" style="font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:16px;color:#232222;background:#fff;padding:14px 28px;border-radius:2px;text-decoration:none;">Start reading &darr;</a>
+  </section>
+
+  <section id="overview" style="padding:120px 64px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:rgb(38,38,255);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">Program Overview</p>
+    <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#1A1A1A;margin:0 0 40px 0;max-width:820px;">Why this program is critical</h2>
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start;">
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <p style="font-size:19px;line-height:1.7;color:#3A3A3A;margin:0;">States are actively legislating how dental practices may handle third-party financing. Illinois is the clearest example: as of January 1, 2025, a practice cannot complete any part of a patient's application, cannot submit it, and <strong style="color:#1A1A1A;">cannot even hand the patient a tablet or device to apply on in the office</strong>. California has enacted similar restrictions, and industry counsel expect more states to follow.</p>
+        <p style="font-size:19px;line-height:1.7;color:#3A3A3A;margin:0;">That makes patient-initiated application the only compliant path &mdash; and it's exactly what Patient Notify delivers. Signage the patient scans or texts on their own phone, a double opt-in they control, and an application that never touches office hardware or staff hands.</p>
+        <p style="font-size:19px;line-height:1.7;color:#3A3A3A;margin:0;">Adoption isn't a nice-to-have. In regulated states it's the difference between offering financing legally and not offering it at all &mdash; and as this becomes the national standard, every Happen Bank location will need it.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div style="background:#F7F1ED;border-radius:6px;padding:26px 30px;transition:transform 0.2s;">
+          <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:rgb(38,38,255);">We manage</p>
+          <p style="margin:0;font-size:17px;color:#3A3A3A;line-height:1.5;">Office onboarding, printed materials, fulfillment, and reporting</p>
+        </div>
+        <div style="background:#F7F1ED;border-radius:6px;padding:26px 30px;">
+          <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:rgb(38,38,255);">Happen Bank provides</p>
+          <p style="margin:0;font-size:17px;color:#3A3A3A;line-height:1.5;">The office list, the financing product, and the credit application</p>
+        </div>
+        <div style="background:#F7F1ED;border-radius:6px;padding:26px 30px;">
+          <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:rgb(38,38,255);">Patients get</p>
+          <p style="margin:0;font-size:17px;color:#3A3A3A;line-height:1.5;">A compliant, self-serve way to apply from their own phone</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:56px;">
+      <p style="margin:0 0 20px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:20px;color:#1A1A1A;">What Illinois actually prohibits &mdash; effective Jan 1, 2025</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #FD4621;border-radius:6px;padding:24px;">
+          <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#FD4621;">No office devices</p>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Practices may not provide a patient an electronic device to apply for third-party financing in the office.</p>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #FD4621;border-radius:6px;padding:24px;">
+          <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#FD4621;">No staff assistance</p>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Staff may not complete any portion of an application, nor collect or submit it on the patient's behalf.</p>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #FD4621;border-radius:6px;padding:24px;">
+          <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#FD4621;">No brokering</p>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Practices may not arrange, broker, or establish third-party financing for a patient.</p>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #FD4621;border-radius:6px;padding:24px;">
+          <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#FD4621;">Required disclosure</p>
+          <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">A statutory written disclosure must be given whenever financing is discussed. Penalties start at $500 and rise to $1,000 per additional violation.</p>
+        </div>
+      </div>
+      <div style="margin-top:36px;background:#F7F1ED;border-radius:8px;padding:32px;">
+        <p style="margin:0 0 18px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Where this already applies &mdash; and where it's heading</p>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;">
+          <div>
+            <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:rgb(38,38,255);">Illinois</p>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">The strictest to date. No office devices, no staff assistance, no brokering, and practice-branded application links are restricted. Effective Jan 1, 2025.</p>
+          </div>
+          <div>
+            <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#AD11E3;">California</p>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Has enacted similar restrictions on how practices may facilitate third-party patient financing.</p>
+          </div>
+          <div>
+            <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#D91E8C;">Connecticut</p>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Broadly covers all health care providers &mdash; dental, medical, vision. Practices may not complete or submit a patient's application; violations are an unfair trade practice. Effective Jan 1, 2027.</p>
+          </div>
+          <div>
+            <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#00A3A3;">New York</p>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Patient-initiated, own-device application is the expectation for third-party financing in practice settings.</p>
+          </div>
+          <div>
+            <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;color:#FD4621;">Next wave</p>
+            <p style="margin:0;font-size:15px;line-height:1.6;color:#3A3A3A;">Additional states are enacting or actively considering similar legislation. Industry counsel expect meaningful nationwide impact if it continues to spread.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" style="padding:100px 64px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:rgb(38,38,255);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">The Current Program</p>
+    <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#1A1A1A;margin:0 0 12px 0;">How it works, end to end</h2>
+
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;">
+      <sc-for list="{{ steps }}" as="step" hint-placeholder-count="5">
+        <div onClick="{{ step.toggle }}" style="cursor:pointer;background:#F7F1ED;border-top:5px solid {{ step.color }};border-radius:4px;padding:24px 20px;display:flex;flex-direction:column;gap:12px;min-height:150px;transition:box-shadow 0.15s;" style-hover="box-shadow:0 6px 18px rgba(0,0,0,0.08)">
+          <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:{{ step.color }};">{{ step.num }}</p>
+          <p style="margin:0;font-size:17px;font-weight:600;color:#1A1A1A;">{{ step.title }}</p>
+          <sc-if value="{{ step.open }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:0;font-size:14px;line-height:1.5;color:#3A3A3A;">{{ step.detail }}</p>
+          </sc-if>
+          <sc-if value="{{ step.timing }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:auto;padding-top:12px;display:flex;align-items:flex-start;gap:7px;">
+              <div style="width:6px;height:6px;border-radius:50%;background:{{ step.color }};margin-top:5px;flex:none;"></div>
+              <p style="margin:0;font-size:12.5px;line-height:1.4;color:#6B6B6B;font-weight:600;">{{ step.timing }}</p>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="margin-top:40px;background:#F7F1ED;border-radius:8px;padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;">
+      <div>
+        <p style="margin:0 0 10px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Where orders come from</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Two sources feed the same monthly run: <strong style="color:#1A1A1A;">new offices</strong> uploaded by Happen Bank (or requested at partner@candid.solutions), and <strong style="color:#1A1A1A;">reorders</strong> that existing offices submit themselves through the customer portal.</p>
+      </div>
+      <div>
+        <p style="margin:0 0 10px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">The monthly rhythm</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Orders are batched on the <strong style="color:#1A1A1A;">1st Monday</strong> of each month (with an optional 3rd-Monday run), invoiced within two business days, and shipped within five business days of payment &mdash; so every location follows the same predictable cadence.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:0 64px 120px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <h3 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:24px;color:#1A1A1A;margin:0 0 36px 0;">Client portal, direct messaging & the compliant SMS/QR flow</h3>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+      <div style="background:#F7F1ED;border-top:5px solid rgb(38,38,255);border-radius:4px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:19px;color:rgb(38,38,255);">Portal invitation & login</p>
+        <p style="margin:0;font-size:16px;line-height:1.55;color:#3A3A3A;">Each office contact is provisioned a Client Portal account, timed with their shipment. User onboarding/offboarding is managed by us.</p>
+      </div>
+      <div style="background:#F7F1ED;border-top:5px solid #AD11E3;border-radius:4px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:19px;color:#AD11E3;">Direct messaging tool</p>
+        <p style="margin:0;font-size:16px;line-height:1.55;color:#3A3A3A;">Staff can send an application link directly to a named patient by email, tracked Sent &rarr; Opened &rarr; Link Clicked, with one follow-up allowed.</p>
+      </div>
+      <div style="background:#F7F1ED;border-top:5px solid #FD4621;border-radius:4px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:19px;color:#FD4621;">SMS volume & QR generation</p>
+        <p style="margin:0;font-size:16px;line-height:1.55;color:#3A3A3A;">500k SMS/year included; +250k blocks are $3,000. QR codes are generated in bulk and automatically per new office.</p>
+      </div>
+    </div>
+    <p style="margin:32px 0 0 0;font-size:15px;color:#6B6B6B;">Patient-initiated SMS/QR is a one-time conversation &mdash; no marketing follow-up is currently sent after opt-in.</p>
+  </section>
+
+  <section style="padding:0 64px 120px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <h3 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:24px;color:#1A1A1A;margin:0 0 36px 0;">Reporting & visibility</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:rgb(38,38,255);">Email path</p>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#3A3A3A;">Email Sent &rarr; Email Opened &rarr; Application Link Clicked. One follow-up attempt available.</p>
+        <p style="margin:20px 0 0 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:rgb(38,38,255);">SMS path</p>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#3A3A3A;">SMS Initiated &rarr; Opted In &rarr; Link Clicked. Name/email not captured.</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:6px;padding:36px;display:flex;flex-direction:column;justify-content:center;gap:14px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Happen Bank Reporting</p>
+        <p style="margin:0;font-size:17px;line-height:1.6;color:#3A3A3A;">Deliveries and adoption shared upon request, feeding a new 2026 performance dashboard.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="rebrand" style="padding:100px 64px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:rgb(38,38,255);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">What's Changing</p>
+    <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#1A1A1A;margin:0 0 12px 0;">The newly rebranded materials</h2>
+    <p style="font-size:17px;color:#3A3A3A;margin:0 0 40px 0;">Click any piece to enlarge.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;">
+      <sc-for list="{{ collateral }}" as="item" hint-placeholder-count="4">
+        <div onClick="{{ item.open }}" style="cursor:zoom-in;display:flex;flex-direction:column;gap:12px;align-items:center;">
+          <img src="{{ item.src }}" alt="{{ item.label }}" style="width:100%;height:auto;object-fit:contain;border:1px solid rgba(0,0,0,0.08);border-radius:4px;box-shadow:0 4px 14px rgba(0,0,0,0.08);" />
+          <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:16px;color:#1A1A1A;">{{ item.label }}</p>
+          <p style="margin:0;font-size:14px;line-height:1.5;color:#3A3A3A;text-align:center;">{{ item.desc }}</p>
+          <p style="margin:0;font-size:12px;font-weight:600;letter-spacing:0.03em;text-transform:uppercase;color:rgb(38,38,255);">{{ item.pkg }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <sc-if value="{{ lightboxSrc }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;background:rgba(20,20,20,0.85);z-index:100;display:flex;align-items:center;justify-content:center;cursor:zoom-out;padding:40px;box-sizing:border-box;">
+      <img src="{{ lightboxSrc }}" alt="Enlarged material" style="max-width:80vw;max-height:85vh;object-fit:contain;border-radius:4px;" />
+    </div>
+  </sc-if>
+
+  <section id="pricing" style="padding:100px 64px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:rgb(38,38,255);letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">What's Changing</p>
+    <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#1A1A1A;margin:0 0 12px 0;">Marketing materials: pricing & fulfillment</h2>
+    <p style="font-size:18px;line-height:1.6;color:#3A3A3A;margin:0 0 40px 0;max-width:820px;">Printing and shipping for physical materials are billed separately from the platform fee, at actual cost per order.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div style="background:#F7F1ED;border-radius:6px;padding:34px;display:flex;flex-direction:column;gap:14px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:rgb(38,38,255);">Full-size Packet (9&times;12.5in)</p>
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:34px;color:#1A1A1A;">~$13.00</p>
+        <p style="margin:0;font-size:16px;line-height:1.5;color:#3A3A3A;">Includes Branded envelope, Welcome Letter, Table Tents (set of 2), 9 QR Cling Sticker Labels, and shipped in a branded Happen cardboard carrier.</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:6px;padding:34px;display:flex;flex-direction:column;gap:14px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#AD11E3;">Small-size Packet (6&times;8in)</p>
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:34px;color:#1A1A1A;">~$11.00</p>
+        <p style="margin:0;font-size:16px;line-height:1.5;color:#3A3A3A;">Includes Branded envelope, smaller Welcome Letter, 15 3&times;3 Stickers, and shipped in a branded Happen cardboard carrier.</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:6px;padding:34px;display:flex;flex-direction:column;gap:14px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#FD4621;">Shipping (per order)</p>
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:34px;color:#1A1A1A;">$7.86&ndash;$10.09</p>
+        <p style="margin:0;font-size:16px;line-height:1.5;color:#3A3A3A;">Shipping costs vary by destination & weight. Peak-season surcharges may apply per carrier charges.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:100px 64px;box-sizing:border-box;max-width:1400px;margin:0 auto;">
+    <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:#FD4621;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">Honest Assessment</p>
+    <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#1A1A1A;margin:0 0 40px 0;max-width:780px;">The program hasn't hit its potential yet</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div style="background:#F7F1ED;border-radius:6px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Awareness in-office</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Materials aren't always displayed consistently; front-desk turnover means new staff often aren't aware of the program.</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:6px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Patient awareness</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Patients don't always notice signage or understand what scanning the QR code will do for them.</p>
+      </div>
+      <div style="background:#F7F1ED;border-radius:6px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Reinforcement</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Little proactive follow-up with offices that go quiet &mdash; low-engagement locations aren't flagged.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:5px solid #FD4621;border-radius:6px;padding:30px 34px;display:flex;gap:20px;align-items:flex-start;">
+      <div style="flex:none;width:40px;height:40px;border-radius:50%;background:rgba(253,70,33,0.12);display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:#FD4621;">!</div>
+      <div>
+        <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Email deliverability &mdash; sender domain mismatch</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">The "From" address currently comes from the Patient Notify domain &mdash; not LendingClub or Happen Bank &mdash; yet the messages reference LendingClub. That mismatch trips spam filters at both the office and patient level: mail servers read it as potential spoofing, so messages are frequently flagged and land in spam rather than the inbox.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:5px solid #FD4621;border-radius:6px;padding:30px 34px;display:flex;gap:20px;align-items:flex-start;">
+      <div style="flex:none;width:40px;height:40px;border-radius:50%;background:rgba(253,70,33,0.12);display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:#FD4621;">!</div>
+      <div>
+        <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Separate login from the LendingClub portal</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Patient Notify is a separate application from the LendingClub portal, so offices end up with two logins &mdash; and many don't realize the second one exists. Ideally the tool would be embedded directly into their existing LendingClub portal so there's a single place to work.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:5px solid #FD4621;border-radius:6px;padding:30px 34px;display:flex;gap:20px;align-items:flex-start;">
+      <div style="flex:none;width:40px;height:40px;border-radius:50%;background:rgba(253,70,33,0.12);display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:#FD4621;">!</div>
+      <div>
+        <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Limited reporting, automation &amp; customization for offices</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Offices have little reporting capability, automation, or customization in the portal today, so there's not much pulling them back in to use it. Richer self-serve reporting and configurable automation would give staff a reason to log in and stay engaged.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:5px solid #FD4621;border-radius:6px;padding:30px 34px;display:flex;gap:20px;align-items:flex-start;">
+      <div style="flex:none;width:40px;height:40px;border-radius:50%;background:rgba(253,70,33,0.12);display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:#FD4621;">!</div>
+      <div>
+        <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Reporting is disconnected from the current location portal</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Because Patient Notify's reporting isn't connected to the office's current location portal, the program's true success and conversion rate is hard to identify. These two platforms should communicate &mdash; and once they do, the system will know when a patient hasn't completed their application, enabling automated follow-ups.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:5px solid #FD4621;border-radius:6px;padding:30px 34px;display:flex;gap:20px;align-items:flex-start;">
+      <div style="flex:none;width:40px;height:40px;border-radius:50%;background:rgba(253,70,33,0.12);display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:#FD4621;">!</div>
+      <div>
+        <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">No magic-link login</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Requiring an email and password is friction that keeps busy front-desk staff from logging in. Adding magic-link logins &mdash; where a location signs in from a single emailed link, no password to remember &mdash; would remove that barrier and drive more consistent portal usage.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;background:#fff;border:1px solid rgba(0,0,0,0.08);border-left:5px solid #FD4621;border-radius:6px;padding:30px 34px;display:flex;gap:20px;align-items:flex-start;">
+      <div style="flex:none;width:40px;height:40px;border-radius:50%;background:rgba(253,70,33,0.12);display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:22px;color:#FD4621;">!</div>
+      <div>
+        <p style="margin:0 0 8px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;color:#1A1A1A;">Low license utilization</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Current license usage is low &mdash; many provisioned seats sit idle. We should focus on maximizing the licenses already in place, and automatically disable unused licenses so the program's active footprint stays accurate and every seat is working.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="recommendations" style="padding:100px 64px;box-sizing:border-box;background:#232222;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 45%,#FD4621 100%);"></div>
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:#FD4621;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">Program Enhancements</p>
+      <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#fff;margin:0 0 12px 0;max-width:860px;">Recommendations to drive adoption &mdash; and the app that powers them</h2>
+      <p style="font-size:18px;line-height:1.7;color:rgba(255,255,255,0.75);margin:0 0 36px 0;max-width:760px;">These are our recommendations to greatly improve the program's success, based on market research, current performance, and analysis of the existing program.</p>
+
+      <div style="display:grid;grid-template-columns:minmax(0,0.7fr) minmax(0,1.3fr);gap:48px;align-items:start;">
+        <div style="display:flex;flex-direction:column;">
+          <sc-for list="{{ recTabs }}" as="rt" hint-placeholder-count="6">
+            <div id="{{ rt.anchorId }}" class="recItem" style="display:flex;gap:20px;padding:44px 0;border-top:1px solid rgba(255,255,255,0.1);min-height:62vh;align-items:center;">
+              <div class="recBar" style="width:3px;flex:none;border-radius:2px;background:{{ rt.barBg }};transition:background 0.3s;"></div>
+              <div style="flex:1;min-width:0;">
+                <p class="recNum" style="margin:0 0 10px 0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:14px;color:{{ rt.numColor }};transition:color 0.3s;">{{ rt.num }}</p>
+                <p class="recTitle" style="margin:0 0 10px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:25px;line-height:1.3;color:{{ rt.titleColor }};transition:color 0.3s;">{{ rt.title }}</p>
+                <p class="recDetail" style="margin:0;font-size:16px;line-height:1.65;color:{{ rt.detailColor }};transition:color 0.3s;">{{ rt.detail }}</p>
+                <p class="recLabel" style="margin:14px 0 0 0;font-size:13px;font-weight:600;color:{{ rt.numColor }};transition:color 0.3s;">{{ rt.screenLabel }}</p>
+                <div class="recMobileShot" style="display:none;margin-top:20px;max-width:100%;border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,0.4);">
+                  <div style="background:#3a3a3c;padding:8px 12px;display:flex;align-items:center;gap:6px;">
+                    <span style="width:8px;height:8px;border-radius:50%;background:#ff5f57;"></span>
+                    <span style="width:8px;height:8px;border-radius:50%;background:#febc2e;"></span>
+                    <span style="width:8px;height:8px;border-radius:50%;background:#28c840;"></span>
+                  </div>
+                  <div class="recMobileWrap" style="width:100%;position:relative;overflow:hidden;background:#F3F1EE;">
+                    <iframe class="recMobileFrame" data-src="{{ rt.screenSrc }}" title="Patient Notify app screen" scrolling="no" style="width:1280px;height:1120px;border:none;display:block;pointer-events:none;transform-origin:top left;"></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div id="recSticky" style="position:sticky;top:96px;width:100%;">
+          <div style="width:100%;border-radius:12px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,0.45);">
+            <div style="background:#3a3a3c;padding:10px 16px;display:flex;align-items:center;gap:8px;">
+              <span style="width:10px;height:10px;border-radius:50%;background:#ff5f57;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#febc2e;"></span>
+              <span style="width:10px;height:10px;border-radius:50%;background:#28c840;"></span>
+              <span style="margin-left:12px;font-size:12px;color:rgba(255,255,255,0.55);">patientnotify.happen.com</span>
+            </div>
+            <div id="recFrameWrap" style="width:100%;height:616px;overflow:hidden;background:#F3F1EE;position:relative;">
+              <iframe id="recFrame" src="{{ activeRecSrc }}" title="Patient Notify app prototype" scrolling="no" style="width:1280px;height:1120px;border:none;display:block;pointer-events:none;transform-origin:top left;"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:100px 64px;box-sizing:border-box;background:#F7F1ED;">
+    <div style="max-width:1400px;margin:0 auto;">
+    <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:34px;color:#1A1A1A;margin:0 0 40px 0;">Roles & cadence going forward</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div style="background:#fff;border-radius:6px;padding:32px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:19px;color:#1A1A1A;">Happen Bank</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Maintains the office list, approves order & reorder packages, partners on outreach for low-engagement locations.</p>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:32px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:19px;color:#1A1A1A;">Candid Patient Notify Support</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Owns fulfillment/shipping, the SMS/QR platform and enhancements, customer support, and reporting.</p>
+      </div>
+      <div style="background:#fff;border-radius:6px;padding:32px;display:flex;flex-direction:column;gap:12px;">
+        <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:19px;color:#1A1A1A;">Monthly cadence</p>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:#3A3A3A;">Shared performance review at month-end to track adoption and agree on next actions.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="next-steps" style="padding:120px 64px;box-sizing:border-box;background:#232222;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 45%,#FD4621 100%);"></div>
+    <div style="max-width:1400px;margin:0 auto;">
+      <p style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:#FD4621;letter-spacing:0.06em;text-transform:uppercase;margin:0 0 14px 0;">Next Steps</p>
+      <h2 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:38px;color:#fff;margin:0 0 44px 0;">A 30 / 60 / 90 day plan</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+        <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+          <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:20px;color:#FD4621;">Days 1&ndash;30 (August 2026)</p>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#fff;">Complete rebrand and agreed-upon enhancements; agree on the office rollout plan and office communication.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+          <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:20px;color:#FD4621;">Days 31&ndash;60</p>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#fff;">Send out rebranded marketing materials, along with the platform rebranded with priority enhancements.</p>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border-radius:8px;padding:30px;display:flex;flex-direction:column;gap:12px;">
+          <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:20px;color:#FD4621;">Days 61&ndash;90</p>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:#fff;">First joint performance review, champion offices identified, and identify and implement additional enhancements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    stepsOpen: {},
+    recsOpen: {},
+    lightboxSrc: null,
+    activeRec: 0
+  };
+
+  toggleStep(i) { this.setState(s => ({ stepsOpen: { ...s.stepsOpen, [i]: !s.stepsOpen[i] } })); }
+  toggleRec(i) { this.setState(s => ({ recsOpen: { ...s.recsOpen, [i]: !s.recsOpen[i] } })); }
+  openLightbox(src) { this.setState({ lightboxSrc: src }); }
+  closeLb = () => this.setState({ lightboxSrc: null });
+
+  componentDidMount() {
+    this._pickActive = () => {
+      const blocks = [...document.querySelectorAll('[id^="rec-"]')];
+      if (!blocks.length) return;
+      const line = window.innerHeight * 0.55;
+      let idx = 0;
+      blocks.forEach((el, i) => {
+        if (el.getBoundingClientRect().top <= line) idx = i;
+      });
+      if (idx !== this.state.activeRec) this.setState({ activeRec: idx });
+    };
+    window.addEventListener('scroll', this._pickActive, { passive: true });
+
+    this._fit = () => {
+      const wrap = document.getElementById('recFrameWrap');
+      const frame = document.getElementById('recFrame');
+      if (!wrap || !frame) return;
+      const scale = wrap.clientWidth / 1280;
+      frame.style.transform = `scale(${scale})`;
+      const h = Math.round(1120 * scale);
+      wrap.style.height = h + 'px';
+      const sticky = document.getElementById('recSticky');
+      if (sticky) sticky.style.top = Math.max(24, Math.round((window.innerHeight - (h + 40)) / 2)) + 'px';
+    };
+    setTimeout(this._fit, 300);
+    setTimeout(this._fit, 900);
+    window.addEventListener('resize', this._fit);
+
+    this._mobileInit = () => {
+      const mobile = window.innerWidth <= 820;
+      document.querySelectorAll('.recMobileFrame').forEach(frame => {
+        if (mobile && !frame.src) frame.src = frame.getAttribute('data-src');
+      });
+      this._fitMobileShots();
+      this._pollFit();
+    };
+    this._fitMobileShots = () => {
+      document.querySelectorAll('.recMobileWrap').forEach(wrap => {
+        const frame = wrap.querySelector('.recMobileFrame');
+        if (!frame) return;
+        const w = wrap.getBoundingClientRect().width;
+        if (!w) return;
+        const scale = Math.min(1, w / 1280);
+        frame.style.transform = `scale(${scale})`;
+        wrap.style.height = Math.round(1120 * scale) + 'px';
+      });
+    };
+    this._pollFit = () => {
+      let n = 0;
+      const tick = () => { this._fitMobileShots(); if (++n < 20) setTimeout(tick, 150); };
+      tick();
+    };
+    if (window.ResizeObserver) {
+      this._ro = new ResizeObserver(() => this._fitMobileShots());
+      document.querySelectorAll('.recMobileWrap').forEach(w => this._ro.observe(w));
+    }
+    setTimeout(this._mobileInit, 400);
+    setTimeout(this._mobileInit, 1200);
+    window.addEventListener('resize', this._mobileInit);
+
+    this._onScroll = () => {
+      const frame = document.getElementById('recFrame');
+      const block = document.getElementById('rec-' + this.state.activeRec);
+      if (!frame || !block || !frame.contentWindow) return;
+      const r = block.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const progress = Math.min(1, Math.max(0, (vh * 0.75 - r.top) / (r.height + vh * 0.5)));
+      try {
+        const doc = frame.contentWindow.document;
+        const max = Math.max(0, doc.documentElement.scrollHeight - frame.clientHeight);
+        frame.contentWindow.scrollTo(0, progress * max);
+      } catch (e) {}
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.activeRec === this.state.activeRec) return;
+    const frame = document.getElementById('recFrame');
+    const screen = this._screens && this._screens[this.state.activeRec];
+    if (!frame || !screen) return;
+    try {
+      frame.contentWindow.location.hash = screen;
+    } catch (e) {
+      frame.src = `Patient Notify App Revamp Prototype.dc.html?chromeless=1#${screen}`;
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this._pickActive);
+    window.removeEventListener('scroll', this._onScroll);
+    window.removeEventListener('resize', this._fit);
+    window.removeEventListener('resize', this._mobileInit);
+  }
+
+  renderVals() {
+    const stepDefs = [
+      ["01", "Office List Upload", "Happen Bank uploads new & existing offices to our portal, or sends a request to partner@candid.solutions. New orders also include reorders submitted by offices through the customer portal.", "Orders submitted the 1st (and optionally 3rd) Monday of the month", "rgb(38,38,255)"],
+      ["02", "Package Selection & Invoice", "A full marketing kit or a specific reorder is chosen per office, then invoiced.", "Invoice sent within two business days of the order", "#AD11E3"],
+      ["03", "Print, Ship & Activate", "Materials print and ship, and the office receives a welcome email with tracking. The welcome email also contains their account activation for the Client Portal.", "Shipped within 5 business days of a paid invoice; welcome email 1\u20133 days before arrival", "#D91E8C"],
+      ["04", "In-Office Activation", "Patients scan the QR code or text to apply directly from their own device.", "Live as soon as materials are placed in-office", "#d3603f"],
+      ["05", "Reporting Loop", "Delivery, adoption, and engagement are reported back to Happen Bank.", "", "#FD4621"]
+    ];
+    const steps = stepDefs.map(([num, title, detail, timing, color], i) => ({
+      num, title, detail, timing, color, open: true, toggle: () => this.toggleStep(i)
+    }));
+
+    const collateralDefs = [
+      ["rebrand-welcome-letter-final.png", "Welcome Letter", "New merchant welcome communication introducing the program, with activation details.", "Full-size Packet"],
+      ["collateral-table-tent.png", "Table Tent", "Dual-sided display tent for patient areas; set of 2 per packet.", "Full-size Packet"],
+      ["collateral-small-sticker.png", "Small Sticker", "3\u00d73 branded sticker/label; 15 included per packet.", "Small-size Packet"],
+      ["collateral-qr-cling.png", "QR Cling", "Printed QR code / branding label; 9 included per packet.", "Full-size Packet"]
+    ];
+    const collateral = collateralDefs.map(([src, label, desc, pkg]) => ({ src, label, desc, pkg, open: () => this.openLightbox(src) }));
+
+    const recDefs = [
+      ["A 60-second quick-start", "A clear at-a-glance dashboard means new front-desk staff understand the program in their first minute \u2014 no training required.", "office/dashboard", "Office Portal \u00b7 Dashboard"],
+      ["Simplify the ask", "Synced patient search, ready-made templates, and one-tap sending remove every excuse not to use the tool \u2014 with branding rules applied automatically per state.", "office/send", "Office Portal \u00b7 Send a Message"],
+      ["Automate the follow-up", "Drip sequences handle the nudge for them \u2014 if a patient opens but doesn't finish, the \u201cnot quite done\u201d reminder goes out automatically.", "office/sequences", "Office Portal \u00b7 Sequences and Templates"],
+      ["Give staff proof it's working", "A full message log shows exactly who was contacted, on which channel, and where they landed in the funnel.", "office/messagelog", "Office Portal \u00b7 Message Log"],
+      ["Put performance in front of the office", "Office-level reporting \u2014 trend, funnel, channel breakdown, and best-performing templates \u2014 turns the program into a habit.", "office/reporting", "Office Portal \u00b7 Reporting"],
+      ["Extend reach beyond the waiting room", "Ready-made co-branded social posts let practices promote financing to patients who aren't in the chair yet.", "office/social", "Office Portal \u00b7 Social Sharing"],
+      ["Tie reorders to re-engagement", "Reordering materials in a few clicks keeps signage fresh \u2014 and gives us a natural reason to check in.", "office/reorder", "Office Portal \u00b7 Reorder Materials"],
+      ["Remove data entry entirely", "Syncing Open Dental, Dentrix, and others means patients can be messaged straight from existing records.", "office/integrations", "Office Portal \u00b7 PMS Sync"],
+      ["Spotlight champion offices", "Network-wide reporting makes top performers obvious \u2014 use them as the model for everyone else.", "admin/overview", "Happen Bank Admin \u00b7 Network Overview"],
+      ["Start every check-in with context", "Location reporting shows activation stage, active users, and channel-level funnel performance before you pick up the phone.", "admin/location", "Happen Bank Admin \u00b7 Location Reporting Detail"],
+      ["Catch dormant locations early", "Filter for locations that are dormant, never activated, or have sent no messages \u2014 and target them before they go fully quiet.", "admin/dormant", "Happen Bank Admin \u00b7 Location Outreach"],
+      ["Onboard new offices in bulk", "Upload a location list to build accounts, generate QR codes, and queue welcome kits in one pass.", "admin/upload", "Happen Bank Admin \u00b7 Upload Locations"]
+    ];
+    this._screens = recDefs.map(d => d[2]);
+    const accents = ['#6B6BFF', '#C24DEE', '#F04A9E', '#FF8A5B', '#FD4621'];
+    const recTabs = recDefs.map(([title, detail, screen, screenLabel], i) => {
+      const active = i === this.state.activeRec;
+      return {
+        title, detail, screenLabel,
+        num: String(i + 1).padStart(2, '0'),
+        anchorId: `rec-${i}`,
+        screenSrc: `Patient Notify App Revamp Prototype.dc.html?chromeless=1#${screen}`,
+        numColor: active ? accents[i % accents.length] : 'rgba(255,255,255,0.35)',
+        titleColor: active ? '#fff' : 'rgba(255,255,255,0.4)',
+        detailColor: active ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.3)',
+        barBg: active ? accents[i % accents.length] : 'transparent'
+      };
+    });
+    const active = recDefs[this.state.activeRec];
+
+    return {
+      steps, collateral, lightboxSrc: this.state.lightboxSrc, closeLightbox: this.closeLb,
+      recTabs,
+      activeRecTitle: active[0],
+      activeRecDetail: active[1],
+      activeRecSrc: `Patient Notify App Revamp Prototype.dc.html?chromeless=1#${active[2]}`,
+      activeRecScreenLabel: active[3]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candid Solutions – First Presbyterian Church Aurora</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy-mid:#0f2040;--navy-card:#162847;--navy-border:rgba(255,255,255,0.08);
+--accent:#6366f1;--accent-light:#a5b4fc;--accent-pale:#eef2ff;--cream:#faf7f2;--white:#fff;
+--slate:#4a5568;--muted:#718096;--teal:#4dd9ac;--red-bright:#ff6b6b;--border-light:rgba(99,102,241,0.2);}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",sans-serif;color:var(--navy);line-height:1.6;font-size:14px;background:var(--navy)}
+.header{background:var(--navy);position:relative}
+.header::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(99,102,241,0.5),transparent)}
+.header-inner{max-width:920px;margin:0 auto;padding:28px 48px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+.header-logo .wordmark{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;color:var(--white);letter-spacing:.01em;line-height:1}
+.header-logo .sub{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-top:5px}
+.header-meta{text-align:right;font-size:11.5px;color:rgba(255,255,255,.45);line-height:1.7}
+.header-meta strong{color:rgba(255,255,255,.85);font-size:13px;display:block;margin-bottom:1px}
+.header-meta .client-address{display:block;font-size:11px;color:rgba(255,255,255,.55);font-weight:400;letter-spacing:.01em;margin-bottom:2px}
+.header-meta .tag{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);border:1px solid rgba(99,102,241,0.4);padding:2px 8px;border-radius:2px;margin-bottom:6px}
+.dark-section{background:var(--navy-mid);padding:52px 48px 60px}
+.section-inner{max-width:920px;margin:0 auto}
+.section-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:10px}
+.section-title-dark{font-family:"Playfair Display",serif;font-size:32px;font-weight:700;color:var(--white);margin-bottom:10px;line-height:1.2}
+.section-title-dark em{font-style:italic;color:var(--accent-light)}
+.section-intro-dark{font-size:14px;color:rgba(255,255,255,.6);font-weight:300;max-width:680px;line-height:1.7;margin-bottom:36px}
+.section-intro-dark strong{color:rgba(255,255,255,.85);font-weight:600}
+.table-card{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:6px;overflow:hidden;margin-bottom:32px}
+.summary-table{width:100%;border-collapse:collapse;font-size:13px}
+.summary-table thead tr{background:rgba(255,255,255,.05)}
+.summary-table thead th{padding:12px 18px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.summary-table thead th.right{text-align:right}
+.summary-table thead th.acc{color:var(--accent-light)}
+.summary-table tbody tr.data-row{border-top:1px solid rgba(255,255,255,.05);cursor:pointer;transition:background .15s}
+.summary-table tbody tr.data-row:hover{background:rgba(99,102,241,.06)}
+.summary-table tbody tr.subtotal{border-top:1px solid rgba(255,255,255,.05);background:rgba(255,255,255,.04)}
+.summary-table tbody tr.subtotal td{font-weight:600}
+.summary-table tbody tr.grand-total{background:rgba(99,102,241,.1);border-top:1px solid rgba(99,102,241,.3)}
+.summary-table td{padding:11px 18px;color:rgba(255,255,255,.6)}
+.summary-table td.prog{color:rgba(255,255,255,.88);font-weight:500}
+.summary-table tr.grand-total td.prog{color:var(--white);font-weight:600}
+.summary-table td.current{font-size:13px;color:var(--red-bright);text-align:right;font-weight:500}
+.summary-table td.proposed{font-size:13px;color:var(--teal);text-align:right;font-weight:600}
+.summary-table td.savings{font-size:13px;color:var(--accent-light);text-align:right;font-weight:600}
+.summary-table tr.grand-total td.savings{color:var(--teal);font-size:14px}
+.summary-table tr.grand-total td.proposed{color:var(--accent-light);font-size:13px}
+.summary-table tr.grand-total td.current{color:var(--red-bright);font-size:14px}
+.provider-tag{display:inline-block;font-size:9.5px;font-style:normal;font-weight:500;letter-spacing:.07em;padding:2px 7px;border-radius:2px;background:rgba(255,255,255,.07);color:rgba(255,255,255,.4);margin-left:7px;vertical-align:middle}
+.expand-btn{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-light);opacity:.7;margin-left:10px;vertical-align:middle;transition:opacity .15s}
+.expand-btn svg{width:10px;height:10px}
+.summary-table tbody tr.data-row:hover .expand-btn{opacity:1}
+.table-footnote{padding:12px 18px;font-size:11px;color:rgba(255,255,255,.3);font-style:italic;border-top:1px solid rgba(255,255,255,.05);line-height:1.6}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat-box{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:6px;padding:22px 20px;position:relative;overflow:hidden}
+.stat-box::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.stat-box.low::before{background:var(--accent)}
+.stat-box.high::before{background:var(--teal)}
+.stat-box.zero::before{background:rgba(255,255,255,.25)}
+.stat-box.accent::before{background:var(--accent)}
+.stat-box.teal::before{background:var(--teal)}
+.stat-box.red::before{background:var(--red-bright)}
+.stat-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600;margin-bottom:10px}
+.stat-value{font-size:28px;font-weight:600;line-height:1;margin-bottom:6px}
+.stat-box.low .stat-value,.stat-box.accent .stat-value{color:var(--accent-light)}
+.stat-box.high .stat-value,.stat-box.teal .stat-value{color:var(--teal)}
+.stat-box.zero .stat-value{color:var(--white)}
+.stat-box.red .stat-value{color:var(--red-bright)}
+.stat-desc{font-size:11.5px;color:rgba(255,255,255,.35);font-weight:300;line-height:1.5}
+.analysis-section{margin-top:44px}
+.analysis-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.analysis-eyebrow::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.08)}
+.accordion{display:flex;flex-direction:column;gap:8px}
+.acc-item{background:var(--navy-card);border:1px solid var(--navy-border);border-radius:6px;overflow:hidden}
+.acc-item.special-acc{border-left:3px solid var(--accent)}
+.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;background:transparent;border:none;color:inherit;font-family:inherit;text-align:left;gap:16px;transition:background .15s}
+.acc-trigger:hover{background:rgba(255,255,255,.03)}
+.acc-trigger-left{display:flex;flex-direction:column;gap:3px}
+.acc-trigger-label{font-size:12px;font-weight:600;color:rgba(255,255,255,.88)}
+.acc-trigger-sub{font-size:10px;color:rgba(255,255,255,.4);font-weight:400}
+.acc-trigger-right{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.acc-saving{font-size:11.5px;font-weight:600;color:var(--teal)}
+.acc-saving.acc-neutral{color:rgba(255,255,255,.55);font-weight:500}
+.acc-saving.acc-accent{color:var(--accent-light)}
+.acc-saving.acc-teal{color:var(--teal)}
+.acc-saving.acc-red{color:var(--red-bright)}
+.acc-chevron{width:16px;height:16px;color:rgba(255,255,255,.35);transition:transform .3s;flex-shrink:0}
+.acc-item.open .acc-chevron{transform:rotate(180deg)}
+.acc-item.open .acc-trigger{background:rgba(255,255,255,.03)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.acc-body-inner{padding:0 20px 22px}
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:4px}
+.analysis-col .col-label{font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.08)}
+.analysis-col .col-label.current-lbl,.analysis-col .col-label.items-lbl{color:var(--red-bright)}
+.analysis-col .col-label.proposed-lbl{color:var(--teal)}
+.analysis-col .col-label.findings-lbl{color:var(--accent-light)}
+.line-item{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);gap:12px;font-size:12px}
+.line-item:last-child{border-bottom:none}
+.line-item .li-label{color:rgba(255,255,255,.55);font-weight:400;flex:1}
+.line-item .li-val{font-size:12px;font-weight:500;white-space:nowrap}
+.line-item .li-val.red{color:var(--red-bright)}
+.line-item .li-val.green{color:var(--teal)}
+.line-item .li-val.normal{color:rgba(255,255,255,.7)}
+.line-item .li-val.dim{color:rgba(255,255,255,.35)}
+.line-item .li-val.accent{color:var(--accent-light)}
+.line-item.total-line{border-top:1px solid rgba(255,255,255,.12);margin-top:4px;padding-top:8px;font-weight:600}
+.line-item.total-line .li-label{color:rgba(255,255,255,.85)}
+.line-item.total-line .li-val{font-size:13px}
+.line-item.grand-line{margin-top:8px;border-top:1px solid rgba(255,107,107,.25)}
+.line-item.grand-line .li-val{font-size:14px}
+.line-item.discount .li-val{color:var(--teal)}
+.analysis-finding{margin-top:10px;padding:12px 14px;border-radius:4px;font-size:12px;line-height:1.6;display:flex;gap:10px}
+.analysis-finding:first-child{margin-top:0}
+.analysis-finding.info{background:rgba(99,102,241,.12);border-left:3px solid var(--accent)}
+.analysis-finding.warning{background:rgba(255,107,107,.08);border-left:3px solid var(--red-bright)}
+.analysis-finding.success{background:rgba(77,217,172,.08);border-left:3px solid var(--teal)}
+.analysis-finding.neutral{background:rgba(255,255,255,.04);border-left:3px solid rgba(255,255,255,.2)}
+.finding-icon{flex-shrink:0;font-size:14px;margin-top:1px}
+.finding-text{color:rgba(255,255,255,.65)}
+.finding-text strong{color:var(--white)}
+.sub-section-label{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:14px 0 8px}
+
+/* Timeline component for Contract Timeline accordion */
+.timeline-block{display:flex;flex-direction:column;gap:14px;margin-top:4px}
+.timeline-row{display:grid;grid-template-columns:130px 1fr 110px;gap:18px;padding:14px;background:rgba(255,255,255,.03);border-radius:4px;border-left:3px solid rgba(255,255,255,.15);align-items:start}
+.timeline-row.active{border-left-color:var(--accent)}
+.timeline-row.superseded{opacity:.6}
+.timeline-date{font-size:11px;font-weight:600;color:var(--accent-light);letter-spacing:.05em}
+.timeline-date-sub{font-size:9.5px;color:rgba(255,255,255,.4);font-weight:400;margin-top:2px}
+.timeline-content h4{font-size:13px;color:rgba(255,255,255,.9);margin-bottom:6px}
+.timeline-content p{font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:6px}
+.timeline-content .meta{font-size:10.5px;color:rgba(255,255,255,.35);font-style:italic}
+.timeline-status{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:3px;text-align:center;white-space:nowrap}
+.timeline-status.active{background:rgba(77,217,172,.15);color:var(--teal)}
+.timeline-status.superseded{background:rgba(255,255,255,.05);color:rgba(255,255,255,.4)}
+.timeline-status.expiring{background:rgba(255,107,107,.12);color:var(--red-bright)}
+
+.exit-list{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.exit-item{background:rgba(255,255,255,.03);border-radius:4px;padding:13px 16px;border-left:3px solid var(--accent)}
+.exit-item h5{font-size:12px;color:rgba(255,255,255,.9);margin-bottom:5px;display:flex;align-items:center;gap:8px}
+.exit-item p{font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.6}
+.exit-item .ref{font-size:10px;color:rgba(255,255,255,.35);font-style:italic;margin-top:4px}
+
+.audit-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.audit-table th{padding:8px 12px;text-align:left;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);border-bottom:1px solid rgba(255,255,255,.1)}
+.audit-table th:not(:first-child){text-align:right}
+.audit-table td{padding:7px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.6)}
+.audit-table td:not(:first-child){text-align:right}
+.audit-table tr.gap-row td{color:var(--accent-light);font-weight:600;border-top:1px solid rgba(99,102,241,.3);padding-top:10px;padding-bottom:10px;background:rgba(99,102,241,.05)}
+
+.transition-gradient{height:80px;background:linear-gradient(180deg,var(--navy-mid) 0%,#f4f0e8 100%)}
+.transition-light{height:72px;background:linear-gradient(180deg,#f0ece4 0%,#f6f2ea 45%,var(--cream) 100%)}
+.why-section{background:#f0ece4;padding:56px 48px 60px}
+.why-inner{max-width:920px;margin:0 auto}
+.why-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:14px}
+.why-pill{background:var(--navy);color:var(--accent-light);font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:4px 12px;border-radius:2px}
+.why-title{font-family:"Playfair Display",serif;font-size:36px;font-weight:600;color:var(--navy);margin-bottom:40px;line-height:1.15}
+.why-title em{font-style:italic;color:var(--accent)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.why-card{background:var(--white);border:1px solid var(--border-light);border-radius:6px;padding:26px 24px;transition:transform .2s,box-shadow .2s}
+.why-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,31,60,.1)}
+.why-card-icon{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,rgba(99,102,241,.13),rgba(99,102,241,.05));display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.why-card-icon svg{width:23px;height:23px;stroke:var(--accent);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.why-card-icon svg polygon{fill:rgba(99,102,241,.12)}
+.why-card-title{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;line-height:1.3}
+.why-card-desc{font-size:12.5px;color:var(--slate);font-weight:300;line-height:1.65}
+.why-card-desc strong{color:var(--accent);font-weight:600}
+.light-section{background:var(--cream);padding:52px 48px 64px}
+.light-inner{max-width:920px;margin:0 auto}
+.next-title{font-family:"Playfair Display",serif;font-size:28px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.next-intro{font-size:13.5px;color:var(--slate);font-weight:300;margin-bottom:32px;line-height:1.65;max-width:640px}
+.options-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.option-card{background:var(--white);border:1px solid var(--border-light);border-radius:6px;padding:28px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden}
+.option-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px}
+.option-card.book::before{background:var(--accent)}
+.option-card.form::before{background:var(--navy)}
+.option-label{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.option-title{font-family:"Playfair Display",serif;font-size:18px;font-weight:600;color:var(--navy);line-height:1.25}
+.option-desc{font-size:12.5px;color:var(--slate);font-weight:300;line-height:1.6}
+.btn-book{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--accent);color:var(--white);font-size:13px;font-weight:600;letter-spacing:.04em;padding:13px 24px;border-radius:4px;text-decoration:none;border:none;cursor:pointer;transition:background .18s,transform .12s;margin-top:auto}
+.btn-book:hover{background:#4f46e5;transform:translateY(-1px)}
+.contact-form{display:flex;flex-direction:column;gap:12px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.form-label .req{color:var(--accent);margin-left:2px}
+.form-input{width:100%;padding:9px 12px;border:1px solid rgba(13,31,60,.15);border-radius:4px;font-family:"DM Sans",sans-serif;font-size:13px;color:var(--navy);background:#f8f5f0;outline:none;transition:border-color .15s,box-shadow .15s,background .15s}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.15);background:var(--white)}
+.form-input.error{border-color:#c0392b}
+.error-msg{font-size:10.5px;color:#c0392b;display:none}
+.error-msg.visible{display:block}
+.btn-submit{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--navy);color:var(--white);font-size:13px;font-weight:600;letter-spacing:.04em;padding:13px 24px;border-radius:4px;border:none;cursor:pointer;transition:background .18s,transform .12s;width:100%;margin-top:4px}
+.btn-submit:hover{background:var(--navy-mid);transform:translateY(-1px)}
+.success-state{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:20px 0;flex:1}
+.success-state.visible{display:flex}
+.success-icon{width:52px;height:52px;background:#eef2ff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.success-title{font-family:"Playfair Display",serif;font-size:17px;font-weight:600;color:var(--navy)}
+.success-desc{font-size:12.5px;color:var(--muted);line-height:1.6}
+.footer{background:var(--navy);color:rgba(255,255,255,.35);font-size:11px;padding:22px 48px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.07)}
+.footer-logo .fw{font-family:"Playfair Display",serif;font-size:15px;color:rgba(255,255,255,.65);font-weight:600}
+.footer-logo .fs{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);opacity:.7}
+
+/* ── Theme toggle ── */
+.theme-toggle{position:fixed;top:18px;right:18px;z-index:999;width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;backdrop-filter:blur(4px)}
+.theme-toggle:hover{background:rgba(255,255,255,.2)}
+
+/* ── Light mode ── */
+body.light-mode{background:var(--cream)}
+body.light-mode .header{background:var(--navy)}
+body.light-mode .dark-section{background:#eef1f7}
+body.light-mode .section-title-dark{color:var(--navy)}
+body.light-mode .section-title-dark em{color:var(--accent)}
+body.light-mode .section-eyebrow{color:var(--accent)}
+body.light-mode .section-intro-dark{color:var(--slate)}
+body.light-mode .section-intro-dark strong{color:var(--navy)}
+body.light-mode .table-card{background:var(--white);border-color:rgba(13,31,60,.1)}
+body.light-mode .summary-table thead tr{background:rgba(13,31,60,.04)}
+body.light-mode .summary-table thead th{color:var(--muted)}
+body.light-mode .summary-table tbody tr.data-row{border-color:rgba(13,31,60,.07)}
+body.light-mode .summary-table tbody tr.data-row:hover{background:rgba(99,102,241,.05)}
+body.light-mode .summary-table td{color:var(--slate)}
+body.light-mode .summary-table td.prog{color:var(--navy)}
+body.light-mode .summary-table tbody tr.grand-total{background:var(--accent-pale);border-color:rgba(99,102,241,.3)}
+body.light-mode .summary-table tr.grand-total td.prog{color:var(--navy)}
+body.light-mode .provider-tag{background:rgba(13,31,60,.07);color:var(--muted)}
+body.light-mode .table-footnote{color:var(--muted);border-color:rgba(13,31,60,.07)}
+body.light-mode .stat-box{background:var(--white);border-color:rgba(13,31,60,.1)}
+body.light-mode .stat-label{color:var(--muted)}
+body.light-mode .stat-desc{color:var(--muted)}
+body.light-mode .analysis-eyebrow{color:var(--muted)}
+body.light-mode .analysis-eyebrow::after{background:rgba(13,31,60,.1)}
+body.light-mode .acc-item{background:var(--white);border-color:rgba(13,31,60,.1)}
+body.light-mode .acc-item.special-acc{border-left-color:var(--accent)}
+body.light-mode .acc-trigger:hover{background:rgba(13,31,60,.03)}
+body.light-mode .acc-item.open .acc-trigger{background:rgba(13,31,60,.03)}
+body.light-mode .acc-trigger-label{color:var(--navy)}
+body.light-mode .acc-trigger-sub{color:var(--muted)}
+body.light-mode .acc-chevron{color:var(--muted)}
+body.light-mode .acc-saving.acc-neutral{color:var(--slate)}
+body.light-mode .line-item{border-color:rgba(13,31,60,.06)}
+body.light-mode .line-item .li-label{color:var(--slate)}
+body.light-mode .line-item .li-val.normal{color:var(--navy)}
+body.light-mode .line-item .li-val.dim{color:var(--muted)}
+body.light-mode .total-line .li-label{color:var(--navy)}
+body.light-mode .analysis-col .col-label{border-color:rgba(13,31,60,.1)}
+body.light-mode .analysis-finding.info{background:var(--accent-pale)}
+body.light-mode .analysis-finding.warning{background:rgba(255,107,107,.06)}
+body.light-mode .analysis-finding.success{background:rgba(77,217,172,.07)}
+body.light-mode .analysis-finding.neutral{background:rgba(13,31,60,.04);border-color:rgba(13,31,60,.15)}
+body.light-mode .finding-text{color:var(--slate)}
+body.light-mode .finding-text strong{color:var(--navy)}
+body.light-mode .sub-section-label{color:var(--muted)}
+body.light-mode .timeline-row{background:rgba(13,31,60,.03);border-color:rgba(13,31,60,.12)}
+body.light-mode .timeline-row.active{border-color:var(--accent)}
+body.light-mode .timeline-date{color:var(--accent)}
+body.light-mode .timeline-content h4{color:var(--navy)}
+body.light-mode .timeline-content p{color:var(--slate)}
+body.light-mode .timeline-content .meta{color:var(--muted)}
+body.light-mode .exit-item{background:rgba(13,31,60,.03);border-color:rgba(99,102,241,.35)}
+body.light-mode .exit-item h5{color:var(--navy)}
+body.light-mode .exit-item p{color:var(--slate)}
+body.light-mode .exit-item .ref{color:var(--muted)}
+body.light-mode .audit-table th{color:var(--muted);border-color:rgba(13,31,60,.1)}
+body.light-mode .audit-table td{color:var(--slate);border-color:rgba(13,31,60,.05)}
+body.light-mode .audit-table tr.gap-row td{color:var(--accent);background:var(--accent-pale)}
+body.light-mode .transition-gradient{background:linear-gradient(180deg,#eef1f7 0%,#f4f0e8 100%)}
+body.light-mode .why-section{background:#f4f0e8}
+body.light-mode .why-card{background:var(--white)}
+body.light-mode .light-section{background:var(--white)}
+
+
+/* ── Package Builder ── */
+.pkg-section{background:var(--navy-mid);padding:0 48px 60px;border-top:1px solid rgba(255,255,255,.06)}
+.pkg-inner{max-width:920px;margin:0 auto}
+.pkg-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-light);font-weight:600;margin-bottom:10px}
+.pkg-title{font-family:"Playfair Display",serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:8px;line-height:1.2}
+.pkg-title em{font-style:italic;color:var(--accent-light)}
+.pkg-tally{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:6px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);margin-bottom:24px;min-height:52px;transition:all .25s}
+.pkg-tally.live{background:rgba(77,217,172,.07);border-color:rgba(77,217,172,.22)}
+.pt-hint{font-size:12.5px;color:rgba(255,255,255,.35);font-style:italic}
+.pt-savings{display:none;font-size:22px;font-weight:700;color:var(--teal)}
+.pt-yr{font-size:12px;color:rgba(255,255,255,.4);margin-left:6px;font-weight:400}
+.pt-count{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);font-weight:600}
+.pkg-tally.live .pt-hint{display:none}
+.pkg-tally.live .pt-savings{display:inline}
+.pkg-tally.live .pt-count{color:var(--accent-light)}
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pkg-card{background:var(--navy-card);border:1.5px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;transition:border-color .2s,box-shadow .2s;display:flex;flex-direction:column}
+.pkg-card.selected{border-color:var(--teal);box-shadow:0 0 0 1px rgba(77,217,172,.2),0 4px 20px rgba(77,217,172,.08)}
+.pkg-card.skipped{opacity:.45;border-color:rgba(255,255,255,.04)}
+.pc-top{padding:16px 18px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.06)}
+.pc-icon-badge{width:36px;height:36px;border-radius:9px;background:rgba(99,102,241,.12);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.pkg-card.selected .pc-icon-badge{background:rgba(77,217,172,.12)}
+.pc-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.92);line-height:1.2}
+.pc-provider{font-size:10.5px;color:rgba(255,255,255,.35);margin-top:2px}
+.pc-prices{display:grid;grid-template-columns:1fr 28px 1fr;align-items:center;padding:14px 18px;gap:0}
+.pc-col-lbl{font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:5px}
+.pc-cur .pc-col-lbl{color:rgba(255,107,107,.7)}
+.pc-can .pc-col-lbl{color:var(--teal)}
+.pc-price{font-size:20px;font-weight:700;line-height:1}
+.pc-cur .pc-price{color:var(--red-bright)}
+.pc-can .pc-price{color:var(--teal)}
+.pc-arrow{text-align:center;font-size:14px;color:rgba(255,255,255,.2)}
+.pc-saves{padding:0 18px 14px;font-size:11.5px;font-weight:600;color:rgba(255,255,255,.45)}
+.pkg-card.selected .pc-saves{color:var(--teal)}
+.pc-btn{margin:0 18px 16px;border:1.5px solid rgba(255,255,255,.14);background:transparent;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:"DM Sans",sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;gap:7px;transition:all .18s;letter-spacing:.04em;margin-top:auto}
+.pc-btn:hover{border-color:var(--teal);color:var(--teal);background:rgba(77,217,172,.06)}
+.pkg-card.selected .pc-btn{border-color:var(--teal);background:rgba(77,217,172,.12);color:var(--teal)}
+.pkg-card.skipped .pc-btn{border-color:rgba(255,255,255,.08);color:rgba(255,255,255,.25)}
+.pc-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Light mode */
+body.light-mode .pkg-section{background:#eef1f7}
+body.light-mode .pkg-tally{background:rgba(13,31,60,.04);border-color:rgba(13,31,60,.1)}
+body.light-mode .pkg-tally.live{background:rgba(77,217,172,.08);border-color:rgba(77,217,172,.25)}
+body.light-mode .pt-hint{color:rgba(13,31,60,.4)}
+body.light-mode .pt-count{color:var(--slate)}
+body.light-mode .pkg-card{background:var(--white);border-color:rgba(13,31,60,.09)}
+body.light-mode .pkg-card.selected{border-color:var(--teal);box-shadow:0 0 0 1px rgba(77,217,172,.2),0 4px 20px rgba(77,217,172,.07)}
+body.light-mode .pkg-card.skipped{opacity:.4;border-color:rgba(13,31,60,.05)}
+body.light-mode .pc-top{border-color:rgba(13,31,60,.07)}
+body.light-mode .pc-icon-badge{background:rgba(99,102,241,.08)}
+body.light-mode .pkg-card.selected .pc-icon-badge{background:rgba(77,217,172,.1)}
+body.light-mode .pc-name{color:var(--navy)}
+body.light-mode .pc-provider{color:var(--muted)}
+body.light-mode .pc-arrow{color:rgba(13,31,60,.2)}
+body.light-mode .pc-saves{color:var(--muted)}
+body.light-mode .pkg-card.selected .pc-saves{color:var(--teal-dim)}
+body.light-mode .pc-btn{border-color:rgba(13,31,60,.13);color:rgba(13,31,60,.4)}
+body.light-mode .pc-btn:hover{border-color:var(--teal);color:var(--teal-dim);background:rgba(77,217,172,.07)}
+body.light-mode .pkg-card.selected .pc-btn{border-color:var(--teal);background:rgba(77,217,172,.1);color:var(--teal-dim)}
+body.light-mode .pkg-label{color:var(--accent)}
+body.light-mode .pkg-title{color:var(--navy)}
+@media(max-width:680px){.pkg-section{padding:0 24px 48px}.pkg-grid{grid-template-columns:1fr}}
+
+
+/* ── Pending Review Blur State ── */
+.review-pending-banner{background:linear-gradient(135deg,#0a1628 0%,#162847 100%);border:1px solid rgba(99,102,241,.35);border-radius:8px;padding:28px 32px;margin-bottom:32px;display:flex;align-items:flex-start;gap:20px}
+.rpb-icon{font-size:28px;flex-shrink:0;margin-top:2px}
+.rpb-content{flex:1}
+.rpb-eyebrow{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-light);font-weight:700;margin-bottom:8px}
+.rpb-title{font-family:"Playfair Display",serif;font-size:20px;color:var(--white);margin-bottom:8px;line-height:1.25}
+.rpb-body{font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.65;margin-bottom:14px}
+.rpb-savings-preview{display:inline-flex;align-items:center;gap:10px;background:rgba(77,217,172,.1);border:1px solid rgba(77,217,172,.25);border-radius:4px;padding:8px 16px}
+.rpb-savings-label{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
+.rpb-savings-value{font-size:20px;font-weight:700;color:var(--teal)}
+.rpb-savings-note{font-size:10px;color:rgba(255,255,255,.3);font-style:italic;margin-top:6px}
+.rpb-status{flex-shrink:0;text-align:center}
+.rpb-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);border-radius:20px;padding:6px 14px;font-size:10.5px;font-weight:600;color:var(--accent-light);letter-spacing:.06em}
+.rpb-badge-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse-dot 1.8s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.rpb-eta{font-size:10px;color:rgba(255,255,255,.3);margin-top:6px;text-align:center}
+.blur-shield{position:relative;pointer-events:none;user-select:none}
+.blur-shield::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,32,64,.2) 0%,rgba(15,32,64,.7) 100%);border-radius:6px;z-index:2}
+.blur-shield>*{filter:blur(6px);opacity:.65}
+
+@media(max-width:680px){.header-inner,.options-grid,.why-grid,.stat-grid,.analysis-grid,.form-row{grid-template-columns:1fr}.dark-section,.why-section,.light-section{padding-left:24px;padding-right:24px}.header-inner{flex-direction:column;align-items:flex-start}.header-meta{text-align:left}.why-grid{grid-template-columns:1fr 1fr}.timeline-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle dark / light mode">&#9728;&#65039;</button>
+
+<div class="header"><div class="header-inner">
+  <div class="header-logo"><div class="wordmark">Candid Solutions</div><div class="sub">Technology & Telecom Advisory</div></div>
+  <div class="header-meta"><span class="tag">Contract Analysis</span>
+    <strong>First Presbyterian Church Aurora</strong><br><span class="client-address">325 E Downer Pl, Aurora, IL 60505</span><br>Attn: James Kinnard, Interim Church Administrator &nbsp;&middot;&nbsp; June 2026<br>candid.solutions &nbsp;&middot;&nbsp; candidpay.app</div>
+</div></div>
+
+<div class="dark-section"><div class="section-inner">
+  <div class="section-eyebrow">Contract & Spend Analysis</div>
+  <h1 class="section-title-dark">First Pres Aurora is committed to <em>~$7,218 in remaining MetroNet obligations</em><br>across three overlapping agreements.</h1>
+  <p class="section-intro-dark">An in-depth review of First Presbyterian Church Aurora's MetroNet contracts — three signed agreements (April 2023, March 2024, May 2024), a current monthly spend of $656.22, and the contractual provisions that govern early termination. <strong>The earliest legitimate exit is March 12, 2027.</strong></p>
+
+  
+    <div class="table-card">
+    <table class="summary-table">
+      <thead><tr>
+        <th>Service Type</th>
+        <th class="right">Monthly</th>
+        <th class="right acc">Annual</th>
+        <th class="right acc">Contract Through</th>
+      </tr></thead>
+      <tbody>
+              <tr class="data-row" onclick="toggleAcc('acc-internet')">
+                <td class="prog">Fiber-Speed Internet + 5 Static IPs <span class="provider-tag">MetroNet</span>
+                  <span class="expand-btn"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3.5 5,6.5 8,3.5"/></svg> Analysis</span>
+                </td>
+                <td class="current">$149.95</td>
+                <td class="savings">$1,799</td>
+                <td class="proposed">March 12, 2027</td>
+              </tr>
+              <tr class="data-row" onclick="toggleAcc('acc-phone')">
+                <td class="prog">Phone Services (HPBX + Analog Lines) <span class="provider-tag">MetroNet</span>
+                  <span class="expand-btn"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3.5 5,6.5 8,3.5"/></svg> Analysis</span>
+                </td>
+                <td class="current">$377.10</td>
+                <td class="savings">$4,525</td>
+                <td class="proposed">May 8, 2027</td>
+              </tr>
+              <tr class="data-row" onclick="toggleAcc('acc-fees')">
+                <td class="prog">Taxes, Fees & Other Charges <span class="provider-tag">MetroNet</span>
+                  <span class="expand-btn"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3.5 5,6.5 8,3.5"/></svg> Analysis</span>
+                </td>
+                <td class="current">$129.17</td>
+                <td class="savings">$1,550</td>
+                <td class="proposed">Varies</td>
+              </tr>
+              <tr class="grand-total">
+                <td class="prog">Total Monthly &amp; Annual Spend</td>
+                <td class="current">$656.22</td>
+                <td class="savings">$7,875</td>
+                <td class="proposed">Latest: May 8, 2027</td>
+              </tr>
+      </tbody>
+    </table>
+    <div class="table-footnote">Analysis prepared at the request of Brock Rakow. Figures sourced from the April 13, 2023, March 12, 2024, and May 8, 2024 MetroNet Business Agreements (Subscriber ID 2003697), the February 12, 2026 MetroNet invoice, and publicly available MetroNet Business Terms & Conditions. No alternative service quotes are included in this engagement — this is a contract review only.</div>
+  </div>
+
+  <div class="stat-grid">
+          <div class="stat-box red">
+            <div class="stat-label">Current Monthly Spend</div>
+            <div class="stat-value">$656</div>
+            <div class="stat-desc">All-in invoice (Feb 12, 2026): $149.95 internet + $377.10 phone + $129.17 taxes/fees</div>
+          </div>
+          <div class="stat-box accent">
+            <div class="stat-label">Contract Through</div>
+            <div class="stat-value">May 8, 2027</div>
+            <div class="stat-desc">Latest of three overlapping 36-month terms. Earliest exit: March 12, 2027</div>
+          </div>
+          <div class="stat-box teal">
+            <div class="stat-label">Remaining Obligation</div>
+            <div class="stat-value">~$7,218</div>
+            <div class="stat-desc">Approximately 11 months remaining x $656/mo at current spend level</div>
+          </div></div>
+
+  <div class="analysis-section">
+    <div class="analysis-eyebrow">Contract Analysis – Click any row above or expand below</div>
+    <div class="accordion">
+        <div class="acc-item" id="acc-internet">
+
+            <button class="acc-trigger" onclick="toggleAcc('acc-internet')">
+              <div class="acc-trigger-left">
+                <span class="acc-trigger-label">Fiber-Speed Internet — 300/300 Mbps + /29 Subnet</span>
+                <span class="acc-trigger-sub">Per March 12, 2024 Business Agreement · Sales: Colin Cimmarusti</span>
+              </div>
+              <div class="acc-trigger-right">
+                <span class="acc-saving acc-neutral">$149.95/mo &nbsp;&middot;&nbsp; through March 12, 2027</span>
+                <svg class="acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4,6 8,10 12,6"/></svg>
+              </div>
+          </button>
+          <div class="acc-body"><div class="acc-body-inner">
+            <div class="analysis-grid">
+              <div class="analysis-col">
+                <div class="col-label items-lbl">What's Being Billed</div>
+                <div class="line-item "><span class="li-label">Business Fiber Standard 300Mb/300Mb (symmetrical)</span><span class="li-val red">$129.95</span></div>
+<div class="line-item "><span class="li-label">/29 Subnet (5 usable static IPs)</span><span class="li-val red">$20.00</span></div>
+<div class="line-item total-line"><span class="li-label">Monthly Internet Total</span><span class="li-val red">$149.95</span></div>
+              </div>
+              <div class="analysis-col">
+                <div class="col-label findings-lbl">Our Observations</div>
+                <div class="analysis-finding info"><span class="finding-icon">&#x2139;&#xFE0F;</span><span class="finding-text"><strong>300 Mbps symmetrical fiber</strong> is a solid commercial-grade connection. For a church with ~10 staff and occasional streaming/admin work, this is comfortably above typical needs — 100/100 Mbps would also be sufficient.</span></div>
+<div class="analysis-finding warning"><span class="finding-icon">&#x26A0;&#xFE0F;</span><span class="finding-text"><strong>5 static IPs ($20/mo) is significantly more than a church requires.</strong> Static IPs are useful for hosting public services (websites, mail servers, VPN endpoints). Most churches need 0-1. This appears to be a sales-driven add-on with no operational justification.</span></div>
+<div class="analysis-finding neutral"><span class="finding-icon">&#x1F50D;</span><span class="finding-text"><strong>Market context:</strong> Competitively priced 300/300 symmetrical fiber in the Aurora area typically ranges $80-$150/mo for business customers. MetroNet's $129.95 is in line with market, though wholesale partners and direct-fiber resellers may offer 15-25% better rates at renewal.</span></div>
+              </div>
+            </div></div></div>
+        </div>
+        <div class="acc-item" id="acc-phone">
+
+            <button class="acc-trigger" onclick="toggleAcc('acc-phone')">
+              <div class="acc-trigger-left">
+                <span class="acc-trigger-label">Hosted PBX Phone System + Analog Voice Lines</span>
+                <span class="acc-trigger-sub">Per March 12, 2024 & May 8, 2024 Business Agreements · 4 analog lines incl. alarms/elevator</span>
+              </div>
+              <div class="acc-trigger-right">
+                <span class="acc-saving acc-neutral">$377.10/mo &nbsp;&middot;&nbsp; through May 8, 2027</span>
+                <svg class="acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4,6 8,10 12,6"/></svg>
+              </div>
+          </button>
+          <div class="acc-body"><div class="acc-body-inner">
+            <div class="analysis-grid">
+              <div class="analysis-col">
+                <div class="col-label items-lbl">What's Being Billed (Contract Maximum)</div>
+                <div class="sub-section-label">HPBX Hosted Phone System (March 2024 Contract)</div>
+<div class="line-item "><span class="li-label">HPBX Hosted Access Fee (platform, includes basic auto-attendant)</span><span class="li-val red">$49.95</span></div>
+<div class="line-item "><span class="li-label">HPBX Voicemail (additional / general mailbox)</span><span class="li-val red">$5.00</span></div>
+<div class="line-item "><span class="li-label">HPBX Premium Attendant (advanced menus, multi-level)</span><span class="li-val red">$15.00</span></div>
+<div class="line-item "><span class="li-label">Edge e Expansion Module (side-car for receptionist phone)</span><span class="li-val red">$14.00</span></div>
+<div class="line-item "><span class="li-label">Poly Edge e550 Upgrade (premium 5-inch screen phone)</span><span class="li-val red">$4.00</span></div>
+<div class="line-item "><span class="li-label">HPBX Standard Seats (11 x $24.95)</span><span class="li-val red">$274.45</span></div>
+<div class="line-item "><span class="li-label">HPBX Basic Seats (2 x $19.95)</span><span class="li-val red">$39.90</span></div>
+<div class="line-item total-line"><span class="li-label">HPBX Subtotal</span><span class="li-val red">$402.30</span></div>
+<div class="sub-section-label">Analog Voice Lines</div>
+<div class="line-item "><span class="li-label">Business Voice Basic (March 2024 contract: fax + elevator) — 2 x $25.65</span><span class="li-val red">$51.30</span></div>
+<div class="line-item "><span class="li-label">Business Voice Basic (May 2024 contract: security + fire alarm) — 2 x $25.65</span><span class="li-val red">$51.30</span></div>
+<div class="line-item total-line"><span class="li-label">Analog Subtotal</span><span class="li-val red">$102.60</span></div>
+<div class="line-item total-line grand-line"><span class="li-label">Combined Phone Total (Contract Maximum)</span><span class="li-val red">$504.90</span></div>
+<div class="line-item total-line"><span class="li-label">Actual on Feb 2026 Invoice</span><span class="li-val accent">$377.10</span></div>
+<div class="line-item "><span class="li-label">Difference (likely seat reduction)</span><span class="li-val green">-$127.80</span></div>
+              </div>
+              <div class="analysis-col">
+                <div class="col-label findings-lbl">Our Observations</div>
+                <div class="analysis-finding warning"><span class="finding-icon">&#x1F6A8;</span><span class="finding-text"><strong>The HPBX upgrade in March 2024 nearly doubled the church's monthly cost</strong> — from the original $351/mo (April 2023) to $603.55/mo. That's a 72% increase, with a full 36-month term restart locking the church in through March 2027.</span></div>
+<div class="analysis-finding warning"><span class="finding-icon">&#x26A0;&#xFE0F;</span><span class="finding-text"><strong>Premium Attendant ($15/mo) and Expansion Module ($14/mo) appear over-specified.</strong> The Hosted Access Fee already includes a basic auto-attendant. The Expansion Module is a side-car panel useful for a high-volume receptionist managing many simultaneous lines — uncommon need for a church.</span></div>
+<div class="analysis-finding info"><span class="finding-icon">&#x1F4C8;</span><span class="finding-text"><strong>Industry benchmark (2025-2026 data):</strong> Hosted PBX market rates run $20-$45 per seat/month for basic-to-premium plans. MetroNet's $24.95/Standard Seat is in line with market, but the stacked add-ons (Hosted Access, Premium Attendant, Expansion, e550 upgrade) push the effective per-user cost above $40/seat all-in. Competitors like RingCentral, Vonage, and Dialpad bundle these features at $25-35/seat with no add-ons.</span></div>
+<div class="analysis-finding success"><span class="finding-icon">&#x1F50D;</span><span class="finding-text"><strong>The $127.80/mo gap between contract and invoice is meaningful.</strong> The signed contract maxes out at $504.90/mo for phone; the actual invoice is $377.10. This suggests roughly 5 Standard Seats (5 x $24.95 = $124.75) were dropped at some point. We recommend requesting an itemized current-state inventory from MetroNet to confirm exactly what's active vs. what's still being contracted.</span></div>
+              </div>
+            </div></div></div>
+        </div>
+        <div class="acc-item" id="acc-fees">
+
+            <button class="acc-trigger" onclick="toggleAcc('acc-fees')">
+              <div class="acc-trigger-left">
+                <span class="acc-trigger-label">Taxes, Regulatory Fees & Other Recurring Charges</span>
+                <span class="acc-trigger-sub">Variable component — driven by usage and regulatory pass-throughs</span>
+              </div>
+              <div class="acc-trigger-right">
+                <span class="acc-saving acc-neutral">$129.17/mo &nbsp;&middot;&nbsp; through Varies</span>
+                <svg class="acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4,6 8,10 12,6"/></svg>
+              </div>
+          </button>
+          <div class="acc-body"><div class="acc-body-inner">
+            <div class="analysis-grid">
+              <div class="analysis-col">
+                <div class="col-label items-lbl">What's Being Billed (Feb 12, 2026 Invoice)</div>
+                <div class="line-item "><span class="li-label">Other Charges & Credits</span><span class="li-val red">$4.95</span></div>
+<div class="line-item "><span class="li-label">Taxes (state & local)</span><span class="li-val red">$51.71</span></div>
+<div class="line-item "><span class="li-label">Fees (regulatory)</span><span class="li-val red">$72.51</span></div>
+<div class="line-item "><span class="li-label">Local Number Portability** (4 lines x $1.12)</span><span class="li-val normal">$4.48</span></div>
+<div class="line-item total-line"><span class="li-label">Total Taxes, Fees & Other</span><span class="li-val red">$129.17</span></div>
+              </div>
+              <div class="analysis-col">
+                <div class="col-label findings-lbl">Our Observations</div>
+                <div class="analysis-finding info"><span class="finding-icon">&#x2139;&#xFE0F;</span><span class="finding-text"><strong>Tax burden is ~24% of base service charges</strong> ($129.17 on $527.05 base). This is on the higher end for Illinois business telecom — typical range is 18-25%. Worth confirming what comprises the $72.51 in 'Fees' specifically — some regulatory fees are pass-throughs, others are provider-added.</span></div>
+<div class="analysis-finding neutral"><span class="finding-icon">&#x1F50D;</span><span class="finding-text"><strong>4 Local Number Portability fees ($1.12 each = $4.48)</strong> confirms 4 active analog phone numbers being maintained, consistent with the two Business Voice Basic line pairs (March + May 2024 contracts). This is a fixed regulatory cost tied to keeping ported numbers.</span></div>
+<div class="analysis-finding warning"><span class="finding-icon">&#x26A0;&#xFE0F;</span><span class="finding-text"><strong>Per MetroNet's Business Terms & Conditions:</strong> the provider reserves the right to pass through regulatory/vendor cost changes via rate increases. If they invoke this — and the increase is 'considerable' — the church gets a <strong>30-day window to terminate without liability.</strong> Worth monitoring this line item closely.</span></div>
+              </div>
+            </div></div></div>
+        </div>
+        <div class="acc-item special-acc" id="acc-timeline">
+          <button class="acc-trigger" onclick="toggleAcc('acc-timeline')">
+            <div class="acc-trigger-left">
+              <span class="acc-trigger-label">Contract Timeline & Exit Options</span>
+              <span class="acc-trigger-sub">Three overlapping 36-month agreements + legitimate paths to early termination</span>
+            </div>
+            <div class="acc-trigger-right">
+              <span class="acc-saving acc-accent">Earliest exit: March 12, 2027</span>
+              <svg class="acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4,6 8,10 12,6"/></svg>
+            </div>
+          </button>
+          <div class="acc-body"><div class="acc-body-inner"><div class="sub-section-label">Contract Timeline</div><div class="timeline-block"><div class="timeline-row superseded"><div class="timeline-date">Apr 13, 2023<div class="timeline-date-sub">36-month term</div></div><div class="timeline-content"><h4>Original Business Agreement</h4><p>300/300 Mbps internet + 5 static IPs + 5 Business Voice Plus (PBX) lines + 2 Business Voice Basic lines. Monthly total: <strong>$351.00</strong>. Sales: Brian Bonfield. Installed May 10, 2023 (Work Order 3710932).</p><div class="meta">Would have expired ~April 13, 2026 — but superseded by the March 2024 upgrade.</div></div><div class="timeline-status superseded">Superseded</div></div><div class="timeline-row active"><div class="timeline-date">Mar 12, 2024<div class="timeline-date-sub">36-month term RESTART</div></div><div class="timeline-content"><h4>HPBX Upgrade — Replaces Original</h4><p>Same internet (300/300 + /29 subnet) but voice service upgraded from analog PBX to MetroNet Hosted PBX: Hosted Access Fee $49.95, Premium Attendant $15, Voicemail $5, Expansion Module $14, e550 upgrade $4, 11 Standard Seats ($274.45), 2 Basic Seats ($39.90), plus 2 Business Voice Basic lines retained for fax/elevator ($51.30). Monthly total: <strong>$603.55</strong> — a 72% increase from the original. Sales: Colin Cimmarusti.</p><div class="meta">Two months promo credit applied ($1,179.10 value). Expires <strong>March 12, 2027</strong>.</div></div><div class="timeline-status active">Active</div></div><div class="timeline-row active"><div class="timeline-date">May 8, 2024<div class="timeline-date-sub">36-month term RESTART</div></div><div class="timeline-content"><h4>Alarm Line Addition</h4><p>Added 2 Business Voice Basic analog lines specifically for security alarm (630-844-0153) and fire alarm (630-844-0053) monitoring. Monthly total: <strong>+$51.30</strong>. Sales: Colin Cimmarusti.</p><div class="meta">This addition restarted a fresh 36-month term — pushing the latest contract expiration to <strong>May 8, 2027</strong>.</div></div><div class="timeline-status active">Active</div></div></div><div class="analysis-finding warning" style="margin-top:18px"><span class="finding-icon">&#x26A0;&#xFE0F;</span><span class="finding-text"><strong>Critical observation:</strong> Each upgrade reset the entire 36-month term clock. The church may have signed the March 2024 HPBX upgrade believing it was an enhancement to a contract already 11 months in — but in MetroNet's structure, it became a brand new 3-year commitment. This is industry-standard practice, but the cumulative effect is that First Pres has been on MetroNet under continuous 36-month commitments since April 2023, with no break.</span></div><div class="sub-section-label" style="margin-top:24px">Legitimate Early-Termination Paths (per MetroNet Business T&amp;Cs)</div><div class="exit-list"><div class="exit-item"><h5>&#x2696;&#xFE0F; Material Adverse Price Change (the most realistic path)</h5><p>MetroNet's T&amp;Cs grant them the right to raise rates for regulatory or vendor cost changes. <strong>However:</strong> if such a change &quot;considerably increases the price of the Fiber Services,&quot; the customer may terminate the affected service with no further liability by delivering written notice within <strong>30 days of the notification.</strong></p><div class="ref">Source: MetroNet Business Terms &amp; Conditions, &quot;Adjustments&quot; section</div></div><div class="exit-item"><h5>&#x1F6A8; SLA Failures / Material Service Breach</h5><p>Chronic outages or repeated SLA failures can constitute material breach. Document every outage (date, time, duration, business impact). MetroNet doesn't publicly post a specific business SLA percentage, but standard fiber business SLAs run 99.9% uptime with credits for missed targets. If service is genuinely unreliable, this becomes leverage.</p><div class="ref">Action item: Maintain a service log starting today.</div></div><div class="exit-item"><h5>&#x1F510; MetroNet Ceases Providing Service</h5><p>Per T&amp;Cs: &quot;if for any reason such that it can no longer provide Fiber Services to you, this Agreement and Metronet's obligation to provide Fiber Services automatically terminates without further obligation.&quot; Rare but worth knowing.</p></div><div class="exit-item"><h5>&#x1F4CD; Move Outside the MetroNet Footprint</h5><p>If the church relocates to an address MetroNet does not serve, the contract becomes voidable. Not applicable here, but worth noting if the church ever sells or relocates the building.</p></div><div class="exit-item"><h5>&#x26A1; Force Majeure / Extended Outages</h5><p>Standard force majeure language applies. Extended power, broadband, or network failures (even non-MetroNet) can suspend obligations. Note: the E-911 disclosure explicitly states 911 service is unavailable during power outages or internet disruptions — a meaningful risk for a building with elevator and life-safety systems.</p></div></div><div class="sub-section-label" style="margin-top:24px">Early Termination Liability (if walking away without cause)</div><div class="analysis-finding warning"><span class="finding-icon">&#x1F4B0;</span><span class="finding-text"><strong>Base ETL formula (per T&amp;Cs):</strong> Remaining months &times; Monthly Recurring Charge (MRC) + any non-recurring fees + any costs MetroNet incurred from suppliers in connection with the service. <br><br>As of June 2026, that's roughly <strong>11 months &times; $656 = ~$7,218</strong> if terminating today through the May 2027 latest expiration. MetroNet may add equipment/installation cost recovery on top of this. <em>The math gets cheaper every month — but waiting for natural expiration costs nothing.</em></span></div><div class="sub-section-label" style="margin-top:24px">Recommended Action Timeline</div><div class="exit-list"><div class="exit-item" style="border-left-color:var(--teal)"><h5>&#x1F551; Now &mdash; June 2026</h5><p>Begin a simple service log: document every outage, slow-down, or service issue with date, time, duration, and business impact. This is your insurance policy for any future negotiation.</p></div><div class="exit-item" style="border-left-color:var(--teal)"><h5>&#x1F551; September 2026</h5><p>Request an itemized current-state inventory from MetroNet. Confirm what's actually active on the account vs. what's still contracted. The $127.80/mo gap between contract and invoice suggests some seats are paid for on paper but not in use.</p></div><div class="exit-item" style="border-left-color:var(--accent)"><h5>&#x1F551; December 2026 &mdash; 90 days before earliest expiration</h5><p>Begin renewal evaluation. Request rate proposals. <strong>This is the strike zone</strong> &mdash; MetroNet's retention team will offer concessions and competitors will compete for the business.</p></div><div class="exit-item" style="border-left-color:var(--accent)"><h5>&#x1F551; March 12, 2027</h5><p>Earliest legitimate exit window. Voice/internet service can be moved or renegotiated.</p></div><div class="exit-item" style="border-left-color:var(--accent)"><h5>&#x1F551; May 8, 2027</h5><p>Alarm line service exits its term. Complete contract freedom at this point.</p></div></div></div></div>
+        </div>
+        <div class="acc-item special-acc" id="acc-audit">
+          <button class="acc-trigger" onclick="toggleAcc('acc-audit')">
+            <div class="acc-trigger-left">
+              <span class="acc-trigger-label">Invoice vs Contract Reconciliation</span>
+              <span class="acc-trigger-sub">Comparing the Feb 12, 2026 invoice line items against the signed agreements</span>
+            </div>
+            <div class="acc-trigger-right">
+              <span class="acc-saving acc-teal">$127.80/mo gap identified</span>
+              <svg class="acc-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4,6 8,10 12,6"/></svg>
+            </div>
+          </button>
+          <div class="acc-body"><div class="acc-body-inner"><div class="sub-section-label">Side-by-Side Reconciliation</div><table class="audit-table"><thead><tr><th>Line Item</th><th>Per Contract</th><th>Per Invoice</th><th>Variance</th></tr></thead><tbody><tr><td>Business Fiber Standard 300/300</td><td>$129.95</td><td colspan="2" style="text-align:right">(combined &rarr; $149.95) &nbsp;<span style="color:var(--teal)">&#x2713; match</span></td></tr><tr><td>/29 Subnet (5 Static IPs)</td><td>$20.00</td><td colspan="2" style="text-align:right">(combined as above)</td></tr><tr><td colspan="4" style="padding-top:14px;font-weight:600;color:rgba(255,255,255,.7)">Internet subtotal: $149.95 contract = $149.95 invoice &nbsp;<span style="color:var(--teal);font-weight:400">&#x2713; foots</span></td></tr><tr><td style="padding-top:18px">HPBX Hosted Access Fee</td><td style="padding-top:18px">$49.95</td><td colspan="2" style="text-align:right;padding-top:18px">(combined into &quot;Fiber Phone&quot; line on invoice)</td></tr><tr><td>HPBX Voicemail</td><td>$5.00</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>HPBX Premium Attendant</td><td>$15.00</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>Edge e Expansion Module</td><td>$14.00</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>Poly Edge e550 Upgrade</td><td>$4.00</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>HPBX Standard Seats (11 x $24.95)</td><td>$274.45</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>HPBX Basic Seats (2 x $19.95)</td><td>$39.90</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>Business Voice Basic (March 2024, fax + elevator)</td><td>$51.30</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr><td>Business Voice Basic (May 2024, alarms)</td><td>$51.30</td><td colspan="2" style="text-align:right">(combined)</td></tr><tr class="gap-row"><td><strong>Phone subtotal</strong></td><td><strong>$504.90</strong></td><td><strong>$377.10</strong></td><td><strong>&minus;$127.80</strong></td></tr><tr><td style="padding-top:14px">Taxes, fees, other (regulatory pass-through)</td><td colspan="3" style="text-align:right;padding-top:14px">Not specified in contract &mdash; invoice: $129.17</td></tr><tr style="border-top:1px solid rgba(255,255,255,.2)"><td style="padding-top:14px"><strong>All-in monthly total</strong></td><td style="padding-top:14px"><strong>$654.85 base</strong></td><td style="padding-top:14px"><strong>$656.22 incl. tax</strong></td><td style="padding-top:14px"><strong>&minus;$127.80 base</strong></td></tr></tbody></table><div class="analysis-finding info" style="margin-top:18px"><span class="finding-icon">&#x1F50D;</span><span class="finding-text"><strong>Most likely explanation for the $127.80 gap:</strong> approximately 5 HPBX Standard Seats (5 &times; $24.95 = $124.75) have been removed from active service at some point since the March 2024 contract signing. The remaining ~$3 is likely a small promotional adjustment or rounding. The handwritten note on the contract (&quot;10 phones, 7 email&quot;) supports a smaller actual deployment than the contracted 13 seats.</span></div><div class="analysis-finding success"><span class="finding-icon">&#x2705;</span><span class="finding-text"><strong>The good news:</strong> The church is paying <em>less</em> than the contract maximum, not more. This means MetroNet adjusted the live invoice downward when seats were removed &mdash; either via formal change order or quiet billing adjustment. <strong>The risk:</strong> If MetroNet were to ever audit and claim full contract value, the church could be on the hook for the difference (~$1,533/yr). Worth obtaining written confirmation of the current billed seat count.</span></div><div class="analysis-finding warning"><span class="finding-icon">&#x26A0;&#xFE0F;</span><span class="finding-text"><strong>Action item:</strong> Email MetroNet Business Customer Service (business-customer-service@metronetinc.com or 855-769-0936) and request an itemized statement of all active services and seats currently being billed on Subscriber ID 2003697. This creates a paper trail and ensures the church understands exactly what it's paying for.</span></div></div></div>
+        </div>
+    </div>
+  </div>
+</div></div>
+
+
+
+
+
+
+<div class="why-section"><div class="why-inner">
+  <div class="why-eyebrow"><span class="why-pill">Why Candid</span></div>
+  <h2 class="why-title">More Than a Vendor &mdash;<br><em>A True Business Partner</em></h2>
+  <div class="why-grid">
+      <div class="why-card"><div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="why-card-title">100% U.S.-Based & Local</div>
+      <div class="why-card-desc">Locally operated — not an overseas call center. When you need someone, a real person who knows your account answers.</div></div>
+      <div class="why-card"><div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M20 18.5V19a3 3 0 0 1-3 3h-3"/></svg></div>
+      <div class="why-card-title">World-Class Support</div>
+      <div class="why-card-desc">Many clients consider Candid an <strong>extension of their finance team</strong> — from reconciliation to day-to-day questions, always available.</div></div>
+      <div class="why-card"><div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="why-card-title">Transparent Pricing — Always</div>
+      <div class="why-card-desc">No hidden fees. No surcharges. <strong>What we quote is exactly what you pay</strong> — every month, guaranteed.</div></div>
+      <div class="why-card"><div class="why-card-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 4 14 11 14 10 22 20 10 13 10 13 2"/></svg></div>
+      <div class="why-card-title">Easy Onboarding & Fast Activation</div>
+      <div class="why-card-desc">Streamlined digital onboarding gets you running quickly — <strong>less paperwork, faster activation</strong>, with a dedicated team alongside you.</div></div>
+      <div class="why-card"><div class="why-card-icon"><svg viewBox="0 0 24 24"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="15 7 21 7 21 13"/></svg></div>
+      <div class="why-card-title">Grows With Your Business</div>
+      <div class="why-card-desc">As your needs change, <strong>Candid scales seamlessly</strong> — no penalties, no renegotiation required.</div></div>
+      <div class="why-card"><div class="why-card-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="3.5"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="why-card-title">Your Finance Team's Partner</div>
+      <div class="why-card-desc">From reconciliation to billing clarity, <strong>your leadership and finance team will notice the difference</strong> from the very first billing cycle.</div></div>
+  </div>
+</div></div>
+
+
+<div class="light-section"><div class="light-inner">
+  <h3 class="next-title">Questions About This Analysis?</h3>
+  <p class="next-intro">We're not here to sell First Pres Aurora anything today. We're here so you understand exactly what you're signed into, what your options are, and when those options open up. If you'd like to discuss any of the findings — or just have a future conversation when your contracts come up for renewal — we'd be honored to help.</p>
+  <div class="options-grid">
+    <div class="option-card book">
+      <div class="option-label">Option A</div><div class="option-title">Discuss the Analysis</div>
+      <p class="option-desc">Book a 20-30 minute walkthrough of these findings with our team. We'll answer questions, expand on any section, and document anything you'd like to raise with MetroNet directly.</p>
+      <a class="btn-book" href="[INSERT_CALENDAR_LINK]" target="_blank">&#x1F4C5;&nbsp; Open Scheduling Calendar</a>
+    </div>
+    <div class="option-card form">
+      <div class="option-label">Option B</div><div class="option-title">Stay In Touch For Renewal</div>
+      <p class="option-desc">We'll add a quiet reminder to reach back out 90 days before your contract expiration. No sales pressure between now and then.</p>
+      <div class="contact-form" id="contactForm">
+        <div class="form-group full"><label class="form-label">Full Name <span class="req">*</span></label><input class="form-input" id="fullName" type="text" placeholder="e.g. James Kinnard, Interim Church Administrator" autocomplete="name"><span class="error-msg" id="fullNameErr">Please enter your full name.</span></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Phone <span class="req">*</span></label><input class="form-input" id="phone" type="tel" placeholder="(630) 000-0000"><span class="error-msg" id="phoneErr">Please enter a valid phone number.</span></div>
+          <div class="form-group"><label class="form-label">Email <span class="req">*</span></label><input class="form-input" id="email" type="email" placeholder="you@example.org"><span class="error-msg" id="emailErr">Please enter a valid email address.</span></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Preferred Date <span class="req">*</span></label><input class="form-input" id="prefDate" type="date"><span class="error-msg" id="prefDateErr">Please select a date.</span></div>
+          <div class="form-group"><label class="form-label">Preferred Time <span class="req">*</span></label><input class="form-input" id="prefTime" type="time"><span class="error-msg" id="prefTimeErr">Please select a time.</span></div>
+        </div>
+        <div class="form-group full"><label class="form-label">Notes <span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label><input class="form-input" id="notes" type="text" placeholder="Any specific questions about the analysis..."></div>
+        <button class="btn-submit" type="button" onclick="submitForm()">&#x2709;&#xFE0F;&nbsp; Request My Calendar Invite</button>
+      </div>
+      <div class="success-state" id="successState"><div class="success-icon">&#x2705;</div><div class="success-title">We&rsquo;ve Got It &mdash; Thank You!</div><p class="success-desc">Your request has been received. A member of the Candid Solutions team will send your calendar invite within one business day.</p></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="footer">
+  <div class="footer-logo"><div class="fw">Candid Solutions</div><div class="fs">candidpay.app &middot; candid.solutions</div></div>
+  <div>Confidential &nbsp;&middot;&nbsp; June 2026</div>
+</div>
+
+<script>
+document.getElementById("prefDate").setAttribute("min",new Date().toISOString().split("T")[0]);
+function toggleAcc(id){var item=document.getElementById(id);var body=item.querySelector(".acc-body");var inner=item.querySelector(".acc-body-inner");if(item.classList.contains("open")){body.style.maxHeight="0";item.classList.remove("open");}else{body.style.maxHeight=inner.scrollHeight+"px";item.classList.add("open");setTimeout(function(){item.scrollIntoView({behavior:"smooth",block:"nearest"});},100);}}
+function submitForm(){var valid=true;var fields=[{id:"fullName",errId:"fullNameErr",check:function(v){return v.trim().length>=2}},{id:"phone",errId:"phoneErr",check:function(v){return v.trim().replace(/[^0-9]/g,"").length>=7}},{id:"email",errId:"emailErr",check:function(v){return v.indexOf("@")>0&&v.lastIndexOf(".")>v.indexOf("@")}},{id:"prefDate",errId:"prefDateErr",check:function(v){return v.trim().length>0}},{id:"prefTime",errId:"prefTimeErr",check:function(v){return v.trim().length>0}}];fields.forEach(function(f){var input=document.getElementById(f.id);var err=document.getElementById(f.errId);var ok=f.check(input.value);input.classList.toggle("error",!ok);err.classList.toggle("visible",!ok);if(!ok)valid=false;});if(!valid)return;document.getElementById("contactForm").style.display="none";document.getElementById("successState").classList.add("visible");}
+// Dark / light mode toggle
+(function(){
+  var saved = (typeof localStorage !== "undefined") && localStorage.getItem("candid-theme");
+  var sys = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  var light = saved ? (saved === "light") : sys;
+  if(light) document.body.classList.add("light-mode");
+  var btn = document.getElementById("themeToggle");
+  if(btn) btn.innerHTML = light ? "&#127769;" : "&#9728;&#65039;";
+})();
+function toggleTheme(){
+  var isLight = document.body.classList.toggle("light-mode");
+  if(typeof localStorage !== "undefined") localStorage.setItem("candid-theme", isLight ? "light" : "dark");
+  var btn = document.getElementById("themeToggle");
+  if(btn) btn.innerHTML = isLight ? "&#127769;" : "&#9728;&#65039;";
+}
+["fullName","phone","email","prefDate","prefTime"].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener("input",function(){this.classList.remove("error");var err=document.getElementById(id+"Err");if(err)err.classList.remove("visible");});});
+</script>
+</body>
+</html>

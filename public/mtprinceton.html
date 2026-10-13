@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment Processing Rate Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --surface: #ffffff;
+      --surface2: #f0f4f8;
+      --border: #e2e8f0;
+      --accent: #0a8f76;
+      --accent2: #c27a00;
+      --text: #1a202c;
+      --muted: #64748b;
+      --green: #047857;
+      --red: #dc2626;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      padding: 2rem;
+      background-image:
+        radial-gradient(ellipse at 10% 0%, rgba(10,143,118,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 90% 100%, rgba(194,122,0,0.05) 0%, transparent 60%);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    header .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      letter-spacing: 0.05em;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    header h1 span {
+      color: var(--accent);
+    }
+
+    header p {
+      margin-top: 0.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .card:nth-child(2) { animation-delay: 0.1s; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .card-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .credit .card-icon { background: rgba(10,143,118,0.1); }
+    .debit .card-icon { background: rgba(194,122,0,0.1); }
+
+    .card-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+    }
+
+    .credit .card-header h2 { color: var(--accent); }
+    .debit .card-header h2 { color: var(--accent2); }
+
+    .card-header .rate-badge {
+      margin-left: auto;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .credit .rate-badge { background: rgba(10,143,118,0.1); color: var(--accent); }
+    .debit .rate-badge { background: rgba(194,122,0,0.1); color: var(--accent2); }
+
+    .line-items {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+
+    .line:last-child { border-bottom: none; }
+
+    .line .desc { color: var(--muted); font-weight: 300; }
+    .line .desc em {
+      font-style: normal;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .line .amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .line.subtotal {
+      border-top: 1px solid var(--border);
+      margin-top: 0.25rem;
+      padding-top: 0.75rem;
+    }
+
+    .line.subtotal .desc { color: var(--text); font-weight: 500; }
+    .line.subtotal .amount { color: var(--text); font-weight: 500; }
+
+    .line.deduction .amount { color: var(--red); }
+    .line.deduction .desc { color: var(--muted); }
+
+    .line.deposit .desc { color: var(--text); }
+    .line.deposit .amount { color: var(--text); }
+
+    .line.tax .amount { color: var(--red); }
+
+    .net-result {
+      margin: 1rem 1.5rem 1.5rem;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .credit .net-result { background: rgba(10,143,118,0.07); border: 1px solid rgba(10,143,118,0.2); }
+    .debit .net-result { background: rgba(194,122,0,0.07); border: 1px solid rgba(194,122,0,0.2); }
+
+    .net-result .net-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+    }
+
+    .net-result .net-amount {
+      font-family: 'DM Mono', monospace;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    .credit .net-result .net-amount { color: var(--accent); }
+    .debit .net-result .net-amount { color: var(--accent2); }
+
+    .check { font-size: 0.9rem; margin-left: 0.4rem; }
+
+    /* Side by side */
+    .comparison {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease 0.2s both;
+    }
+
+    .comparison-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comp-table th, .comp-table td {
+      padding: 0.85rem 1.5rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+
+    .comp-table th {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface2);
+      font-weight: 500;
+    }
+
+    .comp-table td:not(:first-child) {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+    }
+
+    .comp-table tr:last-child td { border-bottom: none; }
+
+    .comp-table .highlight-cc { color: var(--accent); }
+    .comp-table .highlight-dc { color: var(--accent2); }
+    .comp-table .net-green { color: var(--green); font-weight: 700; }
+    .comp-table td:first-child { color: var(--muted); font-weight: 300; }
+
+    /* Negotiation box */
+    .negotiate {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      animation: fadeUp 0.5s ease 0.3s both;
+    }
+
+    .negotiate-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.06em;
+    }
+
+    .neg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    @media (max-width: 600px) {
+      .neg-grid { grid-template-columns: 1fr; }
+    }
+
+    .neg-item {
+      padding: 1.5rem;
+      border-right: 1px solid var(--border);
+    }
+
+    .neg-item:last-child { border-right: none; }
+
+    .neg-item .payment-type {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .neg-item.cc .payment-type { color: var(--accent); }
+    .neg-item.dc .payment-type { color: var(--accent2); }
+
+    .rate-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      font-size: 0.875rem;
+    }
+
+    .rate-row .rlabel { color: var(--muted); font-weight: 300; }
+    .rate-row .rval {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+    }
+
+    .rate-row .old { color: var(--red); text-decoration: line-through; }
+    .rate-row .new-cc { color: var(--accent); }
+    .rate-row .new-dc { color: var(--accent2); }
+    .rate-row .reduction { color: var(--green); }
+
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0.75rem 0; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.78rem;
+      margin-top: 1rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="label">Mt Princeton Hotsprings Resort · Payment Analysis</div>
+    <h1>Processing Rate <span>Breakdown</span></h1>
+    <p>Based on $100 base transaction · 7.55% sales tax · 2% resort fee · 2% credit card surcharge</p>
+  </header>
+
+  <!-- Transaction Cards -->
+  <div class="grid">
+
+    <!-- Credit Card -->
+    <div class="card credit">
+      <div class="card-header">
+        <div class="card-icon">💳</div>
+        <h2>Credit Card</h2>
+        <span class="rate-badge">3.5810%</span>
+      </div>
+      <div class="line-items">
+        <div class="line">
+          <span class="desc">Base charge</span>
+          <span class="amount">$100.00</span>
+        </div>
+        <div class="line">
+          <span class="desc">Resort fee <em>(2% of $100)</em></span>
+          <span class="amount">$2.00</span>
+        </div>
+        <div class="line">
+          <span class="desc">Sales tax <em>(7.55% on $102)</em></span>
+          <span class="amount">$7.70</span>
+        </div>
+        <div class="line">
+          <span class="desc">Processing fee <em>(2% of $100)</em></span>
+          <span class="amount">$2.00</span>
+        </div>
+        <div class="line subtotal">
+          <span class="desc">Total charged to card</span>
+          <span class="amount">$111.70</span>
+        </div>
+        <div class="line deduction">
+          <span class="desc">Processor fee <em>(3.5810% of $111.70)</em></span>
+          <span class="amount">- $4.00</span>
+        </div>
+        <div class="line deposit">
+          <span class="desc">Deposited to bank</span>
+          <span class="amount">$107.70</span>
+        </div>
+        <div class="line tax">
+          <span class="desc">Sales tax remitted</span>
+          <span class="amount">- $7.70</span>
+        </div>
+      </div>
+      <div class="net-result">
+        <span class="net-label">Your Net Income</span>
+        <span class="net-amount">$100.00 <span class="check">✅</span></span>
+      </div>
+    </div>
+
+    <!-- Debit Card -->
+    <div class="card debit">
+      <div class="card-header">
+        <div class="card-icon">🏦</div>
+        <h2>Debit Card</h2>
+        <span class="rate-badge">1.8231%</span>
+      </div>
+      <div class="line-items">
+        <div class="line">
+          <span class="desc">Base charge</span>
+          <span class="amount">$100.00</span>
+        </div>
+        <div class="line">
+          <span class="desc">Resort fee <em>(2% of $100)</em></span>
+          <span class="amount">$2.00</span>
+        </div>
+        <div class="line">
+          <span class="desc">Sales tax <em>(7.55% on $102)</em></span>
+          <span class="amount">$7.70</span>
+        </div>
+        <div class="line">
+          <span class="desc">Processing fee</span>
+          <span class="amount" style="color: var(--muted);">none</span>
+        </div>
+        <div class="line subtotal">
+          <span class="desc">Total charged to card</span>
+          <span class="amount">$109.70</span>
+        </div>
+        <div class="line deduction">
+          <span class="desc">Processor fee <em>(1.8231% of $109.70)</em></span>
+          <span class="amount">- $2.00</span>
+        </div>
+        <div class="line deposit">
+          <span class="desc">Deposited to bank</span>
+          <span class="amount">$107.70</span>
+        </div>
+        <div class="line tax">
+          <span class="desc">Sales tax remitted</span>
+          <span class="amount">- $7.70</span>
+        </div>
+      </div>
+      <div class="net-result">
+        <span class="net-label">Your Net Income</span>
+        <span class="net-amount">$100.00 <span class="check">✅</span></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Side by Side -->
+  <div class="comparison">
+    <div class="comparison-header">Side by Side Comparison</div>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Credit Card</th>
+          <th>Debit Card</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Customer pays</td>
+          <td class="highlight-cc">$111.70</td>
+          <td class="highlight-dc">$109.70</td>
+        </tr>
+        <tr>
+          <td>Processing fee collected</td>
+          <td class="highlight-cc">$2.00</td>
+          <td class="highlight-dc">none</td>
+        </tr>
+        <tr>
+          <td>Processor fee paid</td>
+          <td class="highlight-cc">$4.00</td>
+          <td class="highlight-dc">$2.00</td>
+        </tr>
+        <tr>
+          <td>Your net income</td>
+          <td class="net-green">$100.00 ✅</td>
+          <td class="net-green">$100.00 ✅</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Negotiation Targets -->
+  <div class="negotiate">
+    <div class="negotiate-header">🎯 &nbsp;Processor Rate Configuration</div>
+    <div style="padding: 1rem 1.5rem; background: rgba(10,143,118,0.07); border-bottom: 1px solid rgba(10,143,118,0.2);">
+      <p style="font-size:0.875rem; color:var(--text); font-weight:300; line-height:1.7;">
+        <strong style="color:var(--accent);">💡 Billing Recommendation:</strong> Change from <strong>monthly billing</strong> to <strong>daily billing</strong> so the settlement/deposit amount hitting Mt Princeton Hotsprings Resort's bank account matches what is expected each day, making reconciliation straightforward and eliminating end-of-month surprises.
+      </p>
+    </div>
+    <div class="neg-grid">
+      <div class="neg-item cc">
+        <div class="payment-type">Credit Card</div>
+        <div class="rate-row">
+          <span class="rlabel">Current rate</span>
+          <span class="rval old">3.8369%</span>
+        </div>
+        <hr class="divider"/>
+        <div class="rate-row">
+          <span class="rlabel">Target rate</span>
+          <span class="rval new-cc">3.5810%</span>
+        </div>
+        <div class="rate-row">
+          <span class="rlabel">Reduction needed</span>
+          <span class="rval reduction">▼ 0.2559%</span>
+        </div>
+      </div>
+      <div class="neg-item dc">
+        <div class="payment-type">Debit Card</div>
+        <div class="rate-row">
+          <span class="rlabel">Current rate</span>
+          <span class="rval old">3.8369%</span>
+        </div>
+        <hr class="divider"/>
+        <div class="rate-row">
+          <span class="rlabel">Target rate</span>
+          <span class="rval new-dc">1.8231%</span>
+        </div>
+        <div class="rate-row">
+          <span class="rlabel">Reduction needed</span>
+          <span class="rval reduction">▼ 2.0138%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agilysys Configuration -->
+  <div class="negotiate" style="animation-delay:0.4s;">
+    <div class="negotiate-header">⚙️ &nbsp;Agilysys Configuration</div>
+    <div style="padding: 1.5rem;">
+
+      <div style="margin-bottom: 1.5rem;">
+        <div style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.75rem;">Resort Fee</div>
+        <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem;">
+          <div class="rate-row">
+            <span class="rlabel">Line item label</span>
+            <span class="rval" style="color:var(--text);">Resort Fee</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Rate</span>
+            <span class="rval" style="color:var(--text);">2% of base charge</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Appears on</span>
+            <span class="rval" style="color:var(--green);">✓ All receipts</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Sales tax required</span>
+            <span class="rval" style="color:var(--green);">✓ Yes — 7.55% on base + resort fee</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent2); margin-bottom:0.75rem;">Processing Fee</div>
+        <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem;">
+          <div class="rate-row">
+            <span class="rlabel">Line item label</span>
+            <span class="rval" style="color:var(--text);">Processing Fee</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Rate</span>
+            <span class="rval" style="color:var(--text);">2% of base charge</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Appears on</span>
+            <span class="rval" style="color:var(--green);">✓ Credit card receipts by default</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Sales tax required</span>
+            <span class="rval" style="color:var(--red);">✗ No — non-taxable surcharge</span>
+          </div>
+          <div class="rate-row">
+            <span class="rlabel">Debit &amp; cash payments</span>
+            <span class="rval" style="display:inline-flex; align-items:center; gap:0.5rem;">
+              <span style="background:rgba(220,38,38,0.1); color:var(--red); font-family:'DM Mono',monospace; font-size:0.75rem; padding:0.2rem 0.6rem; border-radius:5px; border:1px solid rgba(220,38,38,0.2);">Remove fee</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="negotiate" style="animation-delay:0.5s;">
+    <div class="negotiate-header">📋 &nbsp;Notes &amp; Disclaimers</div>
+    <div style="padding:1.5rem; display:flex; flex-direction:column; gap:1rem;">
+
+      <div style="background:rgba(10,143,118,0.07); border:1px solid rgba(10,143,118,0.2); border-radius:10px; padding:1rem 1.25rem;">
+        <div style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">🏛️ Colorado SB26-134 — Watch Closely</div>
+        <p style="font-size:0.875rem; color:var(--text); font-weight:300; line-height:1.7;">
+          As of April 2026, the Colorado Senate is actively voting on SB26-134, which would prohibit payment processors from charging interchange fees on the <em>sales tax portion</em> of a transaction. If passed, processors would charge their rate on <strong>$104.00</strong> (base + resort fee + surcharge) instead of the full <strong>$111.70</strong> — removing the sales tax portion from the fee calculation entirely. This would likely eliminate the need for any rate reduction negotiation on credit cards and could affect how the debit rate wash is structured. The bill passed Senate committee on April 27, 2026 and was scheduled for a full Senate vote April 28, 2026.
+        </p>
+      </div>
+
+      <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem;">
+        <div style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem;">⚠️ Tax Basis — Chaffee County, CO</div>
+        <p style="font-size:0.875rem; color:var(--muted); font-weight:300; line-height:1.7;">
+          All calculations based on a combined sales tax rate of <strong style="color:var(--text);">7.55%</strong> — comprised of Colorado state sales tax (2.9%), Chaffee County sales tax (2.75%), and Chaffee County lodging tax (1.9%). Rates apply to unincorporated Chaffee County. If your resort is located within a municipality such as Salida, Buena Vista, or Poncha Springs, additional city sales taxes may apply. Always verify your exact rate using the Colorado DOR GIS Rate Lookup Tool.
+        </p>
+      </div>
+
+      <div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:1rem 1.25rem;">
+        <div style="font-family:'DM Mono',monospace; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--muted); margin-bottom:0.5rem;">📌 General Disclaimer</div>
+        <p style="font-size:0.875rem; color:var(--muted); font-weight:300; line-height:1.7;">
+          This document is for educational and planning purposes only. Consult your CPA, tax attorney, and payment processor before implementing any fee structures, surcharges, or rate changes. Tax laws and processor agreements are subject to change.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuvia Payments — Merchant Portal</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f6f7f8;color:#111;min-height:100vh}
+/* Nav */
+nav{background:#00346d;border-bottom:1px solid #002d5c;padding:0 32px;display:flex;align-items:center;height:60px;position:sticky;top:0;z-index:100}
+.nav-brand{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.02em;margin-right:40px;white-space:nowrap}
+.nav-brand span{color:#00a2ff}
+.nav-tab{padding:0 18px;height:60px;background:none;border:none;border-bottom:2px solid transparent;color:#7ab3d4;font-size:13.5px;font-weight:400;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:inherit;transition:color .15s}
+.nav-tab.active{color:#fff;font-weight:700;border-bottom-color:#00a2ff}
+/* Main */
+main{max-width:960px;margin:0 auto;padding:36px 24px}
+.page{display:none}.page.active{display:block}
+.section-label{font-size:11px;font-weight:700;color:#9ca3af;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+/* Service grid */
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px}
+.service-card{background:#fff;border:1px solid #e7ebef;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.service-card:hover{box-shadow:0 8px 24px rgba(0,0,0,.08);transform:translateY(-2px)}
+.card-top{padding:22px 16px 18px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.card-abbr{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff}
+.card-name{font-size:13.5px;font-weight:700;color:#111;text-align:center}
+.card-tag{font-size:11.5px;color:#6b7280;margin-top:2px;text-align:center}
+.card-btns{padding:12px 14px;display:flex;gap:8px}
+.btn-login{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 0;border-radius:8px;font-size:12.5px;font-weight:700;text-decoration:none;color:#fff;transition:opacity .15s}
+.btn-login:hover{opacity:.88}
+.btn-support{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 0;border:none;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .15s}
+.btn-support:hover{opacity:.8}
+/* Breadcrumb */
+.breadcrumb{display:flex;align-items:center;gap:6px;margin-bottom:28px;font-size:13px}
+.bc-link{background:none;border:none;color:#00a2ff;cursor:pointer;font-weight:700;font-size:13px;padding:0;font-family:inherit}
+.bc-sep{color:#9ca3af;display:flex;align-items:center}
+.bc-cur{color:#9ca3af}.bc-mid{color:#374151;font-weight:700}
+/* Support page */
+.support-header{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.support-abbr{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;flex-shrink:0}
+.support-header h2{font-size:22px;font-weight:800;color:#111}
+.support-header p{font-size:13px;color:#6b7280;margin-top:3px}
+.cc-notice{background:#e8f6ff;border:1px solid #00a2ff;border-radius:10px;padding:10px 14px;display:flex;align-items:flex-start;gap:8px;margin-bottom:20px;font-size:12.5px;color:#00346d;line-height:1.5}
+.contact-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:36px}
+.contact-card{background:#fff;border:1px solid #e7ebef;border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.contact-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.contact-name{font-weight:700;font-size:13px;color:#111;line-height:1.3}
+.contact-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.contact-role{font-size:11.5px;color:#6b7280;line-height:1.5}
+.contact-links{display:flex;flex-direction:column;gap:4px;margin-top:2px}
+.contact-link{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;text-decoration:none}
+.contact-link.email{color:#00346d}.contact-link.phone{color:#374151;font-weight:400}
+.doc-box{border-radius:12px;padding:36px 24px;text-align:center}
+.doc-icon{font-size:28px;margin-bottom:8px}
+.doc-title{font-weight:700;font-size:14px;color:#00346d;margin-bottom:4px}
+.doc-sub{font-size:13px;color:#6b7280}
+/* Reporting */
+.rep-box{text-align:center;padding-top:60px}
+.rep-box .ri{font-size:40px;margin-bottom:12px}
+.rep-box h2{font-size:20px;font-weight:800;color:#111;margin-bottom:8px}
+.rep-box p{color:#6b7280;font-size:14px}
+/* Chat */
+.chat-wrap{border:1px solid #e7ebef;border-radius:16px;overflow:hidden;background:#fff;display:flex;flex-direction:column;min-height:480px}
+.chat-hdr{padding:12px 18px;border-bottom:1px solid #e7ebef;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.chat-logo{width:32px;height:32px;border-radius:8px;background:#00a2ff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff}
+.chat-title{font-size:13.5px;font-weight:700;color:#111}
+.chat-sub{font-size:11.5px;color:#6b7280}
+.chat-hdr-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.chat-newbtn{font-size:12px;color:#00346d;background:#e7ebef;border:none;border-radius:6px;padding:4px 10px;cursor:pointer;font-weight:700;font-family:inherit;display:none}
+.chat-status{display:flex;align-items:center;gap:5px;font-size:11.5px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#00346d}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px}
+.msg-row{display:flex;gap:8px;align-items:flex-start}
+.msg-row.user{flex-direction:row-reverse}
+.msg-av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:700;margin-top:2px}
+.msg-av.bot{background:#00346d;color:#fff}
+.msg-av.user{background:#f3f4f6;color:#6b7280}
+.msg-bub{max-width:82%;padding:9px 13px;font-size:13px;line-height:1.55}
+.msg-bub.bot{background:#f6f7f8;border:1px solid #e7ebef;border-radius:14px 14px 14px 4px;color:#111}
+.msg-bub.user{background:#00346d;border-radius:14px 14px 4px 14px;color:#fff}
+.msg-structured{flex:1;display:flex;flex-direction:column;gap:10px}
+.struct-card{border-radius:10px;padding:11px 13px}
+.struct-hdr{display:flex;align-items:center;gap:6px;margin-bottom:7px}
+.struct-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.struct-lbl{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.struct-text{font-size:12.5px;color:#1a1a1a;line-height:1.6;margin:0}
+.struct-ul{margin:0;padding-left:15px;display:flex;flex-direction:column;gap:3px}
+.struct-ul li{font-size:12.5px;color:#1a1a1a;line-height:1.55}
+.struct-ol{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:4px}
+.struct-ol li{font-size:12.5px;line-height:1.55;color:#1a1a1a}
+.struct-ol li.last{color:#6b7280;font-style:italic}
+.typing-bub{padding:10px 14px;border-radius:14px 14px 14px 4px;background:#f6f7f8;border:1px solid #e7ebef;display:flex;gap:4px;align-items:center}
+.tdot{width:6px;height:6px;border-radius:50%;background:#9ca3af;animation:cpbounce 1.2s infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+/* Chat footer */
+.chat-menu{padding:0 14px 14px;display:flex;flex-direction:column;gap:7px;flex-shrink:0}
+.menu-lbl{font-size:10.5px;color:#9ca3af;text-align:center;padding-bottom:2px;letter-spacing:.06em;text-transform:uppercase}
+.topic-btn{padding:9px 13px;border-radius:9px;font-size:12.5px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;font-family:inherit;width:100%}
+.topic-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.chat-input-row{padding:10px 14px;border-top:1px solid #e7ebef;display:flex;gap:8px;align-items:flex-end;flex-shrink:0}
+.chat-ta{flex:1;resize:none;border:1px solid #e7ebef;border-radius:9px;padding:8px 11px;font-size:13px;font-family:inherit;color:#111;background:#fff;outline:none;line-height:1.5}
+.chat-ta:focus{border-color:#00a2ff}
+.chat-send{width:34px;height:34px;border-radius:8px;background:#00346d;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+.chat-send:hover{background:#002d5c}
+.chat-load{padding:10px 16px 14px;border-top:1px solid #e7ebef;flex-shrink:0}
+.load-track{height:3px;background:#e7ebef;border-radius:9px;overflow:hidden;margin-bottom:7px}
+.load-bar{height:100%;background:#00a2ff;border-radius:9px;animation:cploadbar 1.6s ease-in-out infinite;width:45%}
+.load-txt{font-size:11.5px;color:#9ca3af;text-align:center}
+/* Ticket review */
+.tkt-contacts{background:#fff8f0;border:1px solid #fed7aa;border-radius:10px;padding:11px 13px;margin-bottom:10px}
+.tkt-contacts-lbl{font-size:10.5px;font-weight:700;color:#ea580c;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px}
+.tkt-links{display:flex;flex-direction:column;gap:5px}
+.tkt-links a{display:flex;align-items:center;gap:6px;font-size:12.5px;color:#00346d;font-weight:600;text-decoration:none}
+.tkt-sum{background:#e8f6ff;border:1px solid #00a2ff;border-radius:10px;padding:11px 13px;margin-bottom:10px}
+.tkt-sum-lbl{font-size:10.5px;font-weight:700;color:#00346d;text-transform:uppercase;letter-spacing:.07em;margin-bottom:7px;display:flex;align-items:center;gap:6px}
+.tkt-subj{font-size:12px;font-weight:700;color:#374151;margin-bottom:6px}
+.tkt-body{font-size:12.5px;color:#374151;line-height:1.65;white-space:pre-wrap}
+.tkt-btns{display:flex;gap:8px}
+.btn-confirm{flex:2;padding:9px 0;background:#00346d;color:#fff;border:none;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-confirm:hover{background:#002d5c}
+.btn-edit{flex:1;padding:9px 0;background:#f6f7f8;color:#374151;border:1px solid #e7ebef;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+/* Submitted */
+.sub-success{background:#e8f6ff;border:1px solid #00a2ff;border-radius:10px;padding:14px 13px;text-align:center;margin-bottom:10px}
+.sub-icon{font-size:22px;margin-bottom:6px}
+.sub-title{font-size:13.5px;font-weight:700;color:#00346d;margin-bottom:4px}
+.sub-body{font-size:12.5px;color:#374151;line-height:1.6}
+.urgent-card{background:#fff8f0;border:1px solid #fed7aa;border-radius:10px;padding:12px 13px;margin-bottom:10px}
+.urgent-lbl{font-size:11px;font-weight:700;color:#ea580c;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.urgent-links{display:flex;flex-direction:column;gap:6px}
+.urgent-links a{display:flex;align-items:center;gap:7px;font-size:12.5px;color:#00346d;font-weight:600;text-decoration:none}
+.btn-email{width:100%;padding:10px 0;background:#e6f9ff;border:1px solid #00a2ff;border-radius:9px;font-size:13px;font-weight:700;color:#00346d;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:7px}
+.btn-email:hover{background:#cef2ff}
+svg{display:inline-block;vertical-align:middle}
+@keyframes cpbounce{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+@keyframes cploadbar{0%{transform:translateX(-100%)}100%{transform:translateX(320%)}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Nuvia<span> Payments</span></div>
+  <button class="nav-tab active" id="tab-dashboard" onclick="switchTab('dashboard')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    Dashboard
+  </button>
+  <button class="nav-tab" id="tab-reporting" onclick="switchTab('reporting')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    Reporting
+  </button>
+  <button class="nav-tab" id="tab-chargebacks" onclick="window.open('https://candid.solutions/chargeback_guide.html','_blank')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Chargebacks Management
+  </button>
+</nav>
+
+<main>
+  <div class="page active" id="page-dashboard">
+    <div style="margin-bottom:28px">
+      <h1 style="font-size:22px;font-weight:800;color:#111">Merchant Portal</h1>
+      <p style="font-size:13.5px;color:#6b7280;margin-top:4px">Access your payment tools and platforms below.</p>
+    </div>
+    <div class="section-label">Quick Access</div>
+    <div class="service-grid" id="service-grid"></div>
+    <div class="section-label">Payment Support Assistant</div>
+    <div class="chat-wrap">
+      <div class="chat-hdr">
+        <div class="chat-logo">NP</div>
+        <div>
+          <div class="chat-title">Nuvia Payments Support</div>
+          <div class="chat-sub" id="chat-sub">Payment troubleshooting assistant</div>
+        </div>
+        <div class="chat-hdr-right">
+          <button class="chat-newbtn" id="chat-newbtn" onclick="resetChat()">+ New Issue</button>
+          <div class="chat-status">
+            <div class="status-dot" id="status-dot"></div>
+            <span id="status-txt" style="color:#00346d">Online</span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-msgs" id="chat-msgs"></div>
+      <div class="chat-menu" id="chat-menu">
+        <div class="menu-lbl">choose a topic</div>
+        <button class="topic-btn" style="background:#fef2f2;border:1px solid #fecaca;color:#991b1b" onclick="selectTopic('declined')">
+          <div class="topic-dot" style="background:#ef4444"></div>Trouble processing a payment / Payment declined
+        </button>
+        <button class="topic-btn" style="background:#fffbeb;border:1px solid #fde68a;color:#92400e" onclick="selectTopic('returned')">
+          <div class="topic-dot" style="background:#f59e0b"></div>Payment was returned
+        </button>
+        <button class="topic-btn" style="background:#eff6ff;border:1px solid #bfdbfe;color:#1e3a8a" onclick="selectTopic('refund')">
+          <div class="topic-dot" style="background:#3b82f6"></div>Refund failed
+        </button>
+        <button class="topic-btn" style="background:#f6f7f8;border:1px solid #e7ebef;color:#374151" onclick="selectTopic('other')">
+          <div class="topic-dot" style="background:#9ca3af"></div>Something else
+        </button>
+      </div>
+      <div class="chat-input-row" id="chat-input-row" style="display:none">
+        <textarea class="chat-ta" id="chat-ta" rows="2" placeholder="Paste the error message here..."
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+        <button class="chat-send" onclick="sendMsg()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="chat-load" id="chat-load" style="display:none">
+        <div class="load-track"><div class="load-bar"></div></div>
+        <div class="load-txt" id="load-txt">Candid is analyzing your error...</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-reporting" style="padding:0;margin:0">
+    <iframe src="https://analytics.zoho.com/open-view/1989177000032222572"
+      frameborder="0"
+      style="width:100%;height:calc(100vh - 60px);display:block;border:none"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <div class="page" id="page-support">
+    <div class="breadcrumb">
+      <button class="bc-link" onclick="switchTab('dashboard')">Dashboard</button>
+      <span class="bc-sep"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      <span class="bc-mid" id="bc-svc"></span>
+      <span class="bc-sep"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></span>
+      <span class="bc-cur">Support</span>
+    </div>
+    <div id="support-content"></div>
+  </div>
+</main>
+
+
+
+<script>
+// ── API Proxy ────────────────────────────────────────────────────────────────
+var WORKER_URL = 'https://nuvia.bryanwillis1.workers.dev';
+
+// ── Data ─────────────────────────────────────────────────────────────────────
+var SERVICES = [
+  {id:"paycenter",    name:"PayCenter",         tagline:"Nuvei Payment Hub",     url:"https://nuvei.paycenter.app",               abbr:"PC",  color:"#0F6E56",colorLight:"#E1F5EE",colorMid:"#1D9E75"},
+  {id:"nmi",         name:"NMI",               tagline:"Payment Gateway",        url:"https://secure.nmi.com/merchants/login.php", abbr:"NMI", color:"#185FA5",colorLight:"#E6F1FB",colorMid:"#378ADD"},
+  {id:"checkcommerce",name:"CheckCommerce ACH", tagline:"ACH Processing",         url:"https://checkcommerce.com/MerchantCenter/",  abbr:"CC",  color:"#3B6D11",colorLight:"#EAF3DE",colorMid:"#639922"},
+  {id:"cpanel",      name:"Control Panel",     tagline:"Nuvei Reporting",        url:"https://cpanel.nuvei.com/",                 abbr:"CP",  color:"#533AB7",colorLight:"#EEEDFE",colorMid:"#7F77DD"},
+  {id:"merchant",    name:"Merchant Dashboard",tagline:"Nuvei Merchant Portal",  url:"https://merchant.nuvei.com",                abbr:"MD",  color:"#854F0B",colorLight:"#FAEEDA",colorMid:"#BA7517"},
+  {id:"merlink",     name:"Merlink",           tagline:"Chargeback Management",  url:"https://www.merlinkdrs.com/",               abbr:"ML",  color:"#993556",colorLight:"#FBEAF0",colorMid:"#D4537E"}
+];
+
+var CONTACTS = {
+  candid_team: {name:"Candid Team",      role:"Supplier Support \u00b7 Escalated Issues \u00b7 Onboarding \u00b7 General Help \u00b7 Payment Processing Sales", email:"support@candid.solutions",             phone:null,             tag:"candid"},
+  bryan:       {name:"Bryan Willis",     role:"Candid \u2014 Sales & Support",                                                                                   email:"bryan.willis@candid.solutions",        phone:"(815) 207-8000", tag:"candid"},
+  joe:         {name:"Joe Dix",          role:"Candid \u2014 Sales & Support",                                                                                   email:"joedix@candid.solutions",              phone:"847.323.9844",   tag:"candid"},
+  sandra:      {name:"Sandra Hawkes",    role:"Nuvei \u2014 CC Relationship Manager \u00b7 First contact for Nuvei CC issues",                                   email:"sandra.hawkes@nuvei.com",              phone:"855-769-5062",   tag:"nuvei"},
+  simone:      {name:"Simone Fletcher",  role:"Nuvei \u2014 Escalated Issues (CC on all Nuvei messages)",                                                        email:"Simone.Fletcher@nuvei.com",            phone:"689-240-5928",   tag:"nuvei"},
+  hyfin:       {name:"Hyfin Support",    role:"PayCenter \u2014 Software & Bug Issues",                                                                          email:"support@hyfin.app",                   phone:"913.370.7577",   tag:"hyfin"},
+  zlatka:      {name:"Zlatka Dimitrova", role:"Nuvei \u2014 Disputes & Complaints",                                                                              email:"Risk.Re-presentments@nuvei.com",       phone:"359 2 490 1129", tag:"nuvei"},
+  ach_requests:{name:"ACH Requests",     role:"Nuvei \u2014 Account Maintenance \u00b7 Escalated Issues",                                                        email:"achrequests@nuvei.com",                phone:null,             tag:"nuvei"},
+  jay:         {name:"Jay Sundar",       role:"Nuvei \u2014 Relationship Manager, ACH & Online Banking",                                                         email:"Jayashree.Sundararajan@nuvei.com",     phone:"+1 438-885-2145",tag:"nuvei"}
+};
+
+var TAG_CLR = {
+  candid:{bg:"#e7ebef",text:"#00346d",label:"Candid"},
+  nuvei: {bg:"#e8f6ff",text:"#0077bb",label:"Nuvei"},
+  hyfin: {bg:"#e7ebef",text:"#00346d",label:"Hyfin"}
+};
+
+var SVC_CONTACTS = {
+  paycenter:    {note:"CC Candid (support@candid.solutions) on all messages",keys:["hyfin","candid_team","bryan","joe"]},
+  nmi:          {note:"CC Candid and Simone Fletcher on all Nuvei messages", keys:["sandra","simone","candid_team","bryan"]},
+  checkcommerce:{note:"CC Candid (support@candid.solutions) on all messages",keys:["ach_requests","jay","candid_team","bryan"]},
+  cpanel:       {note:"CC Candid and Simone Fletcher on all Nuvei messages", keys:["sandra","simone","candid_team","bryan"]},
+  merchant:     {note:"CC Candid and Simone Fletcher on all Nuvei messages", keys:["sandra","simone","candid_team","bryan"]},
+  merlink:      {note:"CC Candid (support@candid.solutions) on all messages",keys:["zlatka","candid_team","bryan"]}
+};
+
+var CANDID = {email:"support@candid.solutions",phone:"+1 815-207-8000",meeting:"https://meet.candid.solutions/#/candidpay"};
+
+// ── SVG icons ────────────────────────────────────────────────────────────────
+function ico(d,s){s=s||14;return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+d+'</svg>';}
+var icoExt  = ico('<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>',12);
+var icoSup  = ico('<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>',12);
+var icoMail = ico('<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',13);
+var icoPh   = ico('<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.54a16 16 0 0 0 6.29 6.29l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',13);
+var icoCal  = ico('<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',13);
+var icoChk  = ico('<polyline points="20 6 9 17 4 12"/>',13);
+var icoInfo = ico('<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',13);
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── Navigation ───────────────────────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('page-'+tab).classList.add('active');
+  var tabEl = document.getElementById('tab-'+tab);
+  if (tabEl) tabEl.classList.add('active');
+  // Remove padding on main when showing reporting iframe
+  var mainEl = document.querySelector('main');
+  if (tab === 'reporting') {
+    mainEl.style.padding = '0';
+    mainEl.style.maxWidth = '100%';
+  } else {
+    mainEl.style.padding = '36px 24px';
+    mainEl.style.maxWidth = '960px';
+  }
+  window.scrollTo(0,0);
+}
+
+function openSupport(id) {
+  var svc = SERVICES.find(function(s){return s.id===id;});
+  var sc  = SVC_CONTACTS[id];
+  document.getElementById('bc-svc').textContent = svc.name;
+  document.getElementById('support-content').innerHTML = buildSupportHTML(svc, sc);
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('page-support').classList.add('active');
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('tab-dashboard').classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function buildSupportHTML(svc, sc) {
+  var cards = sc.keys.map(function(k){
+    var c = CONTACTS[k]; var tc = TAG_CLR[c.tag];
+    return '<div class="contact-card">'
+      +'<div class="contact-head"><div class="contact-name">'+esc(c.name)+'</div>'
+      +'<span class="contact-tag" style="background:'+tc.bg+';color:'+tc.text+'">'+tc.label+'</span></div>'
+      +'<div class="contact-role">'+esc(c.role)+'</div>'
+      +'<div class="contact-links">'
+      +(c.email ? '<a href="mailto:'+c.email+'" class="contact-link email">'+icoMail+' '+esc(c.email)+'</a>' : '')
+      +(c.phone ? '<a href="tel:'+c.phone.replace(/[\s.()\-]/g,'')+'" class="contact-link phone">'+icoPh+' '+esc(c.phone)+'</a>' : '')
+      +'</div></div>';
+  }).join('');
+  return '<div class="support-header">'
+    +'<div class="support-abbr" style="background:'+svc.color+';font-size:'+(svc.abbr.length>2?'12':'15')+'px">'+svc.abbr+'</div>'
+    +'<div><h2>'+esc(svc.name)+' Support</h2><p>'+esc(svc.tagline)+'</p></div></div>'
+    +'<div class="cc-notice">'+icoInfo+'<span><strong>Important:</strong> '+esc(sc.note)+'</span></div>'
+    +'<div class="section-label">Support Contacts</div>'
+    +'<div class="contact-grid">'+cards+'</div>'
+    +'<div class="section-label">Documentation</div>'
+    +'<div class="doc-box" style="background:'+svc.colorLight+';border:1px dashed '+svc.colorMid+'99">'
+    +'<div class="doc-icon">📄</div><div class="doc-title">Documentation coming soon</div>'
+    +'<div class="doc-sub">Support articles and guides for '+esc(svc.name)+' will appear here.</div></div>';
+}
+
+// ── Service Cards ────────────────────────────────────────────────────────────
+(function(){
+  document.getElementById('service-grid').innerHTML = SERVICES.map(function(s){
+    return '<div class="service-card">'
+      +'<div class="card-top" style="background:'+s.colorLight+'">'
+      +'<div class="card-abbr" style="background:'+s.color+';font-size:'+(s.abbr.length>2?'12':'15')+'px;box-shadow:0 4px 14px '+s.color+'50">'+s.abbr+'</div>'
+      +'<div><div class="card-name">'+s.name+'</div><div class="card-tag">'+s.tagline+'</div></div></div>'
+      +'<div class="card-btns">'
+      +'<a href="'+s.url+'" target="_blank" rel="noopener noreferrer" class="btn-login" style="background:'+s.color+'">'+icoExt+' Login</a>'
+      +'<button class="btn-support" style="background:'+s.colorLight+';color:'+s.color+'" onclick="openSupport(\''+s.id+'\')">'+icoSup+' Support</button>'
+      +'</div></div>';
+  }).join('');
+})();
+
+// ── Chat ─────────────────────────────────────────────────────────────────────
+var chatPhase = 'menu';
+var chatTopic = null;
+var ticketData = null;
+
+function setPhase(phase) {
+  chatPhase = phase;
+  var menu     = document.getElementById('chat-menu');
+  var inputRow = document.getElementById('chat-input-row');
+  var loading  = document.getElementById('chat-load');
+  var newBtn   = document.getElementById('chat-newbtn');
+  var subEl    = document.getElementById('chat-sub');
+  var dot      = document.getElementById('status-dot');
+  var stTxt    = document.getElementById('status-txt');
+  var loadTxt  = document.getElementById('load-txt');
+
+  menu.style.display     = (phase === 'menu')    ? 'flex'  : 'none';
+  inputRow.style.display = (phase === 'asking')  ? 'flex'  : 'none';
+  loading.style.display  = (phase === 'loading') ? 'block' : 'none';
+  newBtn.style.display   = (phase === 'done' || phase === 'submitted') ? 'block' : 'none';
+
+  if (phase === 'loading') {
+    subEl.textContent   = chatTopic === 'other' ? 'Preparing your support ticket...' : 'Candid is analyzing your error...';
+    loadTxt.textContent = chatTopic === 'other' ? 'Preparing your support ticket...' : 'Candid is analyzing your error...';
+    dot.style.background = '#d97706'; stTxt.style.color = '#d97706'; stTxt.textContent = 'Working';
+  } else if (phase === 'submitted') {
+    subEl.textContent = 'Ticket submitted'; dot.style.background = '#00346d'; stTxt.style.color = '#00346d'; stTxt.textContent = 'Submitted';
+  } else if (phase === 'review') {
+    subEl.textContent = 'Review your ticket before submitting'; dot.style.background = '#00346d'; stTxt.style.color = '#00346d'; stTxt.textContent = 'Online';
+  } else {
+    subEl.textContent = 'Payment troubleshooting assistant'; dot.style.background = '#00346d'; stTxt.style.color = '#00346d'; stTxt.textContent = 'Online';
+  }
+
+  if (phase === 'asking') {
+    var ta = document.getElementById('chat-ta');
+    ta.placeholder = chatTopic === 'other' ? 'Describe your issue in detail...' : 'Paste the error message here...';
+    ta.rows = chatTopic === 'other' ? 3 : 2;
+    setTimeout(function(){ ta.focus(); }, 50);
+  }
+}
+
+function scrollMsgs() { var m = document.getElementById('chat-msgs'); m.scrollTop = m.scrollHeight; }
+
+function addMsg(text, from) {
+  var m = document.getElementById('chat-msgs');
+  var row = document.createElement('div');
+  row.className = 'msg-row ' + from;
+  row.innerHTML = '<div class="msg-av '+from+'">'+(from==='bot'?'NP':'ME')+'</div>'
+    +'<div class="msg-bub '+from+'">'+esc(text)+'</div>';
+  m.appendChild(row); scrollMsgs();
+}
+
+function showTyping() {
+  var m = document.getElementById('chat-msgs');
+  var row = document.createElement('div');
+  row.className = 'msg-row bot'; row.id = 'typing-row';
+  row.innerHTML = '<div class="msg-av bot">NP</div><div class="typing-bub"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>';
+  m.appendChild(row); scrollMsgs();
+}
+function removeTyping() { var t=document.getElementById('typing-row'); if(t) t.remove(); }
+
+function botDelay(text, ms) {
+  ms = ms || 800;
+  return new Promise(function(res){
+    showTyping();
+    setTimeout(function(){ removeTyping(); addMsg(text,'bot'); res(); }, ms);
+  });
+}
+
+function addStructured(data) {
+  var m = document.getElementById('chat-msgs');
+  var row = document.createElement('div');
+  row.className = 'msg-row bot';
+  var steps = (data.steps||[]).map(function(s,i){
+    return '<li class="'+(i===data.steps.length-1?'last':'')+'">'+(s||'')+'</li>';
+  }).join('');
+  var causes = (data.causes||[]).map(function(c){ return '<li>'+esc(c||'')+'</li>'; }).join('');
+  row.innerHTML = '<div class="msg-av bot">NP</div><div class="msg-structured">'
+    +'<div class="struct-card" style="background:#e8f6ff;border:1px solid #00a2ff">'
+    +'<div class="struct-hdr"><div class="struct-dot" style="background:#00346d"></div><span class="struct-lbl" style="color:#00346d">Overview</span></div>'
+    +'<p class="struct-text">'+esc(data.overview||'')+'</p></div>'
+    +'<div class="struct-card" style="background:#fffcf0;border:1px solid #fcd34d">'
+    +'<div class="struct-hdr"><div class="struct-dot" style="background:#d97706"></div><span class="struct-lbl" style="color:#d97706">Common Causes</span></div>'
+    +'<ul class="struct-ul">'+causes+'</ul></div>'
+    +'<div class="struct-card" style="background:#e6f9ff;border:1px solid #00deff">'
+    +'<div class="struct-hdr"><div class="struct-dot" style="background:#00346d"></div><span class="struct-lbl" style="color:#00346d">How to Resolve</span></div>'
+    +'<ol class="struct-ol">'+steps+'</ol></div></div>';
+  m.appendChild(row); scrollMsgs();
+}
+
+function addTicketReview(td) {
+  var m = document.getElementById('chat-msgs');
+  var row = document.createElement('div');
+  row.className = 'msg-row bot'; row.id = 'tkt-review-row';
+  row.innerHTML = '<div class="msg-av bot">NP</div><div style="flex:1">'
+    +'<div class="tkt-contacts"><div class="tkt-contacts-lbl">CANDIDPay Support Contacts</div><div class="tkt-links">'
+    +'<a href="mailto:'+CANDID.email+'">'+icoMail+' '+CANDID.email+'</a>'
+    +'<a href="tel:'+CANDID.phone.replace(/\s/g,'')+'">'+icoPh+' '+CANDID.phone+'</a>'
+    +'<a href="'+CANDID.meeting+'" target="_blank" rel="noopener noreferrer">'+icoCal+' Schedule a meeting</a>'
+    +'</div></div>'
+    +'<div class="tkt-sum"><div class="tkt-sum-lbl"><div style="width:7px;height:7px;border-radius:50%;background:#00346d;display:inline-block;margin-right:4px;vertical-align:middle"></div>Ticket Summary</div>'
+    +(td.title ? '<div class="tkt-subj">Subject: '+esc(td.title)+'</div>' : '')
+    +'<div class="tkt-body">'+esc(td.summary||'')+'</div></div>'
+    +'<div class="tkt-btns">'
+    +'<button class="btn-confirm" onclick="confirmTicket()">'+icoChk+' Yes, submit this ticket</button>'
+    +'<button class="btn-edit" onclick="editIssue()">Edit</button>'
+    +'</div></div>';
+  m.appendChild(row); scrollMsgs();
+}
+
+function addSubmitted() {
+  var m = document.getElementById('chat-msgs');
+  var row = document.createElement('div');
+  row.className = 'msg-row bot';
+  row.innerHTML = '<div class="msg-av bot">NP</div><div style="flex:1">'
+    +'<div class="sub-success"><div class="sub-icon">&#10003;&#65039;</div>'
+    +'<div class="sub-title">Your ticket has been submitted!</div>'
+    +'<div class="sub-body">Please allow <strong>24 hours</strong> for a response from the CANDIDPay team.</div></div>'
+    +'<div class="urgent-card"><div class="urgent-lbl">&#128680; Need urgent help?</div><div class="urgent-links">'
+    +'<a href="tel:'+CANDID.phone.replace(/\s/g,'')+'">'+icoPh+' Call CANDIDPay: '+CANDID.phone+'</a>'
+    +'<a href="'+CANDID.meeting+'" target="_blank" rel="noopener noreferrer">'+icoCal+' Schedule a meeting</a>'
+    +'</div></div>'
+    +'<button class="btn-email" onclick="emailSummary()">'+icoMail+' Email me this ticket summary</button>'
+    +'</div>';
+  m.appendChild(row); scrollMsgs();
+}
+
+// ── Chat actions ─────────────────────────────────────────────────────────────
+async function selectTopic(t) {
+  chatTopic = t;
+  var labels = {declined:'Trouble processing a payment / Payment declined',returned:'Payment was returned',refund:'Refund failed',other:'Something else'};
+  var prompts = {
+    declined:'Got it. Please paste the Customer Message you see on the transaction details page in Paycenter. Paste it exactly as it appears.',
+    returned:'No problem. Please paste the return reason code or description shown on the transaction in Paycenter (for example: "R01 – Insufficient Funds").',
+    refund:"Let's look into that. Please paste the error message shown on the failed refund in Paycenter.",
+    other:'No problem! Please describe your issue in as much detail as you can — what you were doing, what happened, and any error messages or reference numbers you saw.'
+  };
+  addMsg(labels[t], 'user');
+  setPhase('asking');
+  await botDelay(prompts[t]);
+  setPhase('asking');
+}
+
+async function sendMsg() {
+  var ta = document.getElementById('chat-ta');
+  var text = ta.value.trim();
+  if (!text) return;
+  ta.value = '';
+  addMsg(text, 'user');
+  setPhase('loading');
+  if (chatTopic === 'other') { await handleOther(text); } else { await handleError(text); }
+}
+
+async function handleError(text) {
+  var ctx = {declined:'a payment decline or processing failure',returned:'an ACH payment return',refund:'a failed refund'};
+  var sys = 'You are a payment processing support expert for CANDIDPay. When given a payment error, respond ONLY with valid JSON, no markdown, no backticks: {"overview":"1-2 sentence plain English explanation.","causes":["cause 1","cause 2","cause 3"],"steps":["step 1","step 2","If none of the above resolves the issue, please reach out to CANDIDPay at support@candid.solutions or through your merchant portal and we will work with the processor to investigate any configuration issues on our end."]} Return ONLY the JSON.';
+  try {
+    var r = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:[{role:'user',content:'Merchant experiencing '+ctx[chatTopic]+'. Error: "'+text+'". Respond with JSON only.'}]})
+    });
+    var d = await r.json();
+    if (d.error) throw new Error(d.error.message);
+    var raw = (d.content && d.content.find(function(b){return b.type==='text';})||{text:'{}'}).text;
+    var parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    addStructured(parsed);
+    setPhase('done');
+  } catch(e) {
+    console.error('API error:', e);
+    addMsg('Sorry, I had trouble analyzing that error. Please contact Candid directly at support@candid.solutions or call +1 815-207-8000.','bot');
+    setPhase('done');
+  }
+}
+
+async function handleOther(text) {
+  var sys = 'You are a payment processing support assistant for CANDIDPay. Respond ONLY with valid JSON, no markdown, no backticks: {"canResolve":false,"helpText":"I was not able to fully resolve this through the assistant, but I have prepared a support ticket for the CANDIDPay team who will investigate and follow up with you.","ticketTitle":"Concise 1-line ticket subject","ticketSummary":"Detailed professional 3-5 sentence third-person summary of the issue including all relevant details."} Return ONLY the JSON.';
+  try {
+    var r = await fetch(WORKER_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:[{role:'user',content:'Merchant issue: "'+text+'"'}]})
+    });
+    var d = await r.json();
+    if (d.error) throw new Error(d.error.message);
+    var raw = (d.content && d.content.find(function(b){return b.type==='text';})||{text:'{}'}).text;
+    var parsed = JSON.parse(raw.replace(/```json|```/g,'').trim());
+    ticketData = {title:parsed.ticketTitle||'Support Request',summary:parsed.ticketSummary||text};
+    await botDelay(parsed.helpText || "I've prepared a support ticket for the CANDIDPay team.", 600);
+    await botDelay("Here is a summary of what I've heard that will be opened as a ticket with CANDIDPay. Does everything look correct?", 400);
+    addTicketReview(ticketData);
+    setPhase('review');
+  } catch(e) {
+    console.error('API error:', e);
+    addMsg('Sorry, I had trouble processing that. Please contact Candid at support@candid.solutions or call +1 815-207-8000.','bot');
+    setPhase('done');
+  }
+}
+
+function confirmTicket() {
+  var rev = document.getElementById('tkt-review-row');
+  if (rev) rev.remove();
+  addMsg('Yes, submit this ticket.','user');
+  addSubmitted();
+  setPhase('submitted');
+}
+
+function editIssue() {
+  ticketData = null;
+  var rev = document.getElementById('tkt-review-row');
+  if (rev) rev.remove();
+  addMsg('Let me re-describe my issue.','user');
+  setPhase('asking');
+  botDelay('No problem! Please re-describe your issue with any additional detail.').then(function(){ setPhase('asking'); });
+}
+
+function emailSummary() {
+  if (!ticketData) return;
+  var sub  = encodeURIComponent('CANDIDPay Support Ticket: '+(ticketData.title||''));
+  var body = encodeURIComponent('Hello CANDIDPay Support Team,\n\nA support ticket has been submitted via the merchant portal.\n\nSubject: '+(ticketData.title||'')+'\n\nDetails:\n'+(ticketData.summary||'')+'\n\nPlease follow up within 24 hours.\n\nThank you.');
+  window.location.href = 'mailto:'+CANDID.email+'?subject='+sub+'&body='+body;
+}
+
+function resetChat() {
+  chatPhase='menu'; chatTopic=null; ticketData=null;
+  document.getElementById('chat-msgs').innerHTML='';
+  addMsg("Hi! I'm here to help you troubleshoot payment issues. What are you running into today?",'bot');
+  setPhase('menu');
+}
+
+// ── Init ─────────────────────────────────────────────────────────────────────
+resetChat();
+</script>
+</body>
+</html>

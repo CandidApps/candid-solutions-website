@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+  <style>body{margin:0}*{box-sizing:border-box}</style>
+</helmet>
+
+<template id="__bundler_thumbnail" data-bg-color="#232222">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#232222"/>
+    <rect x="380" y="250" width="440" height="300" rx="20" fill="#FD4621"/>
+    <text x="600" y="445" font-family="sans-serif" font-size="200" font-weight="800" fill="#fff" text-anchor="middle">H</text>
+  </svg>
+</template>
+
+<div style="font-family:'Rethink Sans',sans-serif;color:#1A1A1A;background:#F3F1EE;min-height:100vh;">
+
+  <sc-if value="{{ chromeless }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#fff;border-bottom:1px solid rgba(0,0,0,0.08);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;">
+      <img src="happen-logo-orange.svg" alt="Happen Bank" style="width:130px;height:auto;" />
+      <div style="display:flex;align-items:center;gap:18px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3A3A3A" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"></path><path d="M13.7 21a2 2 0 01-3.4 0"></path></svg>
+        <div style="width:32px;height:32px;border-radius:50%;background:#F7F1ED;display:flex;align-items:center;justify-content:center;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:13px;color:#3A3A3A;">BS</div>
+        <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:10px 20px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;cursor:pointer;">Send Message</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ notChromeless }}" hint-placeholder-val="{{ true }}">
+  <div style="background:#232222;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;">
+    <div style="display:flex;align-items:center;gap:20px;">
+      <img src="happen-logo.svg" alt="Happen Bank" style="width:120px;height:auto;filter:brightness(0) invert(1);" />
+      <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:20px;padding:3px;gap:2px;">
+        <button onClick="{{ setPortalOffice }}" style="border:none;cursor:pointer;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:18px;background:{{ officeBtnBg }};color:{{ officeBtnColor }};">Office Portal</button>
+        <button onClick="{{ setPortalAdmin }}" style="border:none;cursor:pointer;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;padding:8px 18px;border-radius:18px;background:{{ adminBtnBg }};color:{{ adminBtnColor }};">Happen Bank Admin</button>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div style="display:flex;background:rgba(255,255,255,0.08);border-radius:16px;padding:3px;gap:2px;">
+        <button onClick="{{ setDeviceDesktop }}" style="border:none;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;border-radius:14px;background:{{ desktopBtnBg }};color:{{ desktopBtnColor }};">Desktop</button>
+        <button onClick="{{ setDeviceMobile }}" style="border:none;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;border-radius:14px;background:{{ mobileBtnBg }};color:{{ mobileBtnColor }};">Mobile</button>
+      </div>
+      <p style="margin:0;font-size:13px;color:rgba(255,255,255,0.6);">{{ portalLabel }}</p>
+    </div>
+  </div>
+
+  <div style="padding:6px 32px;background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 45%,#FD4621 100%);">
+    <p style="margin:0;font-size:12px;font-weight:600;color:#fff;letter-spacing:0.03em;">CONCEPT PREVIEW &mdash; next-generation Patient Notify, built to replace the current limited app</p>
+  </div>
+  </sc-if>
+
+  <div style="display:flex;min-height:calc(100vh - 90px);">
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="width:236px;flex:none;background:#fff;border-right:1px solid rgba(0,0,0,0.06);padding:24px 14px;display:flex;flex-direction:column;gap:2px;">
+        <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="8">
+          <button onClick="{{ nav.go }}" style="text-align:left;border:none;cursor:pointer;background:{{ nav.bg }};color:{{ nav.textColor }};font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;padding:11px 14px;border-radius:6px;display:flex;align-items:center;gap:12px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ nav.iconColor }}" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" style="flex:none;">
+              <sc-if value="{{ nav.isHome }}" hint-placeholder-val="{{ false }}"><path d="M4 11.5L12 4l8 7.5"></path><path d="M6 10v9h12v-9"></path></sc-if>
+              <sc-if value="{{ nav.isSend }}" hint-placeholder-val="{{ false }}"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></sc-if>
+              <sc-if value="{{ nav.isFlow }}" hint-placeholder-val="{{ false }}"><circle cx="6" cy="6" r="2.3"></circle><circle cx="6" cy="18" r="2.3"></circle><circle cx="18" cy="12" r="2.3"></circle><path d="M6 8.3V15.7"></path><path d="M8.2 6.5h4a4 4 0 014 4"></path></sc-if>
+              <sc-if value="{{ nav.isChart }}" hint-placeholder-val="{{ false }}"><path d="M4 20V11"></path><path d="M10 20V5"></path><path d="M16 20v-7"></path><path d="M21 20V8"></path></sc-if>
+              <sc-if value="{{ nav.isBox }}" hint-placeholder-val="{{ false }}"><path d="M21 8l-9-5-9 5 9 5 9-5z"></path><path d="M3 8v9l9 5 9-5V8"></path><path d="M12 13v9"></path></sc-if>
+              <sc-if value="{{ nav.isSync }}" hint-placeholder-val="{{ false }}"><path d="M21 11a9 9 0 10-3 6.7"></path><path d="M21 4v7h-7"></path></sc-if>
+              <sc-if value="{{ nav.isShare }}" hint-placeholder-val="{{ false }}"><circle cx="6" cy="12" r="2.3"></circle><circle cx="18" cy="6" r="2.3"></circle><circle cx="18" cy="18" r="2.3"></circle><path d="M8.1 10.8l7.8-3.6"></path><path d="M8.1 13.2l7.8 3.6"></path></sc-if>
+              <sc-if value="{{ nav.isCode }}" hint-placeholder-val="{{ false }}"><path d="M8 6l-6 6 6 6"></path><path d="M16 6l6 6-6 6"></path></sc-if>
+              <sc-if value="{{ nav.isList }}" hint-placeholder-val="{{ false }}"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h10"></path></sc-if>
+              <sc-if value="{{ nav.isPin }}" hint-placeholder-val="{{ false }}"><path d="M12 21s7-7.4 7-12a7 7 0 10-14 0c0 4.6 7 12 7 12z"></path><circle cx="12" cy="9" r="2.2"></circle></sc-if>
+              <sc-if value="{{ nav.isAlert }}" hint-placeholder-val="{{ false }}"><path d="M12 2L1 21h22L12 2z"></path><path d="M12 9v5"></path><path d="M12 17h.01"></path></sc-if>
+              <sc-if value="{{ nav.isUpload }}" hint-placeholder-val="{{ false }}"><path d="M12 3v12"></path><path d="M7 8l5-5 5 5"></path><path d="M4 21h16"></path></sc-if>
+            </svg>
+            {{ nav.label }}
+          </button>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <div style="flex:1;padding:40px 48px;min-width:0;display:flex;justify-content:{{ contentJustify }};">
+      <div style="{{ contentBoxStyle }}">
+
+        <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;padding:16px;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:space-between;">
+            <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;">{{ activeSectionLabel }}</p>
+            <img src="happen-monogram.svg" alt="" style="width:22px;height:auto;" />
+          </div>
+        </sc-if>
+
+      <div style="{{ innerBodyStyle }}">
+
+      <p style="margin:0 0 4px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:{{ sectionAccent }};text-transform:uppercase;letter-spacing:0.04em;">{{ portalLabelShort }}</p>
+
+      <sc-if value="{{ isOfficeDashboard }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 4px 0;">Welcome back, Bright Smiles Dental</h1>
+        <p style="margin:0 0 32px 0;font-size:15px;color:#3A3A3A;">Here's what's happening with your patients this month.</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:36px;">
+          <sc-for list="{{ dashStats }}" as="s" hint-placeholder-count="4">
+            <div style="background:#F7F1ED;border-top:4px solid {{ s.color }};border-radius:6px;padding:22px 24px;">
+              <p style="margin:0 0 6px 0;font-size:13px;font-weight:600;color:#6B6B6B;text-transform:uppercase;letter-spacing:0.03em;">{{ s.title }}</p>
+              <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:30px;color:#1A1A1A;">{{ s.value }}</p>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:14px;margin-bottom:36px;">
+          <button onClick="{{ goSend }}" style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:14px 24px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">+ Send New Message</button>
+          <button onClick="{{ goReorder }}" style="background:#fff;border:1px solid rgba(0,0,0,0.1);color:#1A1A1A;border-radius:6px;padding:14px 24px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">Reorder Materials</button>
+        </div>
+        <div style="background:#fff;border-radius:8px;padding:28px 30px;border:1px solid rgba(0,0,0,0.06);">
+          <p style="margin:0 0 14px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:17px;">Recent Activity</p>
+          <sc-for list="{{ activity }}" as="a" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,0.05);">
+              <span style="font-size:12px;font-weight:700;color:{{ a.color }};width:60px;">{{ a.ch }}</span>
+              <span style="flex:1;font-size:15px;color:#1A1A1A;">{{ a.name }}</span>
+              <span style="font-size:14px;color:#3A3A3A;flex:1;">{{ a.status }}</span>
+              <span style="font-size:13px;color:#8a8a8a;">{{ a.time }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeSend }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 32px 0;">Send a Message</h1>
+        <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:32px;align-items:start;">
+          <div style="display:flex;flex-direction:column;gap:24px;">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:24px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;">Recipient</p>
+                <span style="font-size:11px;font-weight:600;color:#1a9c5a;background:#EAF7EF;padding:4px 10px;border-radius:10px;">Synced with Open Dental</span>
+              </div>
+              <input value="{{ patientQuery }}" onChange="{{ onPatientQueryChange }}" placeholder="Search patients by name, phone, or email&hellip;" style="width:100%;padding:11px 14px;border:1px solid rgba(0,0,0,0.12);border-radius:6px;font-size:14px;margin-bottom:8px;" />
+              <sc-if value="{{ showPatientResults }}" hint-placeholder-val="{{ false }}">
+                <div style="border:1px solid rgba(0,0,0,0.08);border-radius:6px;overflow:hidden;">
+                  <sc-for list="{{ patientResults }}" as="p" hint-placeholder-count="3">
+                    <div onClick="{{ p.select }}" style="cursor:pointer;padding:10px 14px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.05);">
+                      <span style="font-size:14px;font-weight:600;">{{ p.name }}</span>
+                      <span style="font-size:13px;color:#8a8a8a;">{{ p.contact }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ hasSelectedPatient }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;justify-content:space-between;background:#EEF0FF;border-radius:6px;padding:10px 14px;">
+                  <span style="font-size:14px;font-weight:600;color:rgb(38,38,255);">{{ selectedPatientLabel }}</span>
+                  <button onClick="{{ clearPatient }}" style="border:none;background:none;cursor:pointer;font-size:13px;color:#6B6B6B;">Clear</button>
+                </div>
+              </sc-if>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:24px;">
+              <p style="margin:0 0 12px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;">Channel</p>
+              <div style="display:flex;gap:8px;">
+                <sc-for list="{{ channelOptions }}" as="c" hint-placeholder-count="3">
+                  <button onClick="{{ c.select }}" style="border:none;cursor:pointer;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 20px;border-radius:16px;background:{{ c.bg }};color:{{ c.color }};">{{ c.label }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:24px;">
+              <p style="margin:0 0 12px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;">Template</p>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <sc-for list="{{ templates }}" as="t" hint-placeholder-count="3">
+                  <div onClick="{{ t.select }}" style="cursor:pointer;border:2px solid {{ t.borderColor }};border-radius:6px;padding:18px;background:{{ t.bg }};">
+                    <p style="margin:0 0 6px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:14px;">{{ t.name }}</p>
+                    <p style="margin:0;font-size:12.5px;color:#6B6B6B;line-height:1.5;">{{ t.copy }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;">
+              <div>
+                <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;">Co-brand with your practice</p>
+                <p style="margin:2px 0 0 0;font-size:13px;color:#6B6B6B;">Patients see your name alongside Happen Bank</p>
+                <p style="margin:6px 0 0 0;font-size:12px;color:#d3603f;font-weight:600;">Locked off automatically in states that restrict practice-branded application links (e.g. Illinois)</p>
+              </div>
+              <button onClick="{{ toggleCoBrand }}" style="border:none;cursor:pointer;width:46px;height:26px;border-radius:13px;background:{{ coBrandTrackBg }};position:relative;"><span style="position:absolute;top:3px;left:{{ coBrandKnobLeft }};width:20px;height:20px;border-radius:50%;background:#fff;"></span></button>
+            </div>
+            <button style="background:linear-gradient(90deg,rgb(38,38,255) 0%,#AD11E3 100%);color:#fff;border:none;border-radius:6px;padding:15px;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;cursor:pointer;">Send Message</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px;">
+            <p style="margin:0;font-size:12px;font-weight:700;color:#8a8a8a;text-transform:uppercase;letter-spacing:0.04em;">Live Preview</p>
+
+            <p style="margin:0;font-size:13px;color:#8a8a8a;">To: <strong style="color:#1A1A1A;">{{ previewRecipientLabel }}</strong></p>
+
+            <sc-if value="{{ showSmsPreview }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#1c1c1e;border-radius:22px;padding:14px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                  <div style="width:30px;height:30px;border-radius:50%;background:#FD4621;display:flex;align-items:center;justify-content:center;">
+                    <img src="happen-logo.svg" alt="" style="height:9px;width:auto;filter:brightness(0) invert(1);" />
+                  </div>
+                  <p style="margin:0;font-size:13px;color:#fff;font-weight:600;">Happen Bank Patient Notify</p>
+                </div>
+                <div style="border-radius:16px;padding:4px 4px 12px;min-height:120px;display:flex;flex-direction:column;gap:10px;">
+                  <p style="margin:4px 0;text-align:center;font-size:11px;color:rgba(255,255,255,0.4);">2:53 PM</p>
+                  <div style="align-self:flex-start;background:#3a3a3c;color:#fff;border-radius:16px;padding:10px 14px;max-width:88%;font-size:13.5px;line-height:1.5;">Thank you for your interest in patient financing with Happen Bank. Do you wish to receive additional information with an application link to finance your treatment? Please type YES to confirm or NO to opt out of future messages. T&amp;C: <u>https://patientnotify.co</u></div>
+                  <div style="align-self:flex-end;background:#3a3a3c;color:#fff;border-radius:16px;padding:9px 14px;max-width:50%;font-size:14px;">Yes</div>
+                  <div style="align-self:flex-start;background:#3a3a3c;color:#fff;border-radius:16px;padding:10px 14px;max-width:88%;font-size:13.5px;line-height:1.5;">{{ activeTemplateCopy }}<br /><br />Apply Here:<br /><u>happen.com/apply/BSD-4471</u></div>
+                  <p style="margin:2px 0 0 0;font-size:11px;color:rgba(255,255,255,0.4);">2:54 PM</p>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showEmailPreview }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px solid rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;">
+                <div style="background:#F3F1EE;padding:24px;display:flex;justify-content:center;">
+                  <img src="happen-logo.svg" alt="Happen Bank" style="height:26px;width:auto;" />
+                </div>
+                <div style="height:1px;background:rgba(0,0,0,0.15);"></div>
+                <div style="padding:26px 24px;text-align:center;">
+                  <p style="margin:0 0 18px 0;font-size:14px;color:#3A3A3A;">Thank you for your interest in Happen Bank Patient Solutions, {{ previewRecipientFirstName }}!</p>
+                  <p style="margin:0 0 20px 0;font-size:14px;color:#3A3A3A;">Please click the link below to apply:</p>
+                  <button style="background:#FD4621;color:#fff;border:none;border-radius:6px;padding:12px 28px;font-size:14px;font-weight:700;margin-bottom:16px;">Get Started Here</button>
+                  <p style="margin:0;font-size:11px;color:#8a8a8a;word-break:break-all;">happen.com/apply/BSD-4471?client_id=346230</p>
+                </div>
+                <div style="background:#232222;color:#fff;padding:22px 24px;">
+                  <p style="margin:0 0 10px 0;font-size:11px;line-height:1.6;color:rgba(255,255,255,0.85);">You are receiving this email because you expressed interest in receiving a link to a credit application on behalf of Happen Bank Patient Solutions with your requested provider via the Candid Powered Patient Notify App.</p>
+                  <p style="margin:0 0 16px 0;font-size:11px;line-height:1.6;color:rgba(255,255,255,0.85);">If you no longer wish to receive these emails, you may unsubscribe at any time. <u>Click here</u> to opt out of marketing communications; you may still receive important service-related messages.</p>
+                  <p style="margin:0 0 4px 0;text-align:center;font-size:12px;font-weight:700;">Candid Powered Patient Notify App</p>
+                  <p style="margin:0 0 6px 0;text-align:center;font-size:11px;font-style:italic;color:rgba(255,255,255,0.7);">(Provided on behalf of Happen Bank Patient Solutions)</p>
+                  <p style="margin:0;text-align:center;font-size:11px;text-decoration:underline;color:rgba(255,255,255,0.85);">Privacy Policy and Terms of Use</p>
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeMessageLog }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 32px 0;">Message Log</h1>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;">
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead><tr style="text-align:left;font-size:12px;text-transform:uppercase;color:#6B6B6B;"><th style="padding-bottom:10px;">Patient</th><th>Channel</th><th>Template</th><th>Status</th><th>Sent</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ messageLog }}" as="m" hint-placeholder-count="8">
+                <tr><td style="padding:11px 0;font-weight:600;">{{ m.patient }}</td><td>{{ m.channel }}</td><td>{{ m.template }}</td><td><span style="padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;background:{{ m.statusBg }};color:{{ m.statusColor }};">{{ m.status }}</span></td><td style="color:#8a8a8a;">{{ m.time }}</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeSequences }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;">
+          <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0;">Sequences and Templates</h1>
+          <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:12px 22px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">+ Create Sequence</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <sc-for list="{{ sequences }}" as="seq" hint-placeholder-count="3">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:24px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:17px;">{{ seq.name }}</p>
+                <button onClick="{{ seq.toggle }}" style="border:none;cursor:pointer;width:44px;height:24px;border-radius:12px;background:{{ seq.trackBg }};position:relative;"><span style="position:absolute;top:3px;left:{{ seq.knobLeft }};width:18px;height:18px;border-radius:50%;background:#fff;"></span></button>
+              </div>
+              <p style="margin:0 0 14px 0;font-size:14px;color:#6B6B6B;">{{ seq.desc }}</p>
+              <div style="border-top:1px solid rgba(0,0,0,0.05);padding-top:6px;">
+                <sc-for list="{{ seq.steps }}" as="st" hint-placeholder-count="3">
+                  <div style="display:flex;gap:12px;align-items:flex-start;padding:8px 0;">
+                    <span style="width:22px;height:22px;border-radius:50%;background:{{ st.color }};color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none;">{{ st.num }}</span>
+                    <p style="margin:0;font-size:14px;color:#3A3A3A;line-height:1.5;">{{ st.text }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeReporting }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 32px 0;">Reporting &amp; Analytics</h1>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:24px;">
+          <sc-for list="{{ reportStats }}" as="s" hint-placeholder-count="4">
+            <div style="background:#F7F1ED;border-top:4px solid {{ s.color }};border-radius:6px;padding:22px 24px;">
+              <p style="margin:0 0 6px 0;font-size:13px;font-weight:600;color:#6B6B6B;text-transform:uppercase;letter-spacing:0.03em;">{{ s.title }}</p>
+              <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:30px;color:#1A1A1A;">{{ s.value }}</p>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;margin-bottom:24px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+            <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Messages Sent &middot; Last 14 Days</p>
+            <span style="font-size:12px;color:#1a9c5a;font-weight:600;">&uarr; 18% vs prior period</span>
+          </div>
+          <svg viewBox="0 0 560 140" style="width:100%;height:140px;">
+            <polyline points="{{ trendPoints }}" fill="none" stroke="rgb(38,38,255)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            <polygon points="{{ trendArea }}" fill="rgba(38,38,255,0.08)"></polygon>
+          </svg>
+        </div>
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;margin-bottom:24px;">
+          <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;">
+            <p style="margin:0 0 18px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Conversion Funnel</p>
+            <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:10px;">
+                <span style="width:110px;font-size:13px;color:#3A3A3A;">{{ f.label }}</span>
+                <div style="flex:1;background:#F0EBE6;border-radius:4px;height:26px;position:relative;">
+                  <div style="width:{{ f.pct }};background:{{ f.color }};height:100%;border-radius:4px;"></div>
+                </div>
+                <span style="width:56px;text-align:right;font-size:13px;font-weight:600;">{{ f.value }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;">
+            <p style="margin:0 0 18px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">By Channel</p>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <thead><tr style="color:#6B6B6B;text-align:left;font-size:12px;text-transform:uppercase;"><th style="padding-bottom:8px;">Channel</th><th>Sent</th><th>Open</th><th>Conv.</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ channelRows }}" as="c" hint-placeholder-count="3">
+                  <tr><td style="padding:12px 0;font-weight:600;">{{ c.ch }}</td><td>{{ c.sent }}</td><td>{{ c.open }}</td><td>{{ c.conv }}</td></tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;">
+          <p style="margin:0 0 16px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Top Performing Templates</p>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead><tr style="color:#6B6B6B;text-align:left;font-size:12px;text-transform:uppercase;"><th style="padding-bottom:8px;">Template</th><th>Sent</th><th>Open Rate</th><th>Conversion</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ topTemplates }}" as="t" hint-placeholder-count="3">
+                <tr><td style="padding:11px 0;font-weight:600;">{{ t.name }}</td><td>{{ t.sent }}</td><td>{{ t.open }}</td><td>{{ t.conv }}</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeReorder }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 32px 0;">Reorder Marketing Materials</h1>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:28px;">
+          <sc-for list="{{ materials }}" as="m" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:12px;">
+              <img src="{{ m.src }}" alt="{{ m.name }}" style="width:100%;height:150px;object-fit:contain;" />
+              <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:15px;">{{ m.name }}</p>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <button onClick="{{ m.dec }}" style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(0,0,0,0.12);background:#fff;cursor:pointer;">&minus;</button>
+                <span style="font-size:14px;font-weight:600;">{{ m.qty }}</span>
+                <button onClick="{{ m.inc }}" style="width:28px;height:28px;border-radius:6px;border:1px solid rgba(0,0,0,0.12);background:#fff;cursor:pointer;">+</button>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:14px 26px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">Submit Reorder</button>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeIntegrations }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 12px 0;">Practice Management Sync</h1>
+        <p style="margin:0 0 32px 0;font-size:15px;color:#3A3A3A;max-width:640px;">Connect your existing patient records so eligible patients can be messaged automatically as treatment plans are created, and searched instantly when sending a message.</p>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <sc-for list="{{ systems }}" as="sys" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:22px;display:flex;align-items:center;gap:16px;">
+              <div style="flex:1;">
+                <p style="margin:0 0 4px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">{{ sys.name }}</p>
+                <p style="margin:0;font-size:13px;color:{{ sys.statusColor }};">{{ sys.statusText }}</p>
+              </div>
+              <button style="border:none;cursor:pointer;padding:10px 20px;border-radius:6px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;background:{{ sys.btnBg }};color:{{ sys.btnColor }};">{{ sys.actionLabel }}</button>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOfficeSocial }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 32px 0;">Social Sharing</h1>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+          <sc-for list="{{ socialPosts }}" as="p" hint-placeholder-count="3">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;overflow:hidden;">
+              <div style="background:linear-gradient(135deg,rgb(38,38,255) 0%,#AD11E3 50%,#FD4621 100%);height:140px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;text-align:center;padding:20px;">Bright Smiles Dental &times; Happen Bank</div>
+              <div style="padding:18px;">
+                <p style="margin:0 0 12px 0;font-size:13px;color:#3A3A3A;line-height:1.5;">{{ p.copy }}</p>
+                <div style="display:flex;gap:8px;">
+                  <button style="flex:1;border:1px solid rgba(0,0,0,0.12);background:#fff;border-radius:6px;padding:8px;font-size:12px;font-weight:600;cursor:pointer;">Share to Facebook</button>
+                  <button style="flex:1;border:1px solid rgba(0,0,0,0.12);background:#fff;border-radius:6px;padding:8px;font-size:12px;font-weight:600;cursor:pointer;">Share to Instagram</button>
+                </div>
+                <p style="margin:8px 0 0 0;font-size:11px;color:#8a8a8a;">{{ p.label }}</p>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAdminOverview }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 32px 0;">Network Overview</h1>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px;">
+          <sc-for list="{{ adminStats }}" as="s" hint-placeholder-count="4">
+            <div style="background:#F7F1ED;border-top:4px solid {{ s.color }};border-radius:6px;padding:22px 24px;">
+              <p style="margin:0 0 6px 0;font-size:13px;font-weight:600;color:#6B6B6B;text-transform:uppercase;letter-spacing:0.03em;">{{ s.title }}</p>
+              <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:30px;color:#1A1A1A;">{{ s.value }}</p>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;">
+          <p style="margin:0 0 16px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Locations</p>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead><tr style="text-align:left;font-size:12px;text-transform:uppercase;color:#6B6B6B;"><th style="padding-bottom:10px;">Location</th><th>Status</th><th>Sent</th><th>Completed</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ locationRows }}" as="l" hint-placeholder-count="5">
+                <tr><td style="padding:12px 0;font-weight:600;">{{ l.name }}</td><td><span style="padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;background:{{ l.statusBg }};color:{{ l.statusColor }};">{{ l.status }}</span></td><td>{{ l.sent }}</td><td>{{ l.comp }}</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+
+        <p style="margin:36px 0 16px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;">Patient Lead Activity &middot; Last 30 Days</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px;">
+          <sc-for list="{{ leadChannels }}" as="lc" hint-placeholder-count="4">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-top:4px solid {{ lc.color }};border-radius:8px;padding:22px;">
+              <p style="margin:0 0 12px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:{{ lc.color }};">{{ lc.name }}</p>
+              <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:32px;color:#1A1A1A;">{{ lc.big }}</p>
+              <p style="margin:0 0 14px 0;font-size:12px;color:#8a8a8a;">{{ lc.bigLabel }}</p>
+              <div style="border-top:1px solid rgba(0,0,0,0.06);padding-top:10px;display:flex;flex-direction:column;gap:7px;">
+                <sc-for list="{{ lc.rows }}" as="r" hint-placeholder-count="3">
+                  <div style="display:flex;justify-content:space-between;gap:8px;">
+                    <span style="font-size:12.5px;color:#6B6B6B;">{{ r.k }}</span>
+                    <span style="font-size:12.5px;font-weight:700;color:#1A1A1A;white-space:nowrap;">{{ r.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <p style="margin:0 0 16px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:18px;">Client User Engagement</p>
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:18px;">
+          <sc-for list="{{ clientUserStats }}" as="cs" hint-placeholder-count="2">
+            <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-top:4px solid {{ cs.color }};border-radius:8px;padding:22px;">
+              <p style="margin:0 0 12px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;color:{{ cs.color }};">{{ cs.name }}</p>
+              <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:32px;color:#1A1A1A;">{{ cs.big }}</p>
+              <p style="margin:0 0 14px 0;font-size:12px;color:#8a8a8a;">{{ cs.bigLabel }}</p>
+              <div style="border-top:1px solid rgba(0,0,0,0.06);padding-top:10px;display:flex;flex-direction:column;gap:7px;">
+                <sc-for list="{{ cs.rows }}" as="r" hint-placeholder-count="3">
+                  <div style="display:flex;justify-content:space-between;gap:8px;">
+                    <span style="font-size:12.5px;color:#6B6B6B;">{{ r.k }}</span>
+                    <span style="font-size:12.5px;font-weight:700;color:#1A1A1A;white-space:nowrap;">{{ r.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAdminLocation }}" hint-placeholder-val="{{ false }}">
+
+        <sc-if value="{{ notHasSelectedLocation }}" hint-placeholder-val="{{ true }}">
+          <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 20px 0;">Location Reporting</h1>
+          <div style="display:flex;gap:8px;margin-bottom:24px;">
+            <sc-for list="{{ locationSummaryFilters }}" as="f" hint-placeholder-count="4">
+              <button onClick="{{ f.select }}" style="border:none;cursor:pointer;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 18px;border-radius:16px;background:{{ f.bg }};color:{{ f.color }};">{{ f.label }}</button>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;">
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <thead><tr style="text-align:left;font-size:12px;text-transform:uppercase;color:#6B6B6B;"><th style="padding-bottom:10px;">Location</th><th>Status</th><th>Active/Total Users</th><th>Sent</th><th>Completed</th><th>Last Activity</th><th></th></tr></thead>
+              <tbody>
+                <sc-for list="{{ locationSummaryRows }}" as="l" hint-placeholder-count="5">
+                  <tr style="cursor:pointer;" onClick="{{ l.select }}">
+                    <td style="padding:12px 0;font-weight:600;">{{ l.name }}</td>
+                    <td><span style="padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;background:{{ l.statusBg }};color:{{ l.statusColor }};">{{ l.statusLabel }}</span></td>
+                    <td>{{ l.users }}</td><td>{{ l.sent }}</td><td>{{ l.comp }}</td><td style="color:#8a8a8a;">{{ l.last }}</td>
+                    <td style="color:rgb(38,38,255);font-weight:600;font-size:13px;">View &rarr;</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ hasSelectedLocation }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ backToLocations }}" style="border:none;background:none;cursor:pointer;color:rgb(38,38,255);font-size:13px;font-weight:600;padding:0;margin-bottom:14px;">&larr; Back to all locations</button>
+          <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 6px 0;">{{ selectedLocationName }}</h1>
+          <p style="margin:0 0 32px 0;font-size:14px;color:#3A3A3A;">{{ selectedLocationMeta }}</p>
+
+          <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px 30px;margin-bottom:28px;">
+            <p style="margin:0 0 24px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Activation Journey</p>
+            <div style="position:relative;">
+              <div style="position:absolute;left:5%;right:5%;top:13px;height:2px;background:#e0e0e0;z-index:0;"></div>
+              <div style="display:flex;position:relative;z-index:1;">
+                <sc-for list="{{ locationStages }}" as="st" hint-placeholder-count="5">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;">
+                    <div style="width:26px;height:26px;border-radius:50%;background:{{ st.circleBg }};color:{{ st.circleColor }};display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;">&#10003;</div>
+                    <p style="margin:0;font-size:13px;font-weight:600;color:#1A1A1A;max-width:120px;">{{ st.label }}</p>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin:0 0 16px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Usage</p>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:32px;">
+            <sc-for list="{{ locationDetailStats }}" as="s" hint-placeholder-count="4">
+              <div style="background:#F7F1ED;border-top:4px solid {{ s.color }};border-radius:6px;padding:22px 24px;">
+                <p style="margin:0 0 6px 0;font-size:13px;font-weight:600;color:#6B6B6B;text-transform:uppercase;letter-spacing:0.03em;">{{ s.title }}</p>
+                <p style="margin:0;font-family:'Rethink Sans',sans-serif;font-weight:800;font-size:30px;color:#1A1A1A;">{{ s.value }}</p>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;margin-bottom:24px;">
+            <p style="margin:0 0 16px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Application Funnel by Channel</p>
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+              <thead><tr style="color:#6B6B6B;text-align:left;font-size:12px;text-transform:uppercase;"><th style="padding-bottom:8px;">Channel</th><th>Sent</th><th>Clicks</th><th>Applications Started</th><th>Applications Completed</th></tr></thead>
+              <tbody>
+                <sc-for list="{{ locationChannelStats }}" as="c" hint-placeholder-count="2">
+                  <tr><td style="padding:11px 0;font-weight:600;">{{ c.ch }}</td><td>{{ c.sent }}</td><td>{{ c.clicks }}</td><td>{{ c.started }}</td><td>{{ c.completed }}</td></tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <p style="margin:0 0 4px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Keep this location engaged</p>
+              <p style="margin:0;font-size:14px;color:#6B6B6B;">Send a targeted check-in or performance recap email.</p>
+            </div>
+            <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:12px 22px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">Send Re-engagement Email</button>
+          </div>
+        </sc-if>
+
+      </sc-if>
+
+      <sc-if value="{{ isAdminDormant }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 12px 0;">Location Outreach</h1>
+        <p style="margin:0 0 20px 0;font-size:15px;color:#3A3A3A;">Filter locations by activation and engagement status, then target them with a re-engagement campaign.</p>
+        <div style="display:flex;gap:8px;margin-bottom:24px;">
+          <sc-for list="{{ outreachFilters }}" as="f" hint-placeholder-count="4">
+            <button onClick="{{ f.select }}" style="border:none;cursor:pointer;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:13px;padding:9px 18px;border-radius:16px;background:{{ f.bg }};color:{{ f.color }};">{{ f.label }}</button>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:26px;margin-bottom:20px;">
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead><tr style="text-align:left;font-size:12px;text-transform:uppercase;color:#6B6B6B;"><th style="padding-bottom:10px;width:40px;"></th><th>Location</th><th>Status</th><th>Dormant For</th><th>Msgs (30d)</th></tr></thead>
+            <tbody>
+              <sc-for list="{{ dormantRows }}" as="d" hint-placeholder-count="4">
+                <tr><td style="padding:12px 0;"><button onClick="{{ d.toggle }}" style="width:18px;height:18px;border-radius:4px;border:2px solid {{ d.checkColor }};background:{{ d.checkBg }};cursor:pointer;"></button></td><td style="font-weight:600;">{{ d.name }}</td><td><span style="padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;background:{{ d.statusBg }};color:{{ d.statusColor }};">{{ d.statusLabel }}</span></td><td>{{ d.since }}</td><td>{{ d.msgs }}</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:#F7F1ED;border-radius:8px;padding:20px 26px;display:flex;align-items:center;justify-content:space-between;">
+          <p style="margin:0;font-size:14px;font-weight:600;">{{ dormantSelectedLabel }}</p>
+          <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:12px 22px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">Send Re-engagement Campaign</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAdminUpload }}" hint-placeholder-val="{{ false }}">
+        <h1 style="font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:32px;margin:0 0 12px 0;">Upload New Locations</h1>
+        <p style="margin:0 0 28px 0;font-size:15px;color:#3A3A3A;max-width:700px;">Upload a spreadsheet of new offices to automatically build their accounts, generate QR codes, and queue welcome kit shipments.</p>
+        <div style="border:2px dashed rgba(0,0,0,0.15);border-radius:8px;padding:48px;text-align:center;background:#fff;margin-bottom:24px;">
+          <p style="margin:0 0 10px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:16px;">Drop a CSV or Excel file here</p>
+          <p style="margin:0 0 16px 0;font-size:13px;color:#8a8a8a;">or</p>
+          <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:12px 24px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">Browse Files</button>
+        </div>
+        <div style="background:#fff;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:24px;margin-bottom:20px;">
+          <p style="margin:0 0 14px 0;font-family:'Rethink Sans',sans-serif;font-weight:700;font-size:15px;">Preview &middot; locations_batch_july.csv</p>
+          <table style="width:100%;border-collapse:collapse;font-size:14px;">
+            <thead><tr style="text-align:left;font-size:12px;text-transform:uppercase;color:#6B6B6B;"><th style="padding-bottom:8px;">Office Name</th><th>City</th><th>Contact Email</th><th>Package</th></tr></thead>
+            <tbody>
+              <tr><td style="padding:8px 0;">Willowbrook Dental</td><td>Austin, TX</td><td>ops@willowbrookdental.com</td><td>Full-size Packet</td></tr>
+              <tr><td style="padding:8px 0;">Coastal Smiles</td><td>San Diego, CA</td><td>frontdesk@coastalsmiles.com</td><td>Full-size Packet</td></tr>
+              <tr><td style="padding:8px 0;">Summit Pediatric Dentistry</td><td>Denver, CO</td><td>hello@summitpd.com</td><td>Small-size Packet</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <button style="background:rgb(38,38,255);color:#fff;border:none;border-radius:6px;padding:14px 26px;font-family:'Rethink Sans',sans-serif;font-weight:600;font-size:14px;cursor:pointer;">Create Accounts &amp; Send Welcome Kits</button>
+      </sc-if>
+
+      </div>
+
+        <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;border-top:1px solid rgba(0,0,0,0.06);overflow-x:auto;">
+            <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="6">
+              <button onClick="{{ nav.go }}" style="flex:1;border:none;background:none;cursor:pointer;padding:10px 4px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:56px;">
+                <div style="width:6px;height:6px;border-radius:50%;background:{{ nav.dotColor }};"></div>
+                <p style="margin:0;font-size:10px;font-weight:600;color:{{ nav.textColor }};">{{ nav.short }}</p>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    portal: 'office',
+    officeSection: 'dashboard',
+    adminSection: 'overview',
+    device: 'desktop',
+    channel: 'both',
+    template: 0,
+    coBrand: true,
+    seqEnabled: { s1: true, s2: true, s3: false },
+    dormantSelected: { d1: true, d2: true, d3: false, d4: true },
+    patientQuery: '',
+    selectedPatient: null,
+    outreachFilter: 'all',
+    selectedLocationId: null,
+    locationFilter: 'all',
+    chromeless: false
+  };
+
+  componentDidMount() {
+    const applyHash = () => {
+      let h = (window.location.hash || '').replace('#', '');
+      if (/chromeless=1/.test(window.location.search) || /(^|&)chromeless(&|$)/.test(h)) {
+        if (!this.state.chromeless) this.setState({ chromeless: true });
+      }
+      h = h.replace(/(^|&)chromeless(&|$)/, '').replace(/^&/, '');
+      const [portal, section] = h.split('/');
+      if (portal === 'office' && section) this.setState({ portal: 'office', officeSection: section });
+      else if (portal === 'admin' && section) this.setState({ portal: 'admin', adminSection: section });
+    };
+    applyHash();
+    window.addEventListener('hashchange', applyHash);
+  }
+
+  go(portal, section) {
+    if (portal === 'office') this.setState({ portal, officeSection: section });
+    else this.setState({ portal, adminSection: section });
+  }
+
+  renderVals() {
+    const officeNav = [
+      ['dashboard', 'Dashboard', 'rgb(38,38,255)', 'Home', 'isHome'],
+      ['send', 'Send a Message', '#AD11E3', 'Send', 'isSend'],
+      ['messagelog', 'Message Log', '#D91E8C', 'Log', 'isList'],
+      ['social', 'Social Sharing', '#D91E8C', 'Social', 'isShare'],
+      ['sequences', 'Sequences and Templates', '#d3603f', 'Auto', 'isFlow'],
+      ['reporting', 'Reporting', '#FD4621', 'Stats', 'isChart'],
+      ['reorder', 'Reorder Materials', 'rgb(38,38,255)', 'Order', 'isBox'],
+      ['integrations', 'PMS Sync', '#AD11E3', 'Sync', 'isSync']
+    ];
+    const adminNav = [
+      ['overview', 'Network Overview', 'rgb(38,38,255)', 'Home', 'isHome'],
+      ['location', 'Location Reporting Detail', '#AD11E3', 'Detail', 'isPin'],
+      ['dormant', 'Location Outreach', '#D91E8C', 'Outreach', 'isAlert'],
+      ['upload', 'Upload Locations', '#FD4621', 'Upload', 'isUpload']
+    ];
+    const iconKeys = ['isHome', 'isSend', 'isFlow', 'isChart', 'isBox', 'isSync', 'isShare', 'isCode', 'isList', 'isPin', 'isAlert', 'isUpload'];
+    const activeList = this.state.portal === 'office' ? officeNav : adminNav;
+    const activeKey = this.state.portal === 'office' ? this.state.officeSection : this.state.adminSection;
+    const navItems = activeList.map(([key, label, color, short, iconKey]) => {
+      const active = key === activeKey;
+      const item = {
+        label, short, dotColor: color,
+        bg: active ? '#F7F1ED' : 'transparent',
+        textColor: active ? '#1A1A1A' : '#3A3A3A',
+        iconColor: active ? color : '#8a8a8a',
+        go: () => this.go(this.state.portal, key)
+      };
+      iconKeys.forEach(k => { item[k] = k === iconKey; });
+      return item;
+    });
+    const activeNavDef = activeList.find(n => n[0] === activeKey) || activeList[0];
+    const activeSectionLabel = activeNavDef[1];
+    const sectionAccent = activeNavDef[2];
+
+    const dashStats = [
+      { title: 'Messages Sent (30d)', value: '842', color: 'rgb(38,38,255)' },
+      { title: 'Applications Started', value: '196', color: '#AD11E3' },
+      { title: 'Applications Completed', value: '118', color: '#D91E8C' },
+      { title: 'Est. Revenue Generated', value: '$212,400', color: '#FD4621' }
+    ];
+    const activity = [
+      { ch: 'SMS', name: 'Maria Gomez', status: 'Application Completed', time: '2h ago', color: '#1a9c5a' },
+      { ch: 'Email', name: 'James Carter', status: 'Link Clicked', time: '4h ago', color: 'rgb(38,38,255)' },
+      { ch: 'QR Scan', name: 'Walk-in Patient', status: 'Application Started', time: '6h ago', color: '#AD11E3' },
+      { ch: 'SMS', name: 'Dana Wu', status: 'Follow-up Sent', time: 'Yesterday', color: '#FD4621' },
+      { ch: 'Email', name: 'Ravi Patel', status: 'Opened', time: 'Yesterday', color: 'rgb(38,38,255)' }
+    ];
+
+    const chDefs = [['sms', 'SMS'], ['email', 'Email'], ['both', 'SMS + Email']];
+    const channelOptions = chDefs.map(([key, label]) => ({
+      label, bg: this.state.channel === key ? 'rgb(38,38,255)' : '#F7F1ED', color: this.state.channel === key ? '#fff' : '#3A3A3A',
+      select: () => this.setState({ channel: key })
+    }));
+
+    const tplDefs = [
+      { name: 'Standard Invite', copy: "Hi {{FirstName}}, complete your financing application with Happen Bank in under 2 minutes." },
+      { name: 'Financial Care Reminder', copy: "A reminder that flexible payment options are available for your treatment through Happen Bank." },
+      { name: 'Follow-Up Nudge', copy: "Looks like you're not quite done! Finish your application to see your rate." }
+    ];
+    const templates = tplDefs.map((t, i) => ({
+      name: t.name, copy: t.copy,
+      borderColor: i === this.state.template ? 'rgb(38,38,255)' : 'rgba(0,0,0,0.08)',
+      bg: i === this.state.template ? '#EEF0FF' : '#fff',
+      select: () => this.setState({ template: i })
+    }));
+    const activeTemplateCopy = tplDefs[this.state.template].copy;
+    const activeTemplateCopyLower = activeTemplateCopy.replace('{{FirstName}}, ', '').replace(/^./, c => c.toLowerCase());
+
+    const allPatients = [
+      { name: 'Maria Gomez', contact: '(512) 555-0148' },
+      { name: 'James Carter', contact: 'jcarter@email.com' },
+      { name: 'Dana Wu', contact: '(303) 555-0199' },
+      { name: 'Ravi Patel', contact: 'ravi.patel@email.com' },
+      { name: 'Lena Brooks', contact: '(619) 555-0122' }
+    ];
+    const q = this.state.patientQuery.toLowerCase();
+    const patientResults = (q ? allPatients.filter(p => p.name.toLowerCase().includes(q)) : allPatients).slice(0, 4)
+      .map(p => ({ ...p, select: () => this.setState({ selectedPatient: p, patientQuery: '' }) }));
+    const hasSelectedPatient = !!this.state.selectedPatient;
+    const selectedPatientLabel = hasSelectedPatient ? `${this.state.selectedPatient.name} \u00b7 ${this.state.selectedPatient.contact}` : '';
+    const showPatientResults = !hasSelectedPatient && this.state.patientQuery.length > 0;
+
+    const seqDefs = [
+      { id: 's1', name: 'New Patient Invite + Nudge', desc: 'Invite via SMS, then a friendly nudge if not completed.', steps: ["Day 0 \u00b7 Send SMS invite", "Day 2 \u00b7 If opened but not completed \u2014 send \u201cLooks like you're not quite done\u201d", "Day 5 \u00b7 Final reminder email"] },
+      { id: 's2', name: 'Email-First Reminder Series', desc: 'For patients who prefer email over text.', steps: ["Day 0 \u00b7 Send email invite", "Day 3 \u00b7 SMS follow-up if unopened", "Day 7 \u00b7 Close out reminder"] },
+      { id: 's3', name: 'Post-Treatment Financing Offer', desc: 'Offer financing after a completed treatment plan.', steps: ["Day 0 \u00b7 Send offer SMS", "Day 4 \u00b7 Email recap with rate estimate"] }
+    ];
+    const stepColors = ['rgb(38,38,255)', '#AD11E3', '#FD4621'];
+    const sequences = seqDefs.map(s => {
+      const on = this.state.seqEnabled[s.id];
+      return {
+        name: s.name, desc: s.desc,
+        trackBg: on ? 'rgb(38,38,255)' : '#d8d8d8', knobLeft: on ? '22px' : '3px',
+        toggle: () => this.setState(st => ({ seqEnabled: { ...st.seqEnabled, [s.id]: !st.seqEnabled[s.id] } })),
+        steps: s.steps.map((text, i) => ({ num: i + 1, text, color: stepColors[i % 3] }))
+      };
+    });
+
+    const reportStats = [
+      { title: 'Messages Sent', value: '2,140', color: 'rgb(38,38,255)' },
+      { title: 'Open Rate', value: '68%', color: '#AD11E3' },
+      { title: 'Click-Through Rate', value: '41%', color: '#D91E8C' },
+      { title: 'Conversion Rate', value: '19%', color: '#FD4621' }
+    ];
+    const funnelDefs = [
+      ['Sent', 2140, 'rgb(38,38,255)'], ['Opened', 1455, '#7a5fd6'], ['Clicked', 877, '#AD11E3'],
+      ['Started App', 512, '#D91E8C'], ['Completed', 407, '#FD4621']
+    ];
+    const fmax = funnelDefs[0][1];
+    const funnel = funnelDefs.map(([label, value, color]) => ({ label, value, color, pct: Math.round(value / fmax * 100) + '%' }));
+    const channelRows = [
+      { ch: 'SMS', sent: '1,120', open: '74%', conv: '22%' },
+      { ch: 'Email', sent: '740', open: '58%', conv: '15%' },
+      { ch: 'QR Code', sent: '280', open: '\u2014', conv: '17%' }
+    ];
+    const topTemplates = [
+      { name: 'Standard Invite', sent: '980', open: '71%', conv: '24%' },
+      { name: 'Follow-Up Nudge', sent: '540', open: '65%', conv: '19%' },
+      { name: 'Financial Care Reminder', sent: '620', open: '63%', conv: '15%' }
+    ];
+    const trendVals = [60, 72, 68, 90, 84, 100, 96, 110, 105, 130, 120, 142, 138, 158];
+    const tmax = Math.max(...trendVals), tmin = Math.min(...trendVals);
+    const stepX = 560 / (trendVals.length - 1);
+    const pts = trendVals.map((v, i) => {
+      const x = Math.round(i * stepX);
+      const y = Math.round(130 - ((v - tmin) / (tmax - tmin || 1)) * 110);
+      return `${x},${y}`;
+    });
+    const trendPoints = pts.join(' ');
+    const trendArea = `0,140 ${trendPoints} 560,140`;
+
+    const messageLog = [
+      { patient: 'Maria Gomez', channel: 'SMS', template: 'Standard Invite', status: 'Completed', time: '2h ago', statusBg: '#EAF7EF', statusColor: '#1a9c5a' },
+      { patient: 'James Carter', channel: 'Email', template: 'Financial Care Reminder', status: 'Clicked', time: '4h ago', statusBg: '#EEF0FF', statusColor: 'rgb(38,38,255)' },
+      { patient: 'Dana Wu', channel: 'SMS', template: 'Follow-Up Nudge', status: 'Sent', time: 'Yesterday', statusBg: '#F7F1ED', statusColor: '#6B6B6B' },
+      { patient: 'Ravi Patel', channel: 'Email', template: 'Standard Invite', status: 'Opened', time: 'Yesterday', statusBg: '#FBEFE3', statusColor: '#d3603f' },
+      { patient: 'Lena Brooks', channel: 'SMS', template: 'Standard Invite', status: 'Completed', time: '2 days ago', statusBg: '#EAF7EF', statusColor: '#1a9c5a' },
+      { patient: 'Tom Reyes', channel: 'Email', template: 'Financial Care Reminder', status: 'Bounced', time: '3 days ago', statusBg: '#FDECEA', statusColor: '#d3342a' },
+      { patient: 'Priya Nair', channel: 'SMS', template: 'Follow-Up Nudge', status: 'Completed', time: '3 days ago', statusBg: '#EAF7EF', statusColor: '#1a9c5a' },
+      { patient: 'Carlos Diaz', channel: 'SMS', template: 'Standard Invite', status: 'Clicked', time: '4 days ago', statusBg: '#EEF0FF', statusColor: 'rgb(38,38,255)' }
+    ];
+
+    const matDefs = [
+      ['rebrand-welcome-letter-final.png', 'Welcome Letter', 12],
+      ['collateral-table-tent.png', 'Table Tent', 6],
+      ['collateral-small-sticker.png', 'Small Sticker', 30],
+      ['collateral-qr-cling.png', 'QR Cling', 9]
+    ];
+    const materials = matDefs.map(([src, name, qty]) => ({ src, name, qty, inc: () => {}, dec: () => {} }));
+
+    const systems = [
+      { name: 'Open Dental', connected: true, statusText: 'Last synced 2 hours ago \u00b7 1,204 patients synced', statusColor: '#1a9c5a', actionLabel: 'Connected', btnBg: '#EAF7EF', btnColor: '#1a9c5a' },
+      { name: 'Dentrix', connected: false, statusText: 'Not connected', statusColor: '#8a8a8a', actionLabel: 'Connect', btnBg: 'rgb(38,38,255)', btnColor: '#fff' },
+      { name: 'Eaglesoft', connected: false, statusText: 'Not connected', statusColor: '#8a8a8a', actionLabel: 'Connect', btnBg: 'rgb(38,38,255)', btnColor: '#fff' },
+      { name: 'Curve Dental', connected: false, statusText: 'Not connected', statusColor: '#8a8a8a', actionLabel: 'Connect', btnBg: 'rgb(38,38,255)', btnColor: '#fff' }
+    ];
+
+    const socialPosts = [
+      { label: 'Instagram Post', copy: 'Flexible financing is here! Ask us about Happen Bank Pay Over Time.' },
+      { label: 'Facebook Post', copy: 'Great news \u2014 we now offer flexible payment plans through Happen Bank.' },
+      { label: 'Instagram Story', copy: 'Swipe up to see if you qualify for treatment financing.' }
+    ];
+
+    const adminStats = [
+      { title: 'Total Locations', value: '486', color: 'rgb(38,38,255)' },
+      { title: 'Active This Month', value: '341', color: '#AD11E3' },
+      { title: 'Dormant 30+ Days', value: '87', color: '#D91E8C' },
+      { title: 'Total Applications (YTD)', value: '5,240', color: '#FD4621' }
+    ];
+    const locDefs = [
+      ['Bright Smiles Dental', 'Active', '842', '118'],
+      ['Riverside Family Dentistry', 'Active', '511', '76'],
+      ['Northgate Orthodontics', 'Dormant', '0', '0'],
+      ['Sunrise Dental Group', 'Active', '390', '54'],
+      ['Maple Creek Dental', 'Dormant', '12', '1']
+    ];
+    const locationRows = locDefs.map(([name, status, sent, comp]) => ({
+      name, status, sent, comp,
+      statusBg: status === 'Active' ? '#EAF7EF' : '#FDECEA',
+      statusColor: status === 'Active' ? '#1a9c5a' : '#d3342a'
+    }));
+
+    const locationDetailDefs = [
+      { id: 'l1', name: 'Bright Smiles Dental', locId: 'BSD-4471', onboarded: 'Feb 2025', sent: '842', comp: '118', last: '2h ago', stagesDone: 5, activeUsers: 4, totalUsers: 5, lastUserActivity: '2h ago',
+        channels: [{ ch: 'SMS', sent: '520', clicks: '381', started: '210', completed: '76' }, { ch: 'Email', sent: '322', clicks: '198', started: '104', completed: '42' }] },
+      { id: 'l2', name: 'Riverside Family Dentistry', locId: 'RFD-2290', onboarded: 'Mar 2025', sent: '511', comp: '76', last: '1d ago', stagesDone: 5, activeUsers: 3, totalUsers: 4, lastUserActivity: '1d ago',
+        channels: [{ ch: 'SMS', sent: '340', clicks: '240', started: '130', completed: '48' }, { ch: 'Email', sent: '171', clicks: '96', started: '55', completed: '28' }] },
+      { id: 'l3', name: 'Northgate Orthodontics', locId: 'NGO-8813', onboarded: 'Jan 2025', sent: '0', comp: '0', last: 'Never', stagesDone: 2, activeUsers: 0, totalUsers: 2, lastUserActivity: 'Never',
+        channels: [{ ch: 'SMS', sent: '0', clicks: '0', started: '0', completed: '0' }, { ch: 'Email', sent: '0', clicks: '0', started: '0', completed: '0' }] },
+      { id: 'l4', name: 'Sunrise Dental Group', locId: 'SDG-1145', onboarded: 'Apr 2025', sent: '390', comp: '54', last: '3h ago', stagesDone: 5, activeUsers: 2, totalUsers: 3, lastUserActivity: '3h ago',
+        channels: [{ ch: 'SMS', sent: '250', clicks: '180', started: '95', completed: '34' }, { ch: 'Email', sent: '140', clicks: '77', started: '38', completed: '20' }] },
+      { id: 'l5', name: 'Maple Creek Dental', locId: 'MCD-5502', onboarded: 'Feb 2025', sent: '12', comp: '1', last: '48 days ago', stagesDone: 4, activeUsers: 1, totalUsers: 3, lastUserActivity: '48 days ago',
+        channels: [{ ch: 'SMS', sent: '8', clicks: '3', started: '1', completed: '1' }, { ch: 'Email', sent: '4', clicks: '1', started: '0', completed: '0' }] }
+    ];
+    const stageLabels = ['Account Created', 'Welcome Kit Shipped', 'Portal Activated', 'First Message Sent', 'First Application Completed'];
+    const locationSummary = locationDetailDefs.map(l => ({
+      id: l.id, name: l.name, sent: l.sent, comp: l.comp, last: l.last,
+      users: `${l.activeUsers}/${l.totalUsers}`,
+      statusLabel: l.stagesDone >= 5 ? 'Active' : l.stagesDone <= 2 ? 'Not Activated' : 'Dormant',
+      statusBg: l.stagesDone >= 5 ? '#EAF7EF' : l.stagesDone <= 2 ? '#FDECEA' : '#FBEFE3',
+      statusColor: l.stagesDone >= 5 ? '#1a9c5a' : l.stagesDone <= 2 ? '#d3342a' : '#d3603f',
+      select: () => this.setState({ selectedLocationId: l.id })
+    }));
+    const locSummaryFilterDefs = [['all', 'All'], ['Active', 'Active'], ['Dormant', 'Dormant'], ['Not Activated', 'Not Activated']];
+    const locationSummaryFilters = locSummaryFilterDefs.map(([key, label]) => ({
+      label, bg: this.state.locationFilter === key ? 'rgb(38,38,255)' : '#F7F1ED', color: this.state.locationFilter === key ? '#fff' : '#3A3A3A',
+      select: () => this.setState({ locationFilter: key })
+    }));
+    const locationSummaryRows = locationSummary.filter(l => this.state.locationFilter === 'all' || l.statusLabel === this.state.locationFilter);
+
+    const hasSelectedLocation = !!this.state.selectedLocationId;
+    const selectedLocationDef = locationDetailDefs.find(l => l.id === this.state.selectedLocationId) || locationDetailDefs[0];
+    const backToLocations = () => this.setState({ selectedLocationId: null });
+    const locationDetailStats = [
+      { title: 'Active / Total Users', value: `${selectedLocationDef.activeUsers}/${selectedLocationDef.totalUsers}`, color: 'rgb(38,38,255)' },
+      { title: 'Last User Activity', value: selectedLocationDef.lastUserActivity, color: '#AD11E3' },
+      { title: 'Messages Sent', value: selectedLocationDef.sent, color: '#FD4621' },
+      { title: 'Applications Completed', value: selectedLocationDef.comp, color: '#D91E8C' }
+    ];
+    const locationChannelStats = selectedLocationDef.channels;
+    const locationStages = stageLabels.map((label, i) => {
+      const done = i < selectedLocationDef.stagesDone;
+      return { label, done, circleBg: done ? '#1a9c5a' : '#e0e0e0', circleColor: done ? '#fff' : '#8a8a8a' };
+    });
+
+    const dormantDefs = [
+      ['d1', 'Northgate Orthodontics', 61, 0, false, 'dormant'],
+      ['d2', 'Maple Creek Dental', 48, 1, true, 'dormant'],
+      ['d3', 'Lakeside Pediatric Dentistry', 12, 4, true, 'active'],
+      ['d4', 'Harbor View Dental', 73, 0, false, 'notActivated'],
+      ['d5', 'Willow Creek Family Dental', 22, 0, true, 'noMessages'],
+      ['d6', 'Coastal Smiles Group', 5, 0, false, 'notActivated']
+    ];
+    const filterDefs = [
+      ['all', 'All Locations'],
+      ['notActivated', 'Not Activated'],
+      ['noMessages', 'No Messages Sent'],
+      ['dormant', 'Dormant 30+ Days']
+    ];
+    const outreachFilters = filterDefs.map(([key, label]) => ({
+      label,
+      active: this.state.outreachFilter === key,
+      bg: this.state.outreachFilter === key ? 'rgb(38,38,255)' : '#F7F1ED',
+      color: this.state.outreachFilter === key ? '#fff' : '#3A3A3A',
+      select: () => this.setState({ outreachFilter: key })
+    }));
+    const filtered = dormantDefs.filter(([id, name, days, msgs, activated, tag]) => {
+      if (this.state.outreachFilter === 'all') return true;
+      if (this.state.outreachFilter === 'notActivated') return !activated;
+      if (this.state.outreachFilter === 'noMessages') return msgs === 0;
+      if (this.state.outreachFilter === 'dormant') return days >= 30;
+      return true;
+    });
+    const dormantRows = filtered.map(([id, name, days, msgs, activated]) => {
+      const checked = this.state.dormantSelected[id];
+      return {
+        name, since: `${days} days`, msgs,
+        statusLabel: !activated ? 'Not Activated' : msgs === 0 ? 'No Messages Sent' : days >= 30 ? 'Dormant' : 'Active',
+        statusBg: !activated ? '#FDECEA' : msgs === 0 ? '#FBEFE3' : days >= 30 ? '#FDECEA' : '#EAF7EF',
+        statusColor: !activated ? '#d3342a' : msgs === 0 ? '#d3603f' : days >= 30 ? '#d3342a' : '#1a9c5a',
+        checkColor: checked ? 'rgb(38,38,255)' : '#ccc',
+        checkBg: checked ? 'rgb(38,38,255)' : '#fff',
+        toggle: () => this.setState(s => ({ dormantSelected: { ...s.dormantSelected, [id]: !s.dormantSelected[id] } }))
+      };
+    });
+    const selCount = Object.values(this.state.dormantSelected).filter(Boolean).length;
+
+    return {
+      officeBtnBg: this.state.portal === 'office' ? '#fff' : 'transparent',
+      officeBtnColor: this.state.portal === 'office' ? '#232222' : 'rgba(255,255,255,0.8)',
+      adminBtnBg: this.state.portal === 'admin' ? '#fff' : 'transparent',
+      adminBtnColor: this.state.portal === 'admin' ? '#232222' : 'rgba(255,255,255,0.8)',
+      setPortalOffice: () => this.setState({ portal: 'office' }),
+      setPortalAdmin: () => this.setState({ portal: 'admin' }),
+      desktopBtnBg: this.state.device === 'desktop' ? '#fff' : 'transparent',
+      desktopBtnColor: this.state.device === 'desktop' ? '#232222' : 'rgba(255,255,255,0.8)',
+      mobileBtnBg: this.state.device === 'mobile' ? '#fff' : 'transparent',
+      mobileBtnColor: this.state.device === 'mobile' ? '#232222' : 'rgba(255,255,255,0.8)',
+      setDeviceDesktop: () => this.setState({ device: 'desktop' }),
+      setDeviceMobile: () => this.setState({ device: 'mobile' }),
+      portalLabel: this.state.portal === 'office' ? 'Bright Smiles Dental \u00b7 Office View' : 'Happen Bank \u00b7 Admin View',
+      portalLabelShort: this.state.portal === 'office' ? 'Office Portal' : 'Happen Bank Admin',
+      sectionAccent,
+      chromeless: this.state.chromeless,
+      notChromeless: !this.state.chromeless,
+      isDesktop: this.state.device === 'desktop',
+      isMobile: this.state.device === 'mobile',
+      navItems,
+      activeSectionLabel,
+      contentJustify: this.state.device === 'mobile' ? 'center' : 'flex-start',
+      contentBoxStyle: this.state.device === 'mobile'
+        ? 'width:390px;background:#fff;border-radius:28px;box-shadow:0 20px 50px rgba(0,0,0,0.18);overflow:hidden;border:8px solid #232222;'
+        : 'width:100%;',
+      innerBodyStyle: this.state.device === 'mobile'
+        ? 'min-height:400px;max-height:560px;overflow-y:auto;padding:16px;'
+        : '',
+
+      isOfficeDashboard: this.state.portal === 'office' && this.state.officeSection === 'dashboard',
+      isOfficeSend: this.state.portal === 'office' && this.state.officeSection === 'send',
+      isOfficeMessageLog: this.state.portal === 'office' && this.state.officeSection === 'messagelog',
+      isOfficeSequences: this.state.portal === 'office' && this.state.officeSection === 'sequences',
+      isOfficeReporting: this.state.portal === 'office' && this.state.officeSection === 'reporting',
+      isOfficeReorder: this.state.portal === 'office' && this.state.officeSection === 'reorder',
+      isOfficeIntegrations: this.state.portal === 'office' && this.state.officeSection === 'integrations',
+      isOfficeSocial: this.state.portal === 'office' && this.state.officeSection === 'social',
+      isAdminOverview: this.state.portal === 'admin' && this.state.adminSection === 'overview',
+      isAdminLocation: this.state.portal === 'admin' && this.state.adminSection === 'location',
+      isAdminDormant: this.state.portal === 'admin' && this.state.adminSection === 'dormant',
+      isAdminUpload: this.state.portal === 'admin' && this.state.adminSection === 'upload',
+
+      goSend: () => this.setState({ officeSection: 'send' }),
+      goReorder: () => this.setState({ officeSection: 'reorder' }),
+
+      dashStats, activity,
+      channelOptions,
+      templates, activeTemplateCopy, activeTemplateCopyLower,
+      coBrand: this.state.coBrand,
+      coBrandTrackBg: this.state.coBrand ? 'rgb(38,38,255)' : '#d8d8d8',
+      coBrandKnobLeft: this.state.coBrand ? '23px' : '3px',
+      toggleCoBrand: () => this.setState(s => ({ coBrand: !s.coBrand })),
+      showSmsPreview: this.state.channel !== 'email',
+      showEmailPreview: this.state.channel !== 'sms',
+      emailFromLabel: this.state.coBrand ? 'Bright Smiles Dental via Happen Bank' : 'Happen Bank',
+      patientQuery: this.state.patientQuery,
+      onPatientQueryChange: (e) => this.setState({ patientQuery: e.target.value, selectedPatient: null }),
+      patientResults, showPatientResults, hasSelectedPatient, selectedPatientLabel,
+      clearPatient: () => this.setState({ selectedPatient: null, patientQuery: '' }),
+      previewRecipientLabel: hasSelectedPatient ? this.state.selectedPatient.name : 'No patient selected',
+      previewRecipientFirstName: hasSelectedPatient ? this.state.selectedPatient.name.split(' ')[0] : 'Patient',
+
+      messageLog,
+      sequences,
+      reportStats, funnel, channelRows, topTemplates, trendPoints, trendArea,
+      materials,
+      systems,
+      socialPosts,
+      adminStats, locationRows,
+      leadChannels: [
+        { name: 'Email', color: 'rgb(38,38,255)', big: '109', bigLabel: 'Unique leads', rows: [
+          { k: 'Total (incl. repeats)', v: '117' }, { k: 'Unique link clicks', v: '74' }, { k: 'Total link clicks', v: '68' }, { k: 'Opt-outs', v: '0' }] },
+        { name: 'SMS', color: '#AD11E3', big: '7', bigLabel: 'Unique leads', rows: [
+          { k: 'Opt-ins', v: '7' }, { k: 'Unique link clicks', v: '7' }, { k: 'Total link clicks', v: '14' }, { k: 'No response after reach out', v: '0' }] },
+        { name: 'QR Codes', color: '#D91E8C', big: '393', bigLabel: 'Total scans', rows: [
+          { k: 'Offices displaying QR codes', v: '127' }] },
+        { name: 'Direct Links', color: '#FD4621', big: '63', bigLabel: 'Link opens', rows: [
+          { k: 'Shared via portal & social', v: '\u2014' }] }
+      ],
+      clientUserStats: [
+        { name: 'New User Activations', color: 'rgb(38,38,255)', big: '233', bigLabel: 'User sign-ups (all time)', rows: [
+          { k: 'Invited licensed users (all time)', v: '2,827' }, { k: 'New invites (last 30 days)', v: '841 users \u00b7 191 clients' }, { k: 'Sign-ups (last 30 days)', v: '10' }, { k: 'Repeat sign-up invites sent', v: '3' }] },
+        { name: 'Active Clients', color: '#FD4621', big: '236', bigLabel: 'Total active clients', rows: [
+          { k: 'Active users (last 30 days)', v: '102' }, { k: 'Application hits (last 30 days)', v: '1,522' }, { k: 'Total users of clients (incl. repeats)', v: '592' }] }
+      ],
+      locationDetailStats, locationStages, locationChannelStats,
+      hasSelectedLocation, notHasSelectedLocation: !hasSelectedLocation, backToLocations,
+      selectedLocationName: selectedLocationDef.name, selectedLocationMeta: `Location ID ${selectedLocationDef.locId} \u00b7 Onboarded ${selectedLocationDef.onboarded}`,
+      locationSummaryRows, locationSummaryFilters,
+      outreachFilters,
+      dormantRows, dormantSelectedLabel: `${selCount} location${selCount === 1 ? '' : 's'} selected`
+    };
+  }
+}
+
+</script>
+</body>
+</html>

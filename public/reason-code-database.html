@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reason Code Database</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1f3c;--blue:#1a56db;--blue-light:#e8f0fe;--red:#e53935;--red-light:#fdecea;--text:#1a1a2e;--text2:#4a5568;--text3:#718096;--border:#e2e8f0;--bg:#f8fafc;--white:#fff;--sidebar:260px;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;}
+.sidebar{position:fixed;top:0;left:0;width:var(--sidebar);height:100vh;background:var(--navy);overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.sidebar-meta{padding:20px 24px 16px;border-bottom:1px solid rgba(255,255,255,.1);}
+.sidebar-meta span{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;}
+.sidebar-meta p{color:rgba(255,255,255,.7);font-size:12px;margin-top:3px;}
+.nav-section{padding:16px 0 8px;}
+.nav-label{padding:0 24px 8px;font-size:10px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;}
+.nav-link{display:block;padding:8px 24px;color:rgba(255,255,255,.6);text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .15s;line-height:1.4;}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.07);border-left-color:var(--red);}
+.nav-link.sub{padding-left:36px;font-size:12px;color:rgba(255,255,255,.4);}
+.nav-link.sub:hover{color:rgba(255,255,255,.8);}
+.brand-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+.main{margin-left:var(--sidebar);min-height:100vh;}
+.hero{background:linear-gradient(135deg,var(--navy) 0%,#1a3a6b 60%,#0f2d52 100%);padding:64px 64px 52px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(26,86,219,.25) 0%,transparent 70%);}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:11px;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:20px;}
+.hero-badge::before{content:'';width:6px;height:6px;background:#00bfa5;border-radius:50%;}
+.hero h1{font-family:'DM Serif Display',serif;font-size:46px;color:#fff;line-height:1.1;letter-spacing:-1px;max-width:580px;position:relative;z-index:1;}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,.55);}
+.hero-sub{color:rgba(255,255,255,.55);font-size:14px;margin-top:14px;max-width:540px;position:relative;z-index:1;}
+.stats-bar{background:var(--white);border-bottom:1px solid var(--border);padding:16px 64px;display:flex;gap:40px;flex-wrap:wrap;}
+.stat{display:flex;flex-direction:column;}
+.stat-num{font-family:'DM Serif Display',serif;font-size:26px;color:var(--navy);line-height:1;}
+.stat-label{font-size:12px;color:var(--text3);margin-top:2px;}
+.toolbar{padding:24px 64px 0;position:sticky;top:0;z-index:50;background:var(--bg);border-bottom:1px solid var(--border);}
+.search-row{display:flex;gap:12px;align-items:center;margin-bottom:16px;}
+.search-wrap{position:relative;flex:1;max-width:480px;}
+.search-wrap svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.4;}
+#searchInput{width:100%;padding:10px 14px 10px 40px;border:1px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:14px;background:var(--white);color:var(--text);outline:none;transition:border .15s;}
+#searchInput:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.1);}
+.results-count{font-size:13px;color:var(--text3);}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-bottom:0;}
+.tab{padding:10px 18px;font-size:13px;font-weight:500;cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;color:var(--text3);transition:all .15s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);}
+.tab .cnt{display:inline-block;font-size:11px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1px 7px;margin-left:5px;color:var(--text3);}
+.tab.active .cnt{background:var(--blue-light);border-color:rgba(26,86,219,.2);color:var(--blue);}
+.content{padding:32px 64px 80px;}
+.brand-section{margin-bottom:8px;}
+.brand-header{display:flex;align-items:center;gap:14px;margin:40px 0 6px;}
+.brand-pill{font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;color:#fff;letter-spacing:.5px;}
+.brand-header h2{font-family:'DM Serif Display',serif;font-size:28px;color:var(--navy);}
+.brand-intro{font-size:14px;color:var(--text2);margin-bottom:20px;max-width:700px;line-height:1.6;}
+.cat-header{display:flex;align-items:center;gap:10px;margin:28px 0 12px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+.cat-badge{font-size:10px;font-weight:700;padding:3px 10px;border-radius:5px;text-transform:uppercase;letter-spacing:.8px;}
+.cat-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--navy);}
+.cat-count{font-size:12px;color:var(--text3);margin-left:auto;}
+.code-card{background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;transition:box-shadow .15s;}
+.code-card:hover{box-shadow:0 2px 10px rgba(0,0,0,.06);}
+.code-header{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;}
+.code-num{font-size:12px;font-weight:700;padding:3px 9px;border-radius:5px;white-space:nowrap;font-family:monospace;letter-spacing:.5px;}
+.code-name{font-size:14px;font-weight:600;color:var(--text);flex:1;}
+.code-cat-tag{font-size:11px;padding:2px 7px;border-radius:4px;background:var(--bg);border:1px solid var(--border);color:var(--text3);white-space:nowrap;}
+.code-time{font-size:12px;color:var(--text3);white-space:nowrap;}
+.chevron{transition:transform .2s;color:var(--text3);flex-shrink:0;}
+.code-card.open .chevron{transform:rotate(180deg);}
+.code-body{display:none;padding:0 18px 18px;}
+.code-card.open .code-body{display:block;}
+.code-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.cs{background:var(--bg);border-radius:8px;padding:12px 14px;}
+.cs.full{grid-column:1/-1;}
+.cs h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text3);margin-bottom:7px;}
+.cs p,.cs li{font-size:13px;color:var(--text2);line-height:1.6;}
+.cs ul,.cs ol{padding-left:17px;}
+.cs li{margin-bottom:3px;}
+.time-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.ti{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:9px 11px;}
+.ti .tl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:2px;}
+.ti .tv{font-size:13px;font-weight:600;color:var(--navy);}
+.fight-box{background:var(--blue-light);border:1px solid rgba(26,86,219,.15);border-radius:8px;padding:12px 14px;}
+.fight-box h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue);margin-bottom:7px;}
+.fight-box p,.fight-box li{font-size:13px;color:#1e3a5f;line-height:1.6;}
+.fight-box ul{padding-left:17px;}
+.fight-box li{margin-bottom:3px;}
+.empty-state{text-align:center;padding:80px 40px;color:var(--text3);}
+.empty-state h3{font-size:18px;color:var(--text2);margin-bottom:8px;}
+.visa-n{background:#eef0ff;color:#1a1f71;}
+.mc-n{background:#fff0f0;color:#c00;}
+.amex-n{background:#e6f3fb;color:#007bc1;}
+.disc-n{background:#fff4ee;color:#c04800;}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sidebar-meta">
+    <span>Knowledge Base</span>
+    <p>Chargeback &amp; Disputes</p>
+  </div>
+  <nav class="nav-section">
+    <div class="nav-label">Reason Codes</div>
+    <a class="nav-link" href="#visa"><span class="brand-dot" style="background:#1a1f71"></span>Visa</a>
+    <a class="nav-link sub" href="#visa-fraud">Fraud (10.x)</a>
+    <a class="nav-link sub" href="#visa-auth">Authorization (11.x)</a>
+    <a class="nav-link sub" href="#visa-proc">Processing Errors (12.x)</a>
+    <a class="nav-link sub" href="#visa-disp">Consumer Disputes (13.x)</a>
+    <a class="nav-link" href="#mastercard"><span class="brand-dot" style="background:#eb001b"></span>Mastercard</a>
+    <a class="nav-link sub" href="#mc-fraud">Fraud</a>
+    <a class="nav-link sub" href="#mc-auth">Authorization</a>
+    <a class="nav-link sub" href="#mc-poi">Point of Interaction</a>
+    <a class="nav-link sub" href="#mc-cust">Cardholder Disputes</a>
+    <a class="nav-link" href="#amex"><span class="brand-dot" style="background:#007bc1"></span>American Express</a>
+    <a class="nav-link sub" href="#amex-auth">Authorization (A)</a>
+    <a class="nav-link sub" href="#amex-disp">Cardmember Disputes (C)</a>
+    <a class="nav-link sub" href="#amex-fraud">Fraud (F)</a>
+    <a class="nav-link sub" href="#amex-proc">Processing Errors (P)</a>
+    <a class="nav-link" href="#discover"><span class="brand-dot" style="background:#f76420"></span>Discover</a>
+    <a class="nav-link sub" href="#disc-fraud">Fraud (UA)</a>
+    <a class="nav-link sub" href="#disc-auth">Authorization</a>
+    <a class="nav-link sub" href="#disc-proc">Processing</a>
+    <a class="nav-link sub" href="#disc-cust">Cardholder Disputes</a>
+  </nav>
+  <div class="nav-section">
+    <div class="nav-label">Related</div>
+    <a class="nav-link" href="chargeback_guide.html">Chargeback Guide</a>
+    <a class="nav-link" href="merlink.html">Merlink Portal</a>
+  </div>
+</aside>
+<main class="main">
+  <div class="hero">
+    <div class="hero-badge">Reference Database</div>
+    <h1>Reason Code <em>Database</em></h1>
+    <p class="hero-sub">Every chargeback reason code across Visa, Mastercard, American Express, and Discover — with descriptions, time limits, root causes, prevention steps, and how to fight back.</p>
+  </div>
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">83</span><span class="stat-label">Total Reason Codes</span></div>
+    <div class="stat"><span class="stat-num">4</span><span class="stat-label">Card Networks</span></div>
+    <div class="stat"><span class="stat-num">10 days</span><span class="stat-label">Typical Merchant Response Window</span></div>
+    <div class="stat"><span class="stat-num">120 days</span><span class="stat-label">Max Issuer Filing Window</span></div>
+  </div>
+  <div class="toolbar">
+    <div class="search-row">
+      <div class="search-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Search by code, name, or keyword…">
+      </div>
+      <span class="results-count" id="resultsCount"></span>
+    </div>
+    <div class="tabs">
+      <button class="tab active" data-brand="all">All Networks <span class="cnt" id="cnt-all">83</span></button>
+      <button class="tab" data-brand="visa">Visa <span class="cnt">24</span></button>
+      <button class="tab" data-brand="mc">Mastercard <span class="cnt">18</span></button>
+      <button class="tab" data-brand="amex">American Express <span class="cnt">24</span></button>
+      <button class="tab" data-brand="disc">Discover <span class="cnt">17</span></button>
+    </div>
+  </div>
+  <div class="content" id="mainContent">
+
+    <div class="brand-section" data-brand="visa" id="visa">
+      <div class="brand-header" id="visa">
+        <span class="brand-pill" style="background:#1a1f71">VISA</span>
+        <h2>Visa Chargeback Reason Codes</h2>
+      </div>
+      <p class="brand-intro">Visa reason codes follow a two-digit category prefix (10 = Fraud, 11 = Authorization, 12 = Processing Errors, 13 = Consumer Disputes) followed by a period and a specific number. The merchant response window is typically 30 days from notification.</p>
+  
+      <div id="visa-fraud">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#eef0ff;color:#1a1f71">Fraud</span>
+          <span class="cat-title">10.x — Fraud</span>
+        </div>
+        <div id="cards-visa-fraud"></div>
+      </div>
+    
+      <div id="visa-auth">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#eef0ff;color:#1a1f71">Authorization</span>
+          <span class="cat-title">11.x — Authorization</span>
+        </div>
+        <div id="cards-visa-auth"></div>
+      </div>
+    
+      <div id="visa-proc">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#eef0ff;color:#1a1f71">Processing</span>
+          <span class="cat-title">12.x — Processing Errors</span>
+        </div>
+        <div id="cards-visa-proc"></div>
+      </div>
+    
+      <div id="visa-disp">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#eef0ff;color:#1a1f71">Disputes</span>
+          <span class="cat-title">13.x — Consumer Disputes</span>
+        </div>
+        <div id="cards-visa-disp"></div>
+      </div>
+    </div>
+
+    <div class="brand-section" data-brand="mc" id="mastercard">
+      <div class="brand-header" id="mastercard">
+        <span class="brand-pill" style="background:#eb001b">MASTERCARD</span>
+        <h2>Mastercard Reason Codes</h2>
+      </div>
+      <p class="brand-intro">Mastercard uses four-digit codes beginning with 48. The merchant response window is generally 45 days from the chargeback date.</p>
+  
+      <div id="mc-fraud">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff0f0;color:#c00">Fraud</span>
+          <span class="cat-title">Fraud</span>
+        </div>
+        <div id="cards-mc-fraud"></div>
+      </div>
+    
+      <div id="mc-auth">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff0f0;color:#c00">Authorization</span>
+          <span class="cat-title">Authorization</span>
+        </div>
+        <div id="cards-mc-auth"></div>
+      </div>
+    
+      <div id="mc-poi">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff0f0;color:#c00">Processing</span>
+          <span class="cat-title">Point of Interaction Errors</span>
+        </div>
+        <div id="cards-mc-poi"></div>
+      </div>
+    
+      <div id="mc-cust">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff0f0;color:#c00">Disputes</span>
+          <span class="cat-title">Cardholder Disputes</span>
+        </div>
+        <div id="cards-mc-cust"></div>
+      </div>
+    </div>
+
+    <div class="brand-section" data-brand="amex" id="amex">
+      <div class="brand-header" id="amex">
+        <span class="brand-pill" style="background:#007bc1">AMEX</span>
+        <h2>American Express Reason Codes</h2>
+      </div>
+      <p class="brand-intro">American Express codes use a letter prefix (A = Authorization, C = Cardmember Dispute, F = Fraud, P = Processing Errors). Amex acts as both issuer and network — there is no neutral arbitration.</p>
+  
+      <div id="amex-auth">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#e6f3fb;color:#007bc1">Authorization</span>
+          <span class="cat-title">A — Authorization</span>
+        </div>
+        <div id="cards-amex-auth"></div>
+      </div>
+    
+      <div id="amex-disp">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#e6f3fb;color:#007bc1">Disputes</span>
+          <span class="cat-title">C — Cardmember Disputes</span>
+        </div>
+        <div id="cards-amex-disp"></div>
+      </div>
+    
+      <div id="amex-fraud">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#e6f3fb;color:#007bc1">Fraud</span>
+          <span class="cat-title">F — Fraud</span>
+        </div>
+        <div id="cards-amex-fraud"></div>
+      </div>
+    
+      <div id="amex-proc">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#e6f3fb;color:#007bc1">Processing</span>
+          <span class="cat-title">P — Processing Errors</span>
+        </div>
+        <div id="cards-amex-proc"></div>
+      </div>
+    </div>
+
+    <div class="brand-section" data-brand="disc" id="disc">
+      <div class="brand-header" id="disc">
+        <span class="brand-pill" style="background:#f76420">DISCOVER</span>
+        <h2>Discover Reason Codes</h2>
+      </div>
+      <p class="brand-intro">Discover codes are mostly two-letter codes, with fraud codes using a UA prefix. Discover operates as both issuer and network — there is no external arbitration. The merchant response window is typically 20 days.</p>
+  
+      <div id="disc-fraud">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff4ee;color:#c04800">Fraud</span>
+          <span class="cat-title">UA — Fraud / Unauthorized</span>
+        </div>
+        <div id="cards-disc-fraud"></div>
+      </div>
+    
+      <div id="disc-auth">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff4ee;color:#c04800">Authorization</span>
+          <span class="cat-title">Authorization</span>
+        </div>
+        <div id="cards-disc-auth"></div>
+      </div>
+    
+      <div id="disc-proc">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff4ee;color:#c04800">Processing</span>
+          <span class="cat-title">Processing Errors</span>
+        </div>
+        <div id="cards-disc-proc"></div>
+      </div>
+    
+      <div id="disc-cust">
+        <div class="cat-header">
+          <span class="cat-badge" style="background:#fff4ee;color:#c04800">Disputes</span>
+          <span class="cat-title">Cardholder Disputes</span>
+        </div>
+        <div id="cards-disc-cust"></div>
+      </div>
+    </div>
+
+    <div class="empty-state" id="emptyState" style="display:none">
+      <h3>No matching reason codes</h3>
+      <p>Try a different search term or select a different network.</p>
+    </div>
+  </div>
+</main>
+<script>
+
+const codes = [
+  // ── VISA FRAUD ──
+  {brand:"visa",group:"visa-fraud",nc:"visa-n",code:"10.1",name:"EMV Liability Shift Counterfeit Fraud",cat:"Fraud",
+   it:"120 days",mt:"30 days",
+   desc:"A counterfeit copy of the cardholder's chip card was used at a terminal that was not EMV-compliant. The cardholder claims the transaction was unauthorized.",
+   causes:["Non-EMV terminal accepted a counterfeit chip card","Fallback to magnetic stripe instead of reading chip","Terminal software not updated for EMV compliance"],
+   prev:["Use only EMV-compliant terminals","Always prompt chip-first; use swipe only as a last resort","Create electronic or manual imprint for every card-present transaction","Keep terminal firmware current"],
+   fight:["If your terminal was EMV-compliant and has chip read receipt, you have a strong defense","Provide the authorization approval code and transaction receipt showing chip read","Submit your terminal's EMV certification documentation","If no fallback occurred, the liability shift may not apply"]},
+
+  {brand:"visa",group:"visa-fraud",nc:"visa-n",code:"10.2",name:"EMV Liability Shift Non-Counterfeit Fraud",cat:"Fraud",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder has a PIN-preferring chip card, but the transaction was processed without a chip reader or a non-PIN-compliant device. The cardholder claims the transaction was unauthorized.",
+   causes:["Terminal accepted chip card without PIN verification","Fallback to swipe on a PIN-preferring card","Incorrect cardholder verification method used"],
+   prev:["Use EMV-compliant, PIN-capable terminals","Always collect PIN when the card requires it","Do not allow fallback transactions on PIN-preferring cards"],
+   fight:["Provide evidence that proper cardholder verification was performed","If a PIN was entered, supply the PIN verification receipt","Terminal logs showing the authentication method used"]},
+
+  {brand:"visa",group:"visa-fraud",nc:"visa-n",code:"10.3",name:"Other Fraud — Card-Present Environment",cat:"Fraud",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder claims an unauthorized transaction occurred in a card-present environment, typically involving a key-entered or unattended terminal.",
+   causes:["Key-entered transaction instead of chip/swipe","Unattended terminal used fraudulently","Manual imprint not taken for key-entered transaction"],
+   prev:["Use key entry only as last resort and always imprint the card","Ensure unattended terminals have strong fraud controls","Document customer identification for key-entered transactions"],
+   fight:["Submit signed sales receipt if available","Provide manual imprint of the card if taken","Show cardholder's signature matches card","Security footage or ID copy showing customer presence"]},
+
+  {brand:"visa",group:"visa-fraud",nc:"visa-n",code:"10.4",name:"Other Fraud — Card-Absent Environment",cat:"Fraud",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder claims a card-not-present (online, phone, or mail order) transaction was unauthorized.",
+   causes:["No CVV2 or AVS verification performed","Account credentials stolen via phishing or data breach","Friendly fraud — legitimate cardholder denies their own purchase","3D Secure not used"],
+   prev:["Use CVV2 and AVS on all card-not-present transactions","Implement 3D Secure (Visa Secure)","Use device fingerprinting and fraud scoring tools","Use a clear, recognizable billing descriptor","Collect IP address, shipping address, and customer contact at checkout"],
+   fight:["Provide CVV2 match, AVS match, and IP address records","Submit proof of delivery with tracking and signature","Show 3D Secure authentication if used — this shifts liability back to issuer","Customer login records, order history, and matching billing/shipping address","If delivered to billing address, document thoroughly"]},
+
+  {brand:"visa",group:"visa-fraud",nc:"visa-n",code:"10.5",name:"Visa Fraud Monitoring Program",cat:"Fraud",
+   it:"120 days",mt:"30 days",
+   desc:"The merchant is enrolled in the Visa Fraud Monitoring Program (VFMP) and the issuer was permitted to dispute the transaction.",
+   causes:["Merchant fraud-to-transaction ratio exceeded Visa thresholds","High volume of fraudulent transactions flagged on the account"],
+   prev:["Monitor your fraud ratio monthly and keep it below 0.9%","Implement comprehensive fraud prevention tools","Work with your processor to address fraud patterns proactively"],
+   fight:["These chargebacks are very difficult to fight while enrolled in VFMP","Focus on reducing your fraud ratio to exit the program","Work with your acquirer on a formal remediation plan"]},
+
+  // ── VISA AUTHORIZATION ──
+  {brand:"visa",group:"visa-auth",nc:"visa-n",code:"11.1",name:"Card Recovery Bulletin",cat:"Authorization",
+   it:"75 days",mt:"30 days",
+   desc:"The transaction exceeded the floor limit but no authorization was obtained. The account number was listed in the Card Recovery Bulletin and the transaction should have been declined.",
+   causes:["Authorization not requested for above-floor-limit transaction","System failure caused authorization to be skipped","Merchant unaware account was listed on CRB"],
+   prev:["Always request authorization for transactions above your floor limit","Check the CRB for below-floor-limit transactions","Ensure your payment system flags CRB-listed accounts"],
+   fight:["If authorization was obtained, provide the approval code","Show system error logs explaining why authorization was not captured","If below floor limit, provide documentation showing CRB was checked"]},
+
+  {brand:"visa",group:"visa-auth",nc:"visa-n",code:"11.2",name:"Declined Authorization",cat:"Authorization",
+   it:"75 days",mt:"30 days",
+   desc:"The merchant received a Decline or Pickup authorization response but completed the transaction anyway.",
+   causes:["Override of a declined authorization","System did not block the declined transaction","Staff accepted card after decline without re-authorizing"],
+   prev:["Never complete a transaction after a Decline or Pickup response","If declined, request a different payment method","Train staff on proper authorization procedures"],
+   fight:["Very difficult to fight if authorization was truly declined","If a subsequent approval was obtained, provide that documentation","System error logs showing erroneous decline messaging may help in rare cases"]},
+
+  {brand:"visa",group:"visa-auth",nc:"visa-n",code:"11.3",name:"No Authorization",cat:"Authorization",
+   it:"75 days",mt:"30 days",
+   desc:"The transaction was processed without requesting authorization, or authorization was obtained after the fact or for a different amount.",
+   causes:["Authorization not obtained before processing","Post-authorization obtained after settlement","Authorization amount did not match settled amount"],
+   prev:["Always obtain authorization before processing","Ensure authorization and settlement amounts match","Never settle a transaction without a prior authorization"],
+   fight:["Provide authorization approval code if authorization was obtained","If the amount discrepancy is minor (tip adjustment), provide the signed receipt","System logs proving authorization was requested and approved"]},
+
+  // ── VISA PROCESSING ERRORS ──
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.1",name:"Late Presentment",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The transaction was presented to Visa for settlement more than the allowed number of days after the authorization date.",
+   causes:["Batch not submitted on time","System processing delay","Manual transaction submitted late","Card expired between authorization and settlement"],
+   prev:["Submit batches daily","Do not wait more than 1–3 days between authorization and settlement","Use automated batch submission"],
+   fight:["If presentment was within Visa's time limits, provide the submission timestamp","Authorization record showing date vs. settlement date","If the cardholder received goods, show proof of delivery to reduce chargeback likelihood"]},
+
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.2",name:"Incorrect Transaction Code",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The transaction was processed with an incorrect transaction code — for example, a credit processed as a purchase.",
+   causes:["Refund coded as a sale","Sale coded as a cash advance","Incorrect transaction type selected at terminal"],
+   prev:["Use properly configured terminals","Train staff on correct transaction type selection","Review end-of-day reports to catch miscodings before settlement"],
+   fight:["Provide the original transaction receipt showing the correct type","If the correct code was used and the error was on the processing side, submit evidence","If you issued a credit, show the credit slip — the chargeback may be invalid"]},
+
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.3",name:"Incorrect Currency",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The transaction was processed in a currency that differs from what was disclosed to the cardholder at the point of sale.",
+   causes:["Dynamic Currency Conversion (DCC) applied without cardholder consent","Incorrect currency selected at terminal","Multi-currency terminal setting error"],
+   prev:["Always get explicit written consent before applying DCC","Display currency clearly at checkout","Provide currency choice disclosure before processing"],
+   fight:["If cardholder consented to DCC, provide the signed DCC disclosure form","Receipts showing currency clearly disclosed","If an error occurred, promptly refund the difference"]},
+
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.4",name:"Incorrect Account Number",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The transaction was posted to an account number that differs from the one on the transaction receipt.",
+   causes:["Manual entry error keying card number","OCR error on imprinted card","System routing error"],
+   prev:["Use electronic card reading whenever possible","Verify account number on imprinted transactions","Audit transaction logs regularly"],
+   fight:["Provide the original receipt showing the correct account number","Terminal transaction logs showing the number entered","If your system shows the correct account, that isolates where the error originated"]},
+
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.5",name:"Incorrect Amount",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder was charged an amount that differs from what they agreed to pay.",
+   causes:["Tip added incorrectly","Decimal point error","Duplicate transaction processed","Price change not communicated to cardholder"],
+   prev:["Show the total clearly before final authorization","Use itemized receipts","For tip-enabled transactions, ensure correct math and retain the signed copy"],
+   fight:["Signed receipt showing the agreed-upon amount","If a tip was added legitimately, the signed tip receipt is your evidence","If a duplicate occurred, issue a refund immediately and provide both transaction records"]},
+
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.6",name:"Duplicate Processing",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The same transaction was processed and submitted more than once, resulting in the cardholder being charged multiple times.",
+   causes:["Batch submitted twice","System error re-submitted transaction","Staff processed transaction twice thinking the first attempt failed"],
+   prev:["Implement duplicate detection controls in your payment system","Review batch files before submission","Train staff to check for pending transactions before re-running a card"],
+   fight:["If the two transactions are for distinct goods or services, provide receipts for each","If a true duplicate occurred, promptly issue a refund and provide proof","Order records showing two separate, legitimate transactions"]},
+
+  {brand:"visa",group:"visa-proc",nc:"visa-n",code:"12.7",name:"Invalid Data",cat:"Processing Error",
+   it:"120 days",mt:"30 days",
+   desc:"The transaction contains invalid or missing data elements required for processing.",
+   causes:["Required data field left blank","Incorrect formatting of transaction data","Acquirer processing error in data transmission"],
+   prev:["Ensure payment gateway validates all required fields","Keep payment software updated","Perform regular transaction data audits"],
+   fight:["Provide complete and correct transaction data","If the error was on the acquirer side, work with your processor","Show that all required fields were populated at the point of sale"]},
+
+  // ── VISA CONSUMER DISPUTES ──
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.1",name:"Merchandise / Services Not Received",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder claims they did not receive the merchandise or services they paid for.",
+   causes:["Package lost or stolen in transit","Wrong address used for shipment","Service not performed","Delivery delayed beyond expected date"],
+   prev:["Require signature confirmation for high-value shipments","Send tracking numbers and delivery updates proactively","Clearly communicate delivery timelines at checkout","For services, confirm scheduled dates in writing"],
+   fight:["Signed proof of delivery is your strongest defense","Tracking information confirming delivery to the billing address","For services, provide appointment logs and signed completion records","Photos or delivery confirmation from the carrier"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.2",name:"Cancelled Recurring",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder cancelled a recurring billing arrangement but charges continued after the cancellation.",
+   causes:["Cancellation not processed in billing system","Billing cycle triggered before cancellation updated","Communication breakdown between customer service and billing"],
+   prev:["Send cancellation confirmation via email immediately","Have a simple, clearly disclosed cancellation process","Ensure cancellations update billing in real time","Allow cancellations before the next billing date"],
+   fight:["Compare cancellation request timestamp vs. billing date","If the charge was before the cancellation request, provide the timeline","Show your cancellation policy as disclosed at signup","Offer a courtesy refund for any charge after cancellation and document it"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.3",name:"Not as Described or Defective Merchandise",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder received merchandise or services that were materially different from what was described, or the goods were defective.",
+   causes:["Product description on website was inaccurate","Wrong item shipped","Item arrived damaged or defective","Service did not match what was advertised"],
+   prev:["Use accurate, detailed product descriptions and photos","Inspect goods before shipping","Offer a clear and easy return/exchange policy","Respond quickly to customer complaints"],
+   fight:["Provide the original product description showing it matches what was delivered","Photos of the item before shipment","Customer service communications where the customer did not raise complaints","If you offered a replacement and it was refused, document that"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.4",name:"Counterfeit Merchandise",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder claims the merchandise received was counterfeit or not authentic.",
+   causes:["Supplier provided counterfeit goods unknowingly","Product authenticity not verified before sale","Cardholder perceives item as inauthentic"],
+   prev:["Source products only from verified, authorized distributors","Maintain supplier authenticity documentation","Clearly disclose when products are third-party or refurbished"],
+   fight:["Certificate of authenticity from the manufacturer or authorized distributor","Supply chain documentation proving product legitimacy","Offer to have the product inspected by a third party if possible"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.5",name:"Misrepresentation",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder claims the merchant misrepresented the goods or services, including price, quality, or nature of the product.",
+   causes:["Product listing omitted key details","Price shown at checkout differed from final charge","Terms or conditions were hidden or unclear"],
+   prev:["Be transparent and complete in all product descriptions","Show all fees before checkout confirmation","Ensure terms and conditions are clearly presented and acknowledged by the customer"],
+   fight:["Screenshots or archived copies of your product listing at time of purchase","Show that the cardholder acknowledged your terms","Email confirmations showing the agreed price are strong evidence"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.6",name:"Credit Not Processed",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder returned merchandise or cancelled services and was promised a refund, but the credit was not applied to their account.",
+   causes:["Refund was processed but not submitted to the card network","Refund went to wrong account","Merchant promised refund but never processed it"],
+   prev:["Issue refunds immediately upon return acceptance","Send email confirmation of refund with expected timeframe","Use the same card account for the refund as the original charge"],
+   fight:["Proof that the refund was processed: transaction ID, batch record, or gateway confirmation","Show the date the refund was submitted vs. when the chargeback was filed","If refund is in progress, provide documentation and expected timeline"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.7",name:"Cancelled Merchandise / Services",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder cancelled an order or service and was charged anyway, or the merchant cancelled but did not issue a refund.",
+   causes:["Order cancelled but billing was not stopped","Merchant cancelled service but kept payment","Cancellation request not communicated to fulfillment team"],
+   prev:["Process refunds immediately upon cancellation","Send confirmation of cancellation with refund timeline","Ensure cancellations flow through to the billing system immediately"],
+   fight:["If cancellation was received after goods were shipped, document the timeline clearly","Show your cancellation policy as agreed to by the cardholder","Shipping confirmation if goods were dispatched before cancellation was received"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.8",name:"Original Credit Transaction Not Accepted",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"An original credit issued to a card that was not used in a prior transaction with the merchant was rejected by the issuer.",
+   causes:["Issuer does not accept original credits to this card type","Credit sent to wrong account","Compliance violation in how credit was issued"],
+   prev:["Verify the issuer accepts original credits before attempting","Use the purchase transaction as the basis for any refund","Work with your processor on appropriate credit methods"],
+   fight:["Documentation showing the credit was issued and the rejection notification","Work with your acquirer to re-route the credit correctly","Arrange an alternative refund method directly with the cardholder if needed"]},
+
+  {brand:"visa",group:"visa-disp",nc:"visa-n",code:"13.9",name:"Non-Receipt of Cash or Load Transaction Value",cat:"Consumer Dispute",
+   it:"120 days",mt:"30 days",
+   desc:"The cardholder claims they did not receive cash from an ATM withdrawal or that a prepaid card load was not completed.",
+   causes:["ATM malfunction dispensed less cash than requested","Prepaid load system error","Network timeout during load transaction"],
+   prev:["Ensure ATMs and load terminals are regularly maintained and calibrated","Implement real-time monitoring for ATM and load errors","Log all transaction outcomes for dispute resolution"],
+   fight:["ATM cassette logs showing cash dispensed","For load transactions, show system confirmation of successful load","Terminal logs and timestamps for the transaction in question"]},
+
+  // ── MASTERCARD FRAUD ──
+  {brand:"mc",group:"mc-fraud",nc:"mc-n",code:"4837",name:"No Cardholder Authorization",cat:"Fraud",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder claims they did not authorize the transaction. This is Mastercard's primary fraud dispute code.",
+   causes:["Card stolen or account number compromised","Card-not-present fraud without proper verification","Friendly fraud — cardholder denies their own transaction"],
+   prev:["Use AVS and CVV on all CNP transactions","Implement 3D Secure (Mastercard Identity Check)","Require customer signature for card-present transactions","Use strong fraud scoring and velocity checks"],
+   fight:["AVS and CVV match confirmation","Signed proof of delivery","For card-present, signed receipt with chip read confirmation","Customer login records, order history, and IP address data","3D Secure authentication shifts liability to the issuer"]},
+
+  {brand:"mc",group:"mc-fraud",nc:"mc-n",code:"4863",name:"Cardholder Does Not Recognize Transaction",cat:"Fraud",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder doesn't recognize the transaction — often due to an unclear billing descriptor or a forgotten purchase.",
+   causes:["Billing descriptor does not match business name","Subscription the cardholder forgot","Family member made purchase without cardholder's knowledge"],
+   prev:["Use a clear, recognizable billing descriptor matching your brand","Include a customer service phone number in the descriptor","Send email receipts immediately after every purchase","For subscriptions, send reminders before each billing date"],
+   fight:["Evidence that billing descriptor was accurate and disclosed","Customer login records or purchase history showing the cardholder's account was used","Email receipts sent to the cardholder's registered address"]},
+
+  {brand:"mc",group:"mc-fraud",nc:"mc-n",code:"4870",name:"Chip Liability Shift",cat:"Fraud",
+   it:"120 days",mt:"45 days",
+   desc:"A chip card was used fraudulently at a non-EMV terminal, shifting liability to the merchant.",
+   causes:["Counterfeit chip card used at magnetic stripe-only terminal","Terminal not certified for EMV processing","EMV fallback transaction processed"],
+   prev:["Upgrade all terminals to EMV-compliant devices","Do not allow magnetic stripe fallback for chip cards","Keep terminal firmware and software updated regularly"],
+   fight:["If your terminal was EMV-compliant and the chip was read, provide chip read receipt","Terminal certification documentation","If a chip transaction was processed correctly, the liability shifts back to the issuer"]},
+
+  {brand:"mc",group:"mc-fraud",nc:"mc-n",code:"4871",name:"Chip / PIN Liability Shift",cat:"Fraud",
+   it:"120 days",mt:"45 days",
+   desc:"A PIN-preferring chip card was used at a terminal that did not support PIN entry, resulting in a fraudulent transaction.",
+   causes:["Terminal does not support PIN verification","PIN bypass allowed on a PIN-required card","Fallback transaction processed on PIN-preferring card"],
+   prev:["Use terminals that support both chip and PIN","Do not allow PIN bypass for chip cards that require it","Ensure terminal CVM settings match card requirements"],
+   fight:["If PIN was entered and verified, provide the PIN verification log","Show your terminal was PIN-capable","Chip transaction receipt demonstrating proper authentication"]},
+
+  {brand:"mc",group:"mc-fraud",nc:"mc-n",code:"4849",name:"Questionable Merchant Activity",cat:"Fraud",
+   it:"120 days",mt:"45 days",
+   desc:"Mastercard has flagged the merchant for suspicious activity, allowing issuers to dispute transactions without a direct cardholder claim.",
+   causes:["Merchant placed on Mastercard's MATCH list","Abnormally high fraud or chargeback ratio","Suspected merchant collusion or fraudulent activity"],
+   prev:["Maintain chargeback and fraud ratios below Mastercard thresholds","Follow all Mastercard merchant rules and guidelines","Work proactively with your acquirer if ratios begin to rise"],
+   fight:["Very difficult to fight while flagged by Mastercard","Work with your acquirer on a remediation plan","Demonstrate corrective actions taken to address underlying issues"]},
+
+  // ── MASTERCARD AUTHORIZATION ──
+  {brand:"mc",group:"mc-auth",nc:"mc-n",code:"4808",name:"Authorization-Related Chargeback",cat:"Authorization",
+   it:"90 days",mt:"45 days",
+   desc:"Mastercard's broad authorization code covering declined authorization, no authorization, or exceeding the authorized amount.",
+   causes:["Transaction processed after decline","No authorization obtained","Settlement amount significantly higher than authorized amount","Authorization expired before settlement"],
+   prev:["Always obtain authorization before processing","Never exceed the authorized amount without re-authorizing","Settle within 1–3 days of authorization","Never override a decline"],
+   fight:["If authorization was obtained, provide the approval code and timestamp","If amount difference is due to a tip, show the signed receipt","For technical failures, provide system logs explaining the authorization gap"]},
+
+  {brand:"mc",group:"mc-auth",nc:"mc-n",code:"4812",name:"Account Number Not on File",cat:"Authorization",
+   it:"90 days",mt:"45 days",
+   desc:"The account number submitted during the transaction does not exist at the issuing bank.",
+   causes:["Card number keyed in incorrectly","Fraudulent or fictitious card used","Data entry error on a manual transaction"],
+   prev:["Use electronic card readers to avoid key-entry errors","Verify card details on all manual entries","Use Luhn-check validation on card number entry fields"],
+   fight:["Signed receipt with the cardholder's card number","Terminal transaction logs showing the card number as processed","If authorization was granted and you have an approval code, that is your strongest defense"]},
+
+  // ── MASTERCARD POI ──
+  {brand:"mc",group:"mc-poi",nc:"mc-n",code:"4834",name:"Point of Interaction Error",cat:"Processing Error",
+   it:"120 days",mt:"45 days",
+   desc:"Mastercard's umbrella code for transaction errors at the point of interaction — duplicate charges, incorrect amounts, incorrect account numbers, and currency errors.",
+   causes:["Duplicate transaction submitted","Wrong amount charged","Incorrect currency applied","Account number keyed incorrectly"],
+   prev:["Implement duplicate detection in your payment system","Verify transaction amounts before settlement","Display currency clearly for international transactions"],
+   fight:["For duplicate charges, provide distinct receipts for each transaction — if a true duplicate, issue a refund","For incorrect amount, provide the signed receipt showing the agreed amount","For currency disputes, provide the signed DCC consent form"]},
+
+  {brand:"mc",group:"mc-poi",nc:"mc-n",code:"4840",name:"Fraudulent Processing of Transactions",cat:"Processing Error",
+   it:"120 days",mt:"45 days",
+   desc:"The merchant or an employee processed a transaction without the cardholder's knowledge or consent.",
+   causes:["Employee ran an unauthorized charge on a stored card","Transaction processed after service was declined","Fictitious transaction created to move funds"],
+   prev:["Restrict employee access to stored card data","Audit transaction logs for unusual patterns","Require manager approval for transactions above certain thresholds"],
+   fight:["If the transaction was legitimate, provide signed authorization and receipts","Employee records showing who processed the transaction","If unauthorized processing occurred, cooperate with Mastercard's investigation"]},
+
+  {brand:"mc",group:"mc-poi",nc:"mc-n",code:"4842",name:"Late Presentment",cat:"Processing Error",
+   it:"120 days",mt:"45 days",
+   desc:"The transaction was presented for settlement more than the allowed number of days after the transaction date.",
+   causes:["Batch not settled promptly","Manual transaction submitted late","Long delay between authorization and fulfillment"],
+   prev:["Settle batches every business day","Submit manual transactions within 2–3 business days","Avoid delays between authorization and fulfillment"],
+   fight:["Submission timestamp proving presentment was within the allowed window","Authorization date vs. settlement date documentation","If the delay was due to circumstances beyond your control, explain and document thoroughly"]},
+
+  {brand:"mc",group:"mc-poi",nc:"mc-n",code:"4847",name:"Authorization Not Obtained",cat:"Processing Error",
+   it:"90 days",mt:"45 days",
+   desc:"The transaction was processed without the required authorization, or authorization was obtained after settlement.",
+   causes:["Floor limit exceeded without authorization","Authorization requested after settlement","Voice authorization number not entered correctly"],
+   prev:["Always pre-authorize transactions above your floor limit","Ensure voice authorization codes are entered correctly","Do not settle transactions that lack proper authorization"],
+   fight:["If authorization was obtained, provide the approval code with exact timestamp","Voice authorization logs from your acquirer","If a system error caused the gap, provide technical documentation"]},
+
+  {brand:"mc",group:"mc-poi",nc:"mc-n",code:"4850",name:"Credit Posted as a Purchase",cat:"Processing Error",
+   it:"120 days",mt:"45 days",
+   desc:"A credit (refund) was accidentally processed as a purchase, resulting in the cardholder being charged instead of refunded.",
+   causes:["Incorrect transaction type selected at terminal","System routing error","Staff selected wrong button"],
+   prev:["Train staff to verify transaction type before submission","Review end-of-day reports for transaction type errors","Use terminals with clear differentiation between sale and refund"],
+   fight:["Original transaction receipt showing correct transaction type was intended","Immediately process the correct credit and provide documentation of both actions","Terminal logs showing intended vs. actual transaction type"]},
+
+  // ── MASTERCARD CARDHOLDER DISPUTES ──
+  {brand:"mc",group:"mc-cust",nc:"mc-n",code:"4841",name:"Cancelled Recurring or Digital Goods Transaction",cat:"Cardholder Dispute",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder cancelled a recurring billing arrangement or digital goods subscription but was charged after cancellation.",
+   causes:["Cancellation not processed in billing system","Billing triggered before cancellation updated","Digital goods subscription continued after cancellation request"],
+   prev:["Process cancellations immediately and confirm via email","Send billing reminders before recurring charges","Allow easy self-service cancellation"],
+   fight:["Compare cancellation timestamp to billing date — if charge was before cancellation, document the timeline","Show your cancellation policy as agreed to at signup","Billing agreement and cancellation request date comparison"]},
+
+  {brand:"mc",group:"mc-cust",nc:"mc-n",code:"4853",name:"Cardholder Dispute — Defective / Not as Described",cat:"Cardholder Dispute",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder received goods or services that were defective, damaged, or significantly different from what was described.",
+   causes:["Product arrived damaged","Item description was inaccurate or misleading","Service was not performed as agreed"],
+   prev:["Use accurate, complete product descriptions","Inspect and package goods carefully","Offer and publicize a clear return/exchange policy","Respond to all customer complaints promptly"],
+   fight:["Original product description and photos showing it matches what was delivered","Delivery confirmation in good condition","Customer communications where they acknowledged receipt without complaint","If a replacement was offered and refused, document that interaction"]},
+
+  {brand:"mc",group:"mc-cust",nc:"mc-n",code:"4854",name:"Cardholder Dispute — Not Elsewhere Classified",cat:"Cardholder Dispute",
+   it:"120 days",mt:"45 days",
+   desc:"A catch-all Mastercard dispute code for situations that don't fit other specific categories.",
+   causes:["Billing dispute not covered by other codes","Cardholder dissatisfied with service quality","General disagreement about the nature of the transaction"],
+   prev:["Maintain clear records of all customer interactions and agreements","Provide excellent customer service to resolve issues before they escalate to chargebacks"],
+   fight:["Provide all available documentation: receipts, signed agreements, communications, and delivery confirmation","Clearly explain in your rebuttal letter why the transaction was legitimate","A detailed, well-organized rebuttal letter is especially important for this catch-all code"]},
+
+  {brand:"mc",group:"mc-cust",nc:"mc-n",code:"4855",name:"Goods or Services Not Provided",cat:"Cardholder Dispute",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder was charged for goods or services they never received.",
+   causes:["Item lost in shipping","Service appointment was missed by merchant","Digital goods delivery failure","Merchant went out of business before delivering"],
+   prev:["Send order confirmations and tracking numbers proactively","Require signature confirmation for high-value shipments","Confirm service appointments 24 hours in advance","Monitor digital delivery confirmations"],
+   fight:["Signed proof of delivery or carrier confirmation","For services, show appointment records, service logs, and customer sign-off","For digital goods, provide server delivery logs and download confirmation","Customer communications acknowledging receipt"]},
+
+  {brand:"mc",group:"mc-cust",nc:"mc-n",code:"4860",name:"Credit Not Processed",cat:"Cardholder Dispute",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder returned merchandise or cancelled services and a refund was promised but never applied to their account.",
+   causes:["Refund processing error","Refund processed to wrong card","Merchant promised refund but did not follow through"],
+   prev:["Process refunds immediately upon approval","Send refund confirmation email with expected timeline","Use the original payment method for all refunds"],
+   fight:["Gateway confirmation showing the refund was processed with transaction ID and date","If refund is still processing, show the timeline — it can take 3–5 business days to post","Refund transaction ID from your payment processor is your strongest evidence"]},
+
+  {brand:"mc",group:"mc-cust",nc:"mc-n",code:"4859",name:"Services Not Rendered",cat:"Cardholder Dispute",
+   it:"120 days",mt:"45 days",
+   desc:"The cardholder paid for a service that was not performed or was only partially performed.",
+   causes:["Service appointment cancelled by merchant","Service incomplete due to staffing issues","Cardholder claims service was not done to contract terms"],
+   prev:["Maintain service completion records signed by the customer","Communicate any changes to scheduled services immediately","For subscription services, document ongoing service delivery"],
+   fight:["Signed service completion records","Staff timesheets and logs showing service was rendered","Customer communications where they acknowledged the service","Photos or documentation of the completed work"]},
+
+  // ── AMEX AUTHORIZATION ──
+  {brand:"amex",group:"amex-auth",nc:"amex-n",code:"A01",name:"Charge Amount Exceeds Authorization",cat:"Authorization",
+   it:"120 days",mt:"20 days",
+   desc:"The amount charged to the cardmember's account is greater than the amount that was authorized.",
+   causes:["Tip added without updating authorization","Price change after authorization","Additional items added after initial authorization"],
+   prev:["Obtain a new authorization for the final total before settlement","For restaurants, follow Amex's tip authorization rules","Never settle for more than the authorized amount without re-authorizing"],
+   fight:["Signed receipt showing the agreed amount including tip","If a tip was signed for, the signed tip receipt is your primary evidence","Show the authorization and settlement amounts — if within Amex's allowed tip variance, reference that policy"]},
+
+  {brand:"amex",group:"amex-auth",nc:"amex-n",code:"A02",name:"No Valid Authorization",cat:"Authorization",
+   it:"120 days",mt:"20 days",
+   desc:"No authorization was obtained for the transaction, or the authorization was declined.",
+   causes:["Transaction processed without authorization attempt","Declined authorization overridden","Authorization expired before settlement"],
+   prev:["Always obtain authorization before processing","Never override a decline","Settle within 1 business day of authorization"],
+   fight:["If authorization was obtained, provide the approval code and timestamp","System error documentation if a technical failure caused the gap","Authorization system logs"]},
+
+  {brand:"amex",group:"amex-auth",nc:"amex-n",code:"A08",name:"Authorization Approval Expired",cat:"Authorization",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction was settled after the authorization approval had expired.",
+   causes:["Long delay between authorization and fulfillment","Batch settled late","Pre-authorization held too long before capture"],
+   prev:["Settle transactions within 1–3 days of authorization","Re-authorize if fulfillment will be delayed","Do not hold pre-authorizations beyond Amex's allowed period"],
+   fight:["Show that settlement was within the allowed authorization window","If you re-authorized before settlement, provide the new approval code","Document any extenuating circumstances that caused the delay"]},
+
+  // ── AMEX CARDMEMBER DISPUTES ──
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C02",name:"Credit Not Processed",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember was promised a credit or refund but it was not applied to their account.",
+   causes:["Refund processing error","Credit went to wrong account","Merchant promised but did not issue refund"],
+   prev:["Process refunds immediately","Send confirmation with expected posting timeline","Use the original charge account for all refunds"],
+   fight:["Gateway or processor confirmation of the refund with transaction ID and date","Show refund was submitted — processing can take 3–7 business days","If the refund was never issued, process it immediately to resolve the dispute"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C04",name:"Goods/Services Returned or Refused",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember returned merchandise or refused delivery and has not received a credit.",
+   causes:["Return received but credit not issued","Returned package not yet processed by merchant","Refund issued to wrong account"],
+   prev:["Process returns and refunds immediately upon receipt","Send return confirmation emails with refund timelines","Log and track all returns in real time"],
+   fight:["If return was received and refund issued, provide both the return receipt and refund confirmation","If the return was refused per your policy, provide your return policy as agreed to by the cardholder","Show cardholder acknowledged your return terms at purchase"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C05",name:"Goods/Services Cancelled",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember cancelled an order or service but was charged anyway, or was not refunded after the merchant cancelled.",
+   causes:["Cancellation not processed before billing","Merchant cancelled service but did not refund","Cancellation policy not clearly disclosed"],
+   prev:["Honor cancellations immediately and confirm via email","Refund promptly when you cancel on the customer","State cancellation policies clearly at checkout"],
+   fight:["If charge was legitimate (non-cancellable deposit per disclosed terms), provide the signed agreement","Show cancellation policy the cardholder agreed to at purchase","If cancellation was received after goods were shipped, provide shipment documentation"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C08",name:"Goods/Services Not Received",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember did not receive the goods or services they were charged for.",
+   causes:["Item lost or stolen in transit","Wrong shipping address used","Service not performed","Digital delivery failure"],
+   prev:["Require signature for high-value deliveries","Send tracking numbers and delivery confirmations","For services, confirm appointments and get signed completion records","Monitor digital delivery systems"],
+   fight:["Signed proof of delivery is your strongest defense","Carrier tracking confirming delivery to billing address","For services, appointment records and customer sign-off","For digital goods, server delivery logs and download confirmation"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C14",name:"Paid by Other Means",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember claims they paid by another method and was also charged on their Amex card.",
+   causes:["Double charge — both payment methods captured","Staff charged card after cash was received","System duplication error"],
+   prev:["Implement safeguards against duplicate payment capture","Train staff to verify payment method before charging card","Use integrated POS systems that prevent duplicate payment"],
+   fight:["If both payments were intended (e.g., partial payments), provide the documented split-payment agreement","If a duplicate occurred, immediately refund the card charge and provide documentation","Transaction logs showing the intended payment flow"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C18",name:"No Show or CARDeposit Cancelled",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember disputes a no-show charge, claiming they cancelled in time or did appear.",
+   causes:["Cardholder cancelled but cancellation not logged","No-show policy not clearly disclosed at booking","Miscommunication about the cancellation deadline"],
+   prev:["Clearly disclose no-show and cancellation policies at booking","Send confirmation emails restating policy details","Log all cancellations with timestamps"],
+   fight:["Your no-show policy as disclosed to the cardholder at booking","Show that no cancellation was received before the deadline","Call logs, booking confirmations, and reservation system records establishing the timeline"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C28",name:"Cancelled Recurring Billing",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember cancelled a recurring billing arrangement but was charged after the cancellation date.",
+   causes:["Billing system not updated after cancellation","Cancellation received after billing cycle triggered","Cancellation confirmation not sent to customer"],
+   prev:["Update billing system immediately upon any cancellation request","Send cancellation confirmation with the effective date","Allow online self-service cancellation"],
+   fight:["Compare cancellation request timestamp to billing date","If billing was triggered before cancellation request, provide the clear timeline","Subscription agreement disclosing billing terms"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C31",name:"Goods/Services Not as Described",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember received goods or services that were materially different from what was described or advertised.",
+   causes:["Product description inaccurate","Wrong item shipped","Service delivered differently than described"],
+   prev:["Use accurate, detailed product descriptions and photos","Confirm orders before shipping","Respond promptly to product discrepancy complaints"],
+   fight:["Original product listing or description as it appeared at time of purchase","Photos of item at time of packaging","Customer communications where they accepted the item without complaint","If a replacement was offered and refused, document that clearly"]},
+
+  {brand:"amex",group:"amex-disp",nc:"amex-n",code:"C32",name:"Goods Damaged or Defective",cat:"Cardmember Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember received damaged or defective merchandise.",
+   causes:["Item damaged in transit","Manufacturing defect","Improper packaging causing damage during shipping"],
+   prev:["Use protective packaging for all shipments","Offer shipping insurance for high-value items","Conduct quality checks before shipping","Use reputable carriers with damage coverage"],
+   fight:["Photos of the item at time of packaging if available","Carrier insurance claim documentation for in-transit damage","Manufacturer quality control records","If you offered a replacement and the cardholder refused, document that interaction"]},
+
+  // ── AMEX FRAUD ──
+  {brand:"amex",group:"amex-fraud",nc:"amex-n",code:"F10",name:"Missing Imprint",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction was card-present but no electronic or manual imprint of the card was captured, and the cardmember claims the transaction was unauthorized.",
+   causes:["Key-entered transaction without manual imprint","Terminal malfunction during card read","Imprint not taken on manual transactions"],
+   prev:["Always take a manual imprint if the card cannot be read electronically","Require cardholder signature on all card-present transactions","Do not process key-entered transactions without an imprint"],
+   fight:["If an imprint was taken, provide it","If the electronic chip was read, the chip read confirmation may satisfy the imprint requirement","Signed receipt with cardholder signature supports your case"]},
+
+  {brand:"amex",group:"amex-fraud",nc:"amex-n",code:"F14",name:"Missing Signature",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"No cardholder signature was obtained for a card-present transaction and the cardmember denies authorization.",
+   causes:["Signature line left blank","Electronic signature not captured","Transaction processed as no-signature-required"],
+   prev:["Always collect cardholder signature for card-present transactions","Use signature-capture devices and retain digital records","Do not waive signature requirements unless your agreement allows it"],
+   fight:["Provide signed receipt if it exists","Electronic signature capture record is acceptable","If signature was waived under your merchant agreement, reference those specific terms"]},
+
+  {brand:"amex",group:"amex-fraud",nc:"amex-n",code:"F22",name:"Expired or Not Yet Valid Card",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction was processed on a card that was expired or not yet valid at the time of the transaction.",
+   causes:["Terminal not checking expiry date","Card manually keyed with incorrect expiry","Expired card accepted without verification"],
+   prev:["Ensure terminals check and validate card expiry dates","Do not process transactions with expired cards","For manual entries, always verify the expiry date visually"],
+   fight:["If the card was valid at time of transaction, provide the authorization record showing expiry validation passed","Terminal logs confirming the expiry date was checked"]},
+
+  {brand:"amex",group:"amex-fraud",nc:"amex-n",code:"F24",name:"No Cardmember Authorization",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember claims they did not authorize the transaction — Amex's primary card-absent fraud code.",
+   causes:["Card number stolen for CNP fraud","Friendly fraud","Account credentials compromised"],
+   prev:["Use CVV, AVS, and 3D Secure for all CNP transactions","Implement fraud scoring and velocity checks","Use recognizable billing descriptors"],
+   fight:["CVV and AVS match confirmation from the transaction","3D Secure authentication data shifts liability to the issuer","Proof of delivery to the billing address","Customer login records and order history","IP address and device fingerprint data"]},
+
+  {brand:"amex",group:"amex-fraud",nc:"amex-n",code:"F29",name:"Card Not Present",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction was processed as a card-not-present transaction and the cardmember disputes it as unauthorized.",
+   causes:["Online order placed with stolen card details","Phone order without sufficient verification","No CVV or AVS verification performed"],
+   prev:["Require CVV2 for all CNP transactions","Use AVS and 3D Secure","Send order confirmation to the cardholder's registered email"],
+   fight:["CVV match and AVS match data from the transaction","3D Secure authentication record if applicable","Delivery confirmation to the billing address","Email confirmation sent to the cardmember's address"]},
+
+  {brand:"amex",group:"amex-fraud",nc:"amex-n",code:"F30",name:"EMV Counterfeit Transaction",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"A counterfeit version of a chip card was used at a non-EMV terminal.",
+   causes:["Terminal not EMV-compliant","Chip card data skimmed and used as magnetic stripe","Fallback to swipe on a chip card"],
+   prev:["Use only EMV-certified terminals","Never allow magnetic stripe fallback for chip cards","Regularly inspect terminals for tampering or skimming devices"],
+   fight:["If your terminal was EMV-compliant and the chip was read, provide chip read confirmation","EMV terminal certification documents","If a chip transaction was processed, liability shifts back to the issuer"]},
+
+  // ── AMEX PROCESSING ERRORS ──
+  {brand:"amex",group:"amex-proc",nc:"amex-n",code:"P01",name:"Unassigned Card Number",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The account number on the transaction does not belong to an active Amex account.",
+   causes:["Manual entry error","Fictitious or invalid card number used","OCR error on manual imprint"],
+   prev:["Use electronic card readers to eliminate manual entry errors","Validate card numbers before processing","Train staff on careful manual entry procedures"],
+   fight:["Terminal logs showing the card number as entered","If authorization returned an approval, provide that record","Show that the card number was read from the physical card, not manually typed"]},
+
+  {brand:"amex",group:"amex-proc",nc:"amex-n",code:"P03",name:"Credit Processed as Charge",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"A refund was accidentally processed as a purchase, charging the cardmember instead of crediting them.",
+   causes:["Staff selected wrong transaction type","Terminal button error","System routing error"],
+   prev:["Train staff on transaction type selection","Require confirmation before processing large credits","Review end-of-day transaction type reports"],
+   fight:["Process the correct refund immediately and provide documentation","Terminal logs showing the intended transaction type","Original receipt indicating what transaction was intended"]},
+
+  {brand:"amex",group:"amex-proc",nc:"amex-n",code:"P05",name:"Incorrect Charge Amount",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The cardmember was charged a different amount than what was agreed upon at the time of the transaction.",
+   causes:["Decimal point error","Tip calculated incorrectly","Price changed after authorization"],
+   prev:["Show total clearly before final capture","For tips, ensure correct math and retain the signed copy","Do not alter amount after authorization without re-authorizing"],
+   fight:["Signed receipt showing the agreed amount including tip if applicable","If a tip was signed for, the signed tip line on the receipt is definitive","If an error occurred, process a corrective adjustment and provide documentation"]},
+
+  {brand:"amex",group:"amex-proc",nc:"amex-n",code:"P07",name:"Late Submission",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction was submitted for settlement beyond the allowed number of days from the transaction date.",
+   causes:["Batch not submitted daily","Manual transaction submitted late","System failure causing delayed settlement"],
+   prev:["Submit batches every business day","Automate batch settlement","Monitor for failed batch submissions and resolve immediately"],
+   fight:["Batch records showing when settlement was initiated","If submission was within the allowed window, provide the submission timestamp","For system failures, provide technical documentation explaining the delay"]},
+
+  {brand:"amex",group:"amex-proc",nc:"amex-n",code:"P22",name:"Non-Matching Card Number",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The card number on the transaction does not match the card number in the authorization.",
+   causes:["Manual entry error after authorization","Data transmission error","System substituted incorrect account number"],
+   prev:["Use electronic card readers for the entire transaction flow","Do not re-enter card numbers manually after authorization","Verify card number consistency between authorization and settlement"],
+   fight:["Authorization record showing the correct card number","Terminal logs demonstrating consistent card number throughout the transaction","If a system error caused substitution, provide technical documentation"]},
+
+  // ── DISCOVER FRAUD ──
+  {brand:"disc",group:"disc-fraud",nc:"disc-n",code:"UA01",name:"Fraud — Card Present Transaction",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"A fraudulent card-present transaction where the cardholder claims the transaction was unauthorized.",
+   causes:["Counterfeit card used at non-EMV terminal","Stolen card used in-store","Card skimming at point of sale"],
+   prev:["Use EMV-compliant terminals","Collect cardholder signature","Train staff to recognize suspicious card behavior","Inspect terminals regularly for skimming devices"],
+   fight:["Chip read confirmation if EMV transaction was processed","Signed receipt from cardholder","Security camera footage showing cardholder at point of sale","If terminal was EMV-compliant and chip was read, liability shifts to issuer"]},
+
+  {brand:"disc",group:"disc-fraud",nc:"disc-n",code:"UA02",name:"Fraud — Card Not Present Transaction",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"A card-not-present transaction disputed as unauthorized.",
+   causes:["Stolen card credentials used online","No CVV or AVS verification performed","Phishing or data breach victim's card details used"],
+   prev:["Require CVV on all CNP transactions","Use AVS verification","Implement 3D Secure authentication","Use fraud detection and velocity scoring tools"],
+   fight:["CVV and AVS match data from the transaction","3D Secure authentication record","Delivery to the billing address confirmation","IP address and device data","Customer account history showing consistent purchase patterns"]},
+
+  {brand:"disc",group:"disc-fraud",nc:"disc-n",code:"UA05",name:"Fraud — Chip Counterfeit Transaction",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"A counterfeit chip card was used at a non-EMV-compliant terminal.",
+   causes:["Terminal only accepts magnetic stripe","Counterfeit card created from skimmed chip data","EMV fallback used instead of chip read"],
+   prev:["Upgrade to EMV-certified terminals","Do not allow chip card fallback to magnetic stripe","Regularly update terminal firmware"],
+   fight:["If your terminal was EMV-compliant and processed a chip transaction, liability shifts back to issuer","Chip transaction receipt and terminal certification documents","Show that no fallback occurred"]},
+
+  {brand:"disc",group:"disc-fraud",nc:"disc-n",code:"UA06",name:"Fraud — Chip and PIN Transaction",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"A chip-and-PIN card was used fraudulently at a terminal that did not support PIN verification.",
+   causes:["Terminal does not support PIN entry","PIN bypass allowed on a PIN-required card","Chip card processed without PIN at PIN-required merchant"],
+   prev:["Use terminals supporting both chip and PIN","Do not allow PIN bypass on PIN-required transactions"],
+   fight:["If PIN was verified, provide the PIN verification log","Show your terminal was PIN-capable","Chip read receipt demonstrating proper authentication method was used"]},
+
+  {brand:"disc",group:"disc-fraud",nc:"disc-n",code:"UA11",name:"Cardholder Does Not Recognize",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"The cardholder doesn't recognize the charge — often due to an unclear billing descriptor or a forgotten purchase.",
+   causes:["Billing descriptor unclear or generic","Corporate card — employee made purchase without informing cardholder","Subscription the cardholder forgot about"],
+   prev:["Use a clear, recognizable billing descriptor with your DBA name","Include a customer service phone number in the descriptor","Send receipt emails for every transaction"],
+   fight:["Evidence of cardholder identity used to make the purchase (login records, IP address)","Email confirmation sent to the cardholder's registered address","Order history showing prior purchases from the same account","Clear documentation of what the billing descriptor represents"]},
+
+  {brand:"disc",group:"disc-fraud",nc:"disc-n",code:"UA12",name:"Account Number Not on File",cat:"Fraud",
+   it:"120 days",mt:"20 days",
+   desc:"The account number submitted does not correspond to an active Discover account.",
+   causes:["Card number keyed incorrectly","Fraudulent or invalid card number used","Data entry error on manual transaction"],
+   prev:["Use electronic card readers","Validate card numbers before submission","Carefully verify any manually entered card numbers"],
+   fight:["Terminal logs showing the card number as entered","If an authorization approval was returned, provide it","Signed receipt showing the physical card details as read from the card"]},
+
+  // ── DISCOVER AUTHORIZATION ──
+  {brand:"disc",group:"disc-auth",nc:"disc-n",code:"NA",name:"No Authorization",cat:"Authorization",
+   it:"90 days",mt:"20 days",
+   desc:"The transaction was processed without obtaining proper authorization.",
+   causes:["Authorization not requested","Authorization obtained after settlement","Transaction processed outside authorization parameters"],
+   prev:["Always obtain authorization before processing","Never settle a transaction without a prior authorization","Ensure your system does not allow processing without an authorization response"],
+   fight:["If authorization was obtained, provide the approval code and timestamp","System logs proving authorization was requested","If a technical error caused the gap, provide thorough documentation"]},
+
+  {brand:"disc",group:"disc-auth",nc:"disc-n",code:"AP",name:"Authorization Non-Compliant",cat:"Authorization",
+   it:"90 days",mt:"20 days",
+   desc:"The authorization obtained did not comply with Discover's requirements — such as being obtained for the wrong amount or using an incorrect method.",
+   causes:["Authorization obtained for a different amount than settled","Authorization method did not meet Discover requirements","Incorrect authorization code entered"],
+   prev:["Always authorize for the exact amount you will settle","Follow Discover's authorization guidelines and updates","Ensure authorization codes are entered exactly as received"],
+   fight:["Provide the authorization approval code and compare to settled amount","If within Discover's tolerance, reference that policy","System logs showing the authorization as obtained"]},
+
+  {brand:"disc",group:"disc-auth",nc:"disc-n",code:"DA",name:"Declined Authorization",cat:"Authorization",
+   it:"90 days",mt:"20 days",
+   desc:"The merchant received a decline response but completed the transaction anyway.",
+   causes:["Staff overrode a declined transaction","System did not block declined transactions","Card forced through on a second attempt without new approval"],
+   prev:["Never complete a transaction after a decline","Train staff that declined transactions cannot be forced","If declined, request an alternative payment method"],
+   fight:["Very difficult to fight if the decline is clearly documented","If a subsequent approval was obtained on a separate authorization attempt, provide that documentation","Show the decline was followed by a legitimate approval on a re-submission"]},
+
+  {brand:"disc",group:"disc-auth",nc:"disc-n",code:"EX",name:"Expired Card",cat:"Authorization",
+   it:"90 days",mt:"20 days",
+   desc:"The transaction was processed on a card that was expired at the time of the transaction.",
+   causes:["Expired card accepted by merchant","Terminal expiry check bypassed","Recurring billing using an outdated card number"],
+   prev:["Update expiry dates for all recurring billing agreements","Implement an automatic card updater service","Reject expired cards at all terminals"],
+   fight:["Provide the authorization approval record if one exists showing the card was valid","For recurring billing, show the cardholder's signed consent to continued billing","Automatic card updater records showing the cardholder authorized the updated card"]},
+
+  // ── DISCOVER PROCESSING ──
+  {brand:"disc",group:"disc-proc",nc:"disc-n",code:"AW",name:"Altered Amount",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction amount was altered after the cardholder authorized it.",
+   causes:["Tip added beyond what was signed","Amount changed after cardholder left","Decimal error creating a different total"],
+   prev:["Never alter the amount after cardholder authorization without re-authorizing","For tip-enabled transactions, retain signed tip receipts","Use POS systems with complete audit trails"],
+   fight:["Signed receipt showing the amount the cardholder authorized","If a tip was added, the signed tip line is your primary evidence","If the amount exactly matches what was authorized, provide the authorization record"]},
+
+  {brand:"disc",group:"disc-proc",nc:"disc-n",code:"LP",name:"Late Presentment",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction was submitted for settlement after Discover's allowed presentment window.",
+   causes:["Batch not settled promptly","Manual transaction submitted late","System failure causing delayed settlement"],
+   prev:["Settle batches every business day","Automate batch submission","Monitor for failed settlement attempts and resolve immediately"],
+   fight:["Batch submission timestamp proving presentment was within the allowed window","If a system error caused the delay, provide technical documentation","Authorization date vs. settlement date comparison demonstrating minimal delay"]},
+
+  {brand:"disc",group:"disc-proc",nc:"disc-n",code:"IC",name:"Illegible Sales Data",cat:"Processing Error",
+   it:"120 days",mt:"20 days",
+   desc:"The transaction data submitted was illegible or contained errors preventing proper processing.",
+   causes:["Poor quality receipt scan","Incomplete transaction data submitted","Data transmission error"],
+   prev:["Ensure receipt printers produce clear, legible output","Use electronic submission to avoid image quality issues","Verify data completeness before batch submission"],
+   fight:["Provide a legible copy of the original transaction receipt","Submit electronic transaction records as a substitute for illegible paper receipts","System records confirming the complete and accurate transaction data"]},
+
+  // ── DISCOVER CARDHOLDER DISPUTES ──
+  {brand:"disc",group:"disc-cust",nc:"disc-n",code:"RM",name:"Cardholder Disputes Quality",cat:"Cardholder Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardholder claims the goods or services received were not as described, defective, or of unacceptable quality.",
+   causes:["Product quality did not match description","Item arrived damaged","Service was substandard"],
+   prev:["Use accurate product descriptions and photos","Conduct quality checks before shipping","Respond promptly to customer complaints","Offer a clear and easy return policy"],
+   fight:["Original product description as advertised at time of purchase","Photos of item at time of packaging","Customer communications where they accepted the goods without complaint","If a replacement was offered and refused, document that interaction"]},
+
+  {brand:"disc",group:"disc-cust",nc:"disc-n",code:"RN1",name:"Credit Not Processed — Goods Returned",cat:"Cardholder Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardholder returned goods but has not received the promised credit.",
+   causes:["Return received but credit not issued","Refund processing error","Credit sent to wrong account"],
+   prev:["Process refunds immediately upon receiving returns","Send email confirmation of refund with expected timeline","Use the original charge account for the refund"],
+   fight:["Gateway confirmation of the refund with transaction ID and processing date","If refund is still processing, show the expected timeline — it can take 3–5 business days","If the return was refused per your policy, provide the return policy the cardholder agreed to at purchase"]},
+
+  {brand:"disc",group:"disc-cust",nc:"disc-n",code:"RN2",name:"Credit Not Processed — Services Cancelled",cat:"Cardholder Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardholder cancelled a service and is owed a refund that has not been applied to their account.",
+   causes:["Cancellation processed but refund not issued","Refund delayed or sent to wrong account","Cancellation policy dispute"],
+   prev:["Issue refunds immediately upon service cancellation","Send cancellation and refund confirmation via email","Clearly disclose any non-refundable fees at time of purchase"],
+   fight:["Cancellation confirmation and refund record","If a non-refundable policy applies, show the policy that was disclosed at time of purchase","If a refund is owed, process it immediately and document the corrective action"]},
+
+  {brand:"disc",group:"disc-cust",nc:"disc-n",code:"AA",name:"Cardholder Does Not Recognize",cat:"Cardholder Dispute",
+   it:"120 days",mt:"20 days",
+   desc:"The cardholder does not recognize the transaction — often due to an unclear billing descriptor or a forgotten purchase.",
+   causes:["Billing descriptor does not match business name","Subscription the cardholder forgot about","Family member made purchase without informing cardholder"],
+   prev:["Use a clear, recognizable billing descriptor","Include a contact phone number in the descriptor","Send email receipts for every transaction","For subscriptions, send advance billing reminders before each charge"],
+   fight:["Evidence of cardholder identity (login records, email confirmations)","Prior purchase history from the same account","Order confirmation sent to the cardholder's registered email","Clear explanation of what the billing descriptor represents and what was purchased"]},
+];
+
+function buildCard(c) {
+  const el = document.createElement('div');
+  el.className = 'code-card';
+  el.dataset.brand = c.brand;
+  el.dataset.group = c.group;
+  el.dataset.search = (c.code+' '+c.name+' '+c.cat+' '+c.desc+' '+c.causes.join(' ')+' '+c.prev.join(' ')+' '+c.fight.join(' ')).toLowerCase();
+  const causesLi = c.causes.map(x=>'<li>'+x+'</li>').join('');
+  const prevLi = c.prev.map(x=>'<li>'+x+'</li>').join('');
+  const fightLi = c.fight.map(x=>'<li>'+x+'</li>').join('');
+  el.innerHTML = `
+    <div class="code-header" onclick="this.closest('.code-card').classList.toggle('open')">
+      <span class="code-num ${c.nc}">${c.code}</span>
+      <span class="code-name">${c.name}</span>
+      <span class="code-cat-tag">${c.cat}</span>
+      <span class="code-time">&#8987; ${c.mt}</span>
+      <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="code-body">
+      <div class="code-grid">
+        <div class="cs full"><h4>Description</h4><p>${c.desc}</p></div>
+        <div class="cs"><h4>Time Limits</h4><div class="time-grid"><div class="ti"><div class="tl">Issuer / Cardholder</div><div class="tv">${c.it}</div></div><div class="ti"><div class="tl">Merchant Response</div><div class="tv">${c.mt}</div></div></div></div>
+        <div class="cs"><h4>Common Causes</h4><ul>${causesLi}</ul></div>
+        <div class="cs full"><h4>Prevention Steps</h4><ol>${prevLi}</ol></div>
+      </div>
+      <div class="fight-box"><h4>&#9876; How to Fight This Chargeback</h4><ul>${fightLi}</ul></div>
+    </div>`;
+  return el;
+}
+
+// Populate cards
+codes.forEach(c => {
+  const container = document.getElementById('cards-'+c.group);
+  if (container) container.appendChild(buildCard(c));
+});
+
+// Filter logic
+let activeBrand = 'all';
+let searchTerm = '';
+
+function applyFilters() {
+  const allCards = document.querySelectorAll('.code-card');
+  let visible = 0;
+  allCards.forEach(card => {
+    const ok = (activeBrand==='all' || card.dataset.brand===activeBrand) && (!searchTerm || card.dataset.search.includes(searchTerm));
+    card.style.display = ok ? '' : 'none';
+    if (ok) visible++;
+  });
+  document.querySelectorAll('.brand-section').forEach(sg => {
+    sg.style.display = (activeBrand==='all' || sg.dataset.brand===activeBrand) ? '' : 'none';
+  });
+  document.querySelectorAll('[id^="cards-"]').forEach(c => {
+    const vis = [...c.querySelectorAll('.code-card')].filter(x=>x.style.display!=='none');
+    const hdr = c.previousElementSibling;
+    if (hdr && hdr.classList.contains('cat-header')) hdr.style.display = vis.length ? '' : 'none';
+    c.style.display = vis.length ? '' : 'none';
+  });
+  document.getElementById('emptyState').style.display = visible===0 ? '' : 'none';
+  document.getElementById('resultsCount').textContent = searchTerm ? visible+' result'+(visible!==1?'s':'') : '';
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    activeBrand = tab.dataset.brand;
+    applyFilters();
+  });
+});
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchTerm = e.target.value.toLowerCase().trim();
+  applyFilters();
+});
+
+</script>
+</body>
+</html>
