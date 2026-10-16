@@ -1,0 +1,942 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CandidIQ Overview</title>
+<meta name="description" content="CandidIQ is the operating system for business technology spend. One portal, honest benchmarks, and Candid specialists who make the calls.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#171614; --blue:#4D6BC1; --blue-dk:#3A56A6; --crimson:#E91536; --cream:#F5F1EC; --white:#FFFFFF;
+  --blue-50:#EFF3FB; --blue-100:#DDE5F7; --cream-dk:#ECE5DC; --line:#E3DCD2; --muted:#5E5953; --soft:#8A847C;
+  --radius:18px; --shadow:0 1px 2px rgba(23,22,20,.05),0 10px 30px rgba(23,22,20,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{font-family:Inter,Arial,Calibri,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.display{font-family:Archivo,Arial,sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:inherit}
+img,svg{display:block}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.eyebrow{font-family:Archivo,sans-serif;font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
+.eyebrow.red{color:var(--crimson)}
+.lede{font-size:19px;color:var(--muted);max-width:640px}
+section{padding:96px 0}
+.band-white{background:var(--white)}
+.band-cream{background:var(--cream)}
+.band-blue{background:var(--blue-50)}
+.band-solid{background:var(--blue);color:#fff}
+.sec-head{max-width:760px;margin-bottom:48px}
+.sec-head h2{font-size:clamp(32px,4.4vw,48px);font-weight:800;margin:12px 0 16px}
+.ico{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* top strip + nav */
+.strip{background:var(--ink);color:#EDE8E1;font-size:13px}
+.strip .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+.strip a{color:#fff;text-decoration:none;font-weight:600}
+.strip a:hover{text-decoration:underline}
+.strip .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--crimson);margin-right:8px;vertical-align:middle}
+nav.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:70px;gap:20px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-mark{width:38px;height:38px;border-radius:11px;background:var(--blue);display:grid;place-items:center;color:#fff;font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:15px;letter-spacing:-.02em}
+.brand-name{font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em}
+.brand-name span{color:var(--blue)}
+.brand-sub{display:block;font-family:Inter,Arial,sans-serif;font-weight:500;font-size:11.5px;color:var(--soft);letter-spacing:.02em;margin-top:-2px}
+.navlinks{display:flex;gap:26px;font-size:14.5px;font-weight:500}
+.navlinks a{text-decoration:none;color:var(--muted)}
+.navlinks a:hover{color:var(--blue)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:Inter,Arial,sans-serif;font-weight:600;font-size:15px;padding:13px 22px;border-radius:999px;text-decoration:none;border:1.5px solid transparent;transition:all .18s ease;cursor:pointer;white-space:nowrap}
+.btn .ico{width:18px;height:18px}
+.btn-blue{background:var(--blue);color:#fff}
+.btn-blue:hover{background:var(--blue-dk);transform:translateY(-1px)}
+.btn-red{background:var(--crimson);color:#fff}
+.btn-red:hover{filter:brightness(.93);transform:translateY(-1px)}
+.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+.btn-white{background:#fff;color:var(--blue)}
+.btn-white:hover{background:var(--cream)}
+.btn-outline-white{border-color:rgba(255,255,255,.7);color:#fff}
+.btn-outline-white:hover{background:rgba(255,255,255,.12)}
+.btn-sm{padding:10px 18px;font-size:14px}
+
+/* hero */
+.hero{background:var(--cream);padding:72px 0 88px;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;right:-180px;top:-200px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(77,107,193,.18),rgba(77,107,193,0) 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;position:relative}
+.hero h1{font-size:clamp(40px,5.6vw,66px);font-weight:800;margin:18px 0 22px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.tagline{display:inline-flex;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 16px 7px 8px;font-size:14px;font-weight:600}
+.tagline b{background:var(--blue);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.stats{display:flex;gap:28px;margin-top:40px;flex-wrap:wrap}
+.stats div b{display:block;font-family:Archivo,Arial,sans-serif;font-size:30px;font-weight:800;color:var(--ink)}
+.stats div span{font-size:13.5px;color:var(--muted)}
+
+/* portal mock */
+.portal{background:#fff;border-radius:22px;box-shadow:0 2px 4px rgba(23,22,20,.04),0 30px 60px rgba(23,22,20,.12);overflow:hidden;border:1px solid var(--line)}
+.portal-bar{background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;font-size:13px}
+.portal-bar .dots i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3b3935;margin-right:5px}
+.portal-bar strong{font-family:Archivo,Arial,sans-serif;letter-spacing:-.01em}
+.portal-body{padding:18px}
+.portal h4{font-size:15px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.portal h4 small{font-family:Inter,Arial,sans-serif;font-weight:500;color:var(--soft);font-size:12px}
+.svc{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding:11px 10px;border-radius:12px}
+.svc+.svc{border-top:1px solid #F0EBE4}
+.svc .i{width:34px;height:34px;border-radius:10px;background:var(--blue-50);color:var(--blue);display:grid;place-items:center}
+.svc .i .ico{width:19px;height:19px}
+.svc p{font-weight:600;font-size:14px;line-height:1.25}
+.svc p span{display:block;font-weight:400;color:var(--soft);font-size:12.5px}
+.pill{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pill.blue{background:var(--blue-100);color:var(--blue-dk)}
+.pill.red{background:#FDE3E8;color:#B80F2A}
+.pill.grey{background:#F1EEE9;color:var(--muted)}
+.frank{margin-top:14px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:14px;padding:14px;display:flex;gap:12px}
+.frank .av{flex:none;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-family:Archivo,Arial,sans-serif;font-weight:800;display:grid;place-items:center;font-size:14px}
+.frank p{font-size:13.5px;line-height:1.45}
+.frank p b{font-family:Archivo,Arial,sans-serif}
+.frank .mini{margin-top:9px;display:flex;gap:8px}
+.frank .mini span{font-size:12px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--blue);color:#fff}
+.frank .mini span.o{background:#fff;color:var(--blue);border:1px solid var(--blue-100)}
+.mock-note{font-size:11.5px;color:var(--soft);text-align:center;margin-top:10px}
+
+/* ticker */
+.ticker{background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:18px 0}
+.ticker-track{display:flex;gap:44px;width:max-content;animation:tick 40s linear infinite}
+.ticker span{font-family:Archivo,Arial,sans-serif;font-weight:600;font-size:17px;color:var(--muted);display:flex;align-items:center;gap:44px;white-space:nowrap}
+.ticker span:after{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue)}
+@keyframes tick{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.ticker-track{animation:none}}
+
+/* section pills */
+.secnav{position:sticky;top:70px;z-index:40;background:rgba(245,241,236,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.secnav .wrap{display:flex;gap:8px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+.secnav .wrap::-webkit-scrollbar{display:none}
+.secnav a{flex:none;text-decoration:none;font-size:13.5px;font-weight:600;color:var(--muted);padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.secnav a:hover,.secnav a.on{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* cards + grids */
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.band-white .card{background:var(--cream);box-shadow:none}
+.card h3{font-size:21px;font-weight:700;margin:14px 0 8px}
+.card p{color:var(--muted);font-size:15.5px}
+.ibox{width:46px;height:46px;border-radius:13px;background:var(--blue-50);color:var(--blue);display:grid;place-items:center}
+.band-white .ibox{background:#fff}
+.ibox.red{background:#FDE8EC;color:var(--crimson)}
+
+/* who */
+.who{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.kv{background:var(--cream);border-radius:var(--radius);padding:8px 28px}
+.kv div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.kv div:last-child{border:0}
+.kv dt{font-family:Archivo,Arial,sans-serif;font-weight:700;color:var(--blue);font-size:14px;letter-spacing:.04em;text-transform:uppercase;padding-top:2px}
+.kv dd{font-size:16px}
+.warm{background:var(--blue);color:#fff;border-radius:var(--radius);padding:32px;display:flex;flex-direction:column;justify-content:space-between;gap:24px}
+.warm h3{font-size:26px;font-weight:800}
+.warm p{color:#E4EAF8}
+.warm .sec{background:rgba(255,255,255,.12);border-radius:14px;padding:18px}
+.warm .sec b{font-family:Archivo,Arial,sans-serif;display:block;margin-bottom:4px}
+
+/* problem */
+.prob{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.plist{list-style:none;display:grid;gap:12px}
+.plist li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px 52px;position:relative;font-size:16px}
+.plist li:before{content:"";position:absolute;left:18px;top:19px;width:20px;height:20px;border-radius:50%;background:#FDE8EC;border:5px solid #FDE8EC;box-shadow:inset 0 0 0 20px var(--crimson);transform:scale(.6)}
+.dmg{display:grid;gap:16px}
+.dmg .card{padding:24px}
+.dmg b{font-family:Archivo,Arial,sans-serif;font-size:38px;font-weight:800;color:var(--crimson);display:block;line-height:1}
+.dmg span{display:block;margin-top:8px;color:var(--muted);font-size:15px}
+.today{margin-top:24px;padding:18px 22px;border-left:4px solid var(--ink);background:#fff;border-radius:0 14px 14px 0;font-size:15.5px}
+.fine{font-size:12.5px;color:var(--soft);margin-top:14px}
+
+/* layers */
+.layer{background:#fff;border-radius:var(--radius);padding:30px;border:1px solid var(--blue-100);position:relative}
+.layer .num{font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:13px;color:#fff;background:var(--blue);border-radius:999px;padding:4px 12px;display:inline-block;letter-spacing:.06em}
+.layer.hot{border:2px solid var(--crimson)}
+.layer.hot .num{background:var(--crimson)}
+.layer h3{font-size:24px;margin:14px 0 4px}
+.layer .q{font-style:italic;color:var(--muted);margin-bottom:16px;font-size:15px}
+.layer ul{list-style:none;display:grid;gap:12px}
+.layer li{font-size:15px;padding-left:22px;position:relative;color:#2d2b28}
+.layer li:before{content:"";position:absolute;left:0;top:9px;width:9px;height:9px;border-radius:3px;background:var(--blue-100);border:1.5px solid var(--blue)}
+.layer.hot li:before{background:#FDE3E8;border-color:var(--crimson)}
+.layer li b{font-weight:600}
+.wedge{margin-top:56px}
+.wedge h3{font-size:28px;font-weight:800;margin-bottom:6px}
+.flow{display:grid;gap:10px;margin-top:22px}
+.flow .row{display:grid;grid-template-columns:1fr 54px 1fr;align-items:center;background:#fff;border-radius:14px;border:1px solid var(--blue-100);overflow:hidden}
+.flow .row>div{padding:16px 20px;font-size:15.5px}
+.flow .row .you{font-weight:600}
+.flow .row .arrow{color:var(--blue);display:grid;place-items:center;height:100%;background:var(--blue-50)}
+.flow .row .us{background:var(--blue-50);color:#26324f}
+.flow .hdr{background:transparent;border:0}
+.flow .hdr>div{font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);padding:4px 20px}
+.flow .hdr .arrow{background:transparent}
+.loop{margin-top:26px;text-align:center;font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:20px}
+.loop span{color:var(--blue)}
+
+/* roi */
+.roi{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}
+table.t th{text-align:left;font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);padding:10px 12px;border-bottom:2px solid var(--line)}
+table.t td{padding:13px 12px;border-bottom:1px solid var(--line)}
+table.t td.n,table.t th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.t tr.tot td{font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:17px;border-bottom:0;padding-top:16px}
+table.t tr.tot td.save{color:var(--blue)}
+.card.flat{background:#fff;box-shadow:none}
+.card.flat h3{margin-top:0}
+.callout{margin-top:18px;background:var(--blue-50);border-radius:14px;padding:16px 18px;font-size:15px}
+.callout b{font-family:Archivo,Arial,sans-serif;color:var(--blue)}
+.quote{font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:21px;line-height:1.3;border-left:4px solid var(--crimson);padding:4px 0 4px 18px;margin-top:20px}
+.calc{margin-top:28px;background:var(--ink);color:#fff;border-radius:22px;padding:34px;display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.calc h3{font-size:26px;font-weight:800}
+.calc p.s{color:#C9C3BA;font-size:14.5px;margin:8px 0 22px}
+.field{margin-bottom:18px}
+.field label{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:8px}
+.field label output{font-family:Archivo,Arial,sans-serif;color:#9FB3E8}
+.field input[type=range]{width:100%;accent-color:var(--blue)}
+.field select{width:100%;padding:11px 12px;border-radius:10px;border:1px solid #3a3834;background:#24221f;color:#fff;font-family:Inter,Arial,sans-serif;font-size:15px}
+.res{display:grid;gap:12px;align-content:start}
+.res div{background:#24221f;border:1px solid #34322e;border-radius:14px;padding:16px 18px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.res div span{font-size:14px;color:#C9C3BA}
+.res div b{font-family:Archivo,Arial,sans-serif;font-size:24px;font-weight:800}
+.res div.big{background:var(--blue);border-color:var(--blue)}
+.res div.big span{color:#E4EAF8}
+.res div.big b{font-size:32px}
+.res small{color:#9a948b;font-size:12px}
+.risk{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+.risk .card{padding:22px}
+.risk h4{font-size:16.5px;margin:12px 0 6px}
+.risk p{font-size:14.5px}
+
+/* advantages */
+.adv .card h3{font-size:19px;margin-top:0;display:flex;gap:10px;align-items:center}
+.adv .card h3 .vs{font-family:Inter,Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--ink);border-radius:6px;padding:3px 8px}
+.adv ul{list-style:none;margin-top:12px;display:grid;gap:9px}
+.adv li{font-size:15px;color:#3a3733;padding-left:26px;position:relative}
+.adv li:before{content:"";position:absolute;left:2px;top:6px;width:12px;height:7px;border-left:2px solid var(--blue);border-bottom:2px solid var(--blue);transform:rotate(-45deg)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.chips span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14.5px;font-weight:500}
+.chips span b{color:var(--blue);font-weight:700}
+
+/* compare */
+.cmp{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);margin-top:8px}
+.cmp>div{padding:28px;background:#fff}
+.cmp>div+div{border-left:1px solid var(--line)}
+.cmp .us{background:var(--blue);color:#fff}
+.cmp h4{font-size:19px;margin-bottom:4px}
+.cmp .price{font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:24px;margin:10px 0}
+.cmp p{font-size:14.5px;color:var(--muted)}
+.cmp .us p{color:#E4EAF8}
+.cmp .tag{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.cmp .us .tag{color:#C9D5F4}
+
+/* demo steps */
+.steps{counter-reset:s;display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.step{background:#fff;border-radius:16px;padding:22px;border:1px solid var(--line);position:relative}
+.step:before{counter-increment:s;content:"0" counter(s);font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:28px;color:var(--blue)}
+.step h4{font-size:16.5px;margin:10px 0 6px}
+.step p{font-size:14px;color:var(--muted)}
+.endline{margin-top:24px;background:var(--ink);color:#fff;border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:14px;font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:18px;flex-wrap:wrap}
+.endline span{color:#9FB3E8}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.plan{background:var(--cream);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;border:1.5px solid transparent}
+.plan.feat{background:#fff;border-color:var(--blue);box-shadow:0 18px 40px rgba(77,107,193,.16)}
+.plan .nm{font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.plan .pr{font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:40px;margin:10px 0 2px;letter-spacing:-.03em}
+.plan .pr small{font-size:16px;font-weight:600;color:var(--muted);letter-spacing:0}
+.plan .cap{font-weight:600;font-size:15px;margin-bottom:16px}
+.plan ul{list-style:none;display:grid;gap:9px;margin-bottom:24px;flex:1}
+.plan li{font-size:14.5px;color:#3a3733;padding-left:24px;position:relative}
+.plan li:before{content:"";position:absolute;left:2px;top:6px;width:11px;height:6px;border-left:2px solid var(--blue);border-bottom:2px solid var(--blue);transform:rotate(-45deg)}
+.plan .btn{justify-content:center}
+.founding{margin-top:24px;display:flex;gap:18px;align-items:center;background:var(--blue-50);border:1px dashed var(--blue);border-radius:16px;padding:20px 24px}
+.founding b{font-family:Archivo,Arial,sans-serif}
+.pnote{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:18px;font-size:14px;color:var(--muted)}
+.pnote span:before{content:"• ";color:var(--blue);font-weight:700}
+
+/* faq */
+.faq{display:grid;gap:12px;max-width:880px}
+.faq details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 22px}
+.faq summary{list-style:none;cursor:pointer;padding:20px 0;font-family:Archivo,Arial,sans-serif;font-weight:700;font-size:18px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:after{content:"+";font-family:Inter,Arial,sans-serif;font-weight:400;font-size:26px;color:var(--blue);line-height:1;transition:transform .2s}
+.faq details[open] summary:after{transform:rotate(45deg)}
+.faq details p{padding:0 0 20px;color:var(--muted);font-size:16px}
+
+/* investors */
+.inv-top{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;margin-bottom:44px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pillar{background:#fff;border-radius:16px;padding:22px;border-top:4px solid var(--blue)}
+.pillar:nth-child(2){border-top-color:var(--crimson)}
+.pillar:nth-child(3){border-top-color:var(--ink)}
+.pillar b{font-family:Archivo,Arial,sans-serif;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--soft)}
+.pillar h4{font-size:20px;margin:6px 0}
+.pillar p{font-size:14.5px;color:var(--muted)}
+.model{background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.model h3{font-size:20px;margin-bottom:14px}
+.model .m{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.model .m:first-of-type{border-top:0}
+.model .m b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:Archivo,Arial,sans-serif;font-size:13px}
+.model .m p{font-size:15px}
+.stage{margin-top:22px;display:flex;gap:16px;align-items:flex-start;background:#fff;border-radius:16px;padding:22px 24px;border-left:4px solid var(--blue)}
+.stage p{font-size:15.5px}
+.stage b{font-family:Archivo,Arial,sans-serif}
+
+/* partners */
+.partner{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.ptiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.ptiers div{background:var(--cream);border-radius:14px;padding:16px;text-align:center}
+.ptiers b{font-family:Archivo,Arial,sans-serif;font-size:26px;display:block}
+.ptiers span{font-size:13px;color:var(--muted)}
+
+/* contact */
+.contact{background:var(--blue);color:#fff;padding:88px 0;position:relative;overflow:hidden}
+.contact:after{content:"";position:absolute;left:-160px;bottom:-260px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.16),rgba(255,255,255,0) 70%)}
+.contact .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;position:relative;z-index:1}
+.contact h2{font-size:clamp(34px,4.6vw,52px);font-weight:800;margin:10px 0 16px}
+.contact .eyebrow{color:#C9D5F4}
+.contact p{color:#E4EAF8;font-size:18px;max-width:560px}
+.contact .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.vcard{background:#fff;color:var(--ink);border-radius:22px;padding:28px;box-shadow:0 30px 60px rgba(23,22,20,.2)}
+.vcard .av{width:58px;height:58px;border-radius:50%;background:var(--cream);color:var(--blue);display:grid;place-items:center;font-family:Archivo,Arial,sans-serif;font-weight:800;font-size:22px}
+.vcard h3{font-size:24px;margin-top:14px}
+.vcard .role{color:var(--muted);font-size:14.5px}
+.vcard a.line{display:flex;align-items:center;gap:12px;margin-top:12px;padding:13px 14px;border-radius:12px;background:var(--cream);text-decoration:none;font-weight:600;font-size:15px}
+.vcard a.line:hover{background:var(--blue-50);color:var(--blue)}
+.vcard a.line .ico{width:20px;height:20px;color:var(--blue)}
+
+footer{background:var(--ink);color:#BDB6AC;padding:56px 0 30px;font-size:14px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+footer h5{font-family:Archivo,Arial,sans-serif;color:#fff;font-size:14px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+footer ul{list-style:none;display:grid;gap:8px}
+footer a{text-decoration:none;color:#BDB6AC}
+footer a:hover{color:#fff}
+footer .fb{font-family:Archivo,Arial,sans-serif;font-weight:800;color:#fff;font-size:20px;margin-bottom:8px}
+footer .fb span{color:#9FB3E8}
+footer .legal{border-top:1px solid #2e2c29;margin-top:40px;padding-top:20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12.5px;color:#8a847c}
+
+/* responsive */
+@media (max-width:1020px){
+  .navlinks{display:none}
+  .hero .wrap,.prob,.roi,.calc,.inv-top,.partner,.contact .wrap,.who{grid-template-columns:1fr}
+  .g3,.g4,.plans,.risk,.steps{grid-template-columns:repeat(2,1fr)}
+  .pillars{grid-template-columns:1fr}
+  .cmp{grid-template-columns:1fr}.cmp>div+div{border-left:0;border-top:1px solid var(--line)}
+  footer .cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .wrap{padding:0 16px}
+  section{padding:68px 0}
+  .g2,.g3,.g4,.plans,.risk,.steps,.ptiers{grid-template-columns:1fr}
+  .kv div{grid-template-columns:1fr;gap:4px}
+  .flow .row{grid-template-columns:1fr}
+  .flow .row .arrow{height:30px;transform:rotate(90deg);background:transparent}
+  .flow .hdr{display:none}
+  .calc{padding:24px}
+  .strip .wrap{justify-content:center;text-align:center}
+  .strip .hide-sm{display:none}
+  nav.top .btn{padding:9px 14px;font-size:13.5px}
+  .brand-sub{display:none}
+  .founding{flex-direction:column;align-items:flex-start}
+  footer .cols{grid-template-columns:1fr}
+  table.t{font-size:13.5px}
+  table.t th,table.t td{padding:10px 5px}
+  .roi>.card{padding:20px 16px;min-width:0}
+}
+@media print{
+  nav.top,.secnav,.ticker,.strip{display:none}
+  section{padding:40px 0;break-inside:avoid}
+  .calc{display:none}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.6A8 8 0 1 1 21 12z"/><path d="M8.5 12h.01M12 12h.01M15.5 12h.01"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V11m0-1.5a1.5 1.5 0 0 1 3 0V11m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7L3.5 15a1.6 1.6 0 0 1 2.6-1.8L8 15"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.6-8A6 6 0 0 1 18 9.5a4.3 4.3 0 0 1-.5 8.5z"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17h.01"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
+    <symbol id="i-store" viewBox="0 0 24 24"><path d="M4 9l1.5-5h13L20 9M4 9h16v2a3 3 0 0 1-5.3 2 3 3 0 0 1-5.4 0A3 3 0 0 1 4 11zM5 13v7h14v-7M10 20v-4h4v4"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></symbol>
+  </defs>
+</svg>
+
+<div class="strip">
+  <div class="wrap">
+    <div><span class="dot"></span>Your CandidIQ contact: <strong>Jared Stayton</strong></div>
+    <div><a href="tel:+13176256318">Call (317) 625-6318</a> <span class="hide-sm">&nbsp;·&nbsp;</span> <a class="hide-sm" href="sms:+13176256318">Text Jared</a></div>
+  </div>
+</div>
+
+<nav class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="CandidIQ home">
+      <span class="brand-mark">IQ</span>
+      <span><span class="brand-name">Candid<span>IQ</span></span><span class="brand-sub">by Candid Solutions</span></span>
+    </a>
+    <div class="navlinks">
+      <a href="#product">Product</a>
+      <a href="#roi">ROI</a>
+      <a href="#why">Why CandidIQ</a>
+      <a href="#plans">Plans</a>
+      <a href="#investors">Investors</a>
+    </div>
+    <a class="btn btn-blue btn-sm" href="#contact">Talk to Jared</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="tagline"><b>CandidIQ</b> One portal. Honest benchmarks. We make the calls.</span>
+      <h1>The operating system for <em>business technology spend.</em></h1>
+      <p class="lede">See every contract. Upload a bill. Request a quote. Open a move, add, change or cancel. Real Candid specialists call the suppliers while Frank, our AI, benchmarks what things should cost.</p>
+      <div class="cta">
+        <a class="btn btn-blue" href="#product">See how it works <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-ghost" href="https://www.candidiq.app/welcome" target="_blank" rel="noopener">Open candidiq.app <svg class="ico"><use href="#i-ext"/></svg></a>
+      </div>
+      <div class="stats">
+        <div><b>300+</b><span>suppliers in Candid's network</span></div>
+        <div><b>20+ yrs</b><span>of brokerage and negotiation</span></div>
+        <div><b>1 portal</b><span>contracts, spend and support</span></div>
+      </div>
+    </div>
+    <div>
+      <div class="portal" role="img" aria-label="Illustration of the CandidIQ My Services screen">
+        <div class="portal-bar"><span class="dots"><i></i><i></i><i></i></span><strong>CandidIQ · My Services</strong><span style="opacity:.6">Member view</span></div>
+        <div class="portal-body">
+          <h4>Live services <small>4 services · 3 sites</small></h4>
+          <div class="svc"><span class="i"><svg class="ico"><use href="#i-card"/></svg></span><p>Merchant processing<span>Payments · reviewed last month</span></p><span class="pill blue">Optimized</span></div>
+          <div class="svc"><span class="i"><svg class="ico"><use href="#i-phone"/></svg></span><p>Cloud phones<span>UCaaS · 38 seats</span></p><span class="pill red">Renews in 74 days</span></div>
+          <div class="svc"><span class="i"><svg class="ico"><use href="#i-wifi"/></svg></span><p>Business internet<span>3 locations</span></p><span class="pill grey">Renews Aug</span></div>
+          <div class="svc"><span class="i"><svg class="ico"><use href="#i-cloud"/></svg></span><p>Microsoft 365<span>42 licenses · monthly</span></p><span class="pill blue">Quote ready</span></div>
+          <div class="frank">
+            <span class="av">F</span>
+            <div>
+              <p><b>Frank:</b> Your phone contract renews in 74 days. You're paying above the published rate, and Candid usually beats published. Want us to run a quote?</p>
+              <div class="mini"><span>Request quote</span><span class="o">Remind me</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="mock-note">Illustrative screen. Your services and numbers will differ.</p>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Merchant processing</span><span>Cloud phones</span><span>Business internet</span><span>Microsoft 365</span><span>Contact center</span><span>Security</span><span>Renewals</span><span>Bill analysis</span><span>Moves, adds, changes, cancels</span><span>Billing disputes</span><span>Outage escalation</span>
+    <span>Merchant processing</span><span>Cloud phones</span><span>Business internet</span><span>Microsoft 365</span><span>Contact center</span><span>Security</span><span>Renewals</span><span>Bill analysis</span><span>Moves, adds, changes, cancels</span><span>Billing disputes</span><span>Outage escalation</span>
+  </div>
+</div>
+
+<div class="secnav">
+  <div class="wrap">
+    <a href="#who">Who it's for</a><a href="#problem">The problem</a><a href="#product">The product</a><a href="#roi">ROI</a><a href="#why">Why CandidIQ</a><a href="#demo">See it</a><a href="#plans">Plans</a><a href="#faq">Questions</a><a href="#investors">Investors</a><a href="#partners">Partners</a><a href="#contact">Talk to Jared</a>
+  </div>
+</div>
+
+<!-- WHO -->
+<section class="band-white" id="who">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Who it's for</span>
+      <h2>Any business with tech spend and nobody watching it.</h2>
+      <p class="lede">If you pay for phones, internet, software or card processing, CandidIQ can help. Most tools show dashboards. We finish the work.</p>
+    </div>
+    <div class="who">
+      <dl class="kv">
+        <div><dt>Industries</dt><dd>Every industry. Including medical and healthcare, dental, legal, agriculture, retail, hospitality and professional services</dd></div>
+        <div><dt>Size</dt><dd>1 to 20,000 employees · a single location to hundreds of sites · startups to multi-billion-dollar companies</dd></div>
+        <div><dt>Buyer</dt><dd>Owner, COO, Director of Operations or Finance</dd></div>
+        <div><dt>Daily user</dt><dd>Office manager, ops lead, bookkeeper</dd></div>
+        <div><dt>Spend</dt><dd>Any recurring spend on IT, telecom, utilities and payments. The bigger the stack, the bigger the savings.</dd></div>
+      </dl>
+      <div class="warm">
+        <div>
+          <span class="eyebrow" style="color:#C9D5F4">Where we start</span>
+          <h3 style="margin-top:8px">Clients who already trust Candid to negotiate.</h3>
+          <p style="margin-top:10px">Existing Candid merchant and telecom clients are the warm base. They know we pick up the phone. CandidIQ gives them a place to see it all.</p>
+        </div>
+        <div class="sec"><b>Next: partners</b>MSPs, accountants and channel agents can refer clients in today, with a white-label version on the way.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="band-cream" id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow red">The problem</span>
+      <h2>Businesses overpay and burn hours on vendors. Every month.</h2>
+    </div>
+    <div class="prob">
+      <div>
+        <ul class="plist">
+          <li>Contracts auto-renew at bad rates.</li>
+          <li>Spend is scattered across vendors, PDFs and inboxes.</li>
+          <li>Nobody wants to sit on hold with the cable company, the phone provider or the processor.</li>
+          <li>Office managers become accidental telecom admins.</li>
+          <li>A simple move, add, change or cancel turns into a week of phone tag.</li>
+          <li>When something breaks, the customer ends up as the middleman between their staff and three suppliers.</li>
+        </ul>
+        <div class="today"><b>What they do today:</b> a spreadsheet, some email and hope. Or "our MSP handles phones," but not merchant, not renewals and not disputes.</div>
+      </div>
+      <div class="dmg">
+        <div class="card"><b>5 to 15%</b><span>overspend on telecom, merchant and UCaaS is common when nobody is watching.</span></div>
+        <div class="card"><b>$10K to $100K+</b><span>a year can get locked in by one missed renewal.</span></div>
+        <div class="card"><b>5 to 10 hrs</b><span>a month lost by ops leaders on vendor admin. Often more for multi-site.</span></div>
+        <p class="fine">Typical ranges we see. Not a guarantee for any single business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT -->
+<section class="band-blue" id="product">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The product</span>
+      <h2>Three layers. One portal.</h2>
+      <p class="lede">Software for visibility. AI for benchmarks. People for execution. That last part is the one competitors skip.</p>
+    </div>
+    <div class="grid g3">
+      <div class="layer">
+        <span class="num">01 · VISIBILITY</span>
+        <h3>What do we have?</h3>
+        <p class="q">And what does it cost?</p>
+        <ul>
+          <li><b>My Services.</b> Every live service and contract with providers, terms and renewal dates.</li>
+          <li><b>Documents and history.</b> Contracts and deliverables in one place, not a shared drive folder.</li>
+          <li><b>Savings snapshot.</b> What we found and proposed, side by side with what you pay now.</li>
+          <li><b>Tech Spend.</b> A category view of recurring tech through a bank connection. Rolling out account by account.</li>
+        </ul>
+      </div>
+      <div class="layer">
+        <span class="num">02 · INTELLIGENCE</span>
+        <h3>Is this a good deal?</h3>
+        <p class="q">Frank does the research.</p>
+        <ul>
+          <li><b>Bill analysis.</b> Upload a statement. Candid reviews it and publishes findings or a proposal.</li>
+          <li><b>Find Solutions with Frank.</b> Plain-language shopping for phones, internet, Microsoft 365, security and more, with ranked picks and a buyer's guide.</li>
+          <li><b>Honest pricing.</b> Published catalog prices, and Candid usually beats them.</li>
+          <li><b>Quotes and proposals.</b> Request, compare, accept. Contracts move straight into your workbench.</li>
+        </ul>
+      </div>
+      <div class="layer hot">
+        <span class="num">03 · EXECUTION</span>
+        <h3>Don't make me call them.</h3>
+        <p class="q">This is the wedge.</p>
+        <ul>
+          <li><b>Action Center.</b> Candid specialists triage every request and follow it through.</li>
+          <li><b>Supplier RFQs.</b> We package options and negotiate on your behalf.</li>
+          <li><b>MACD and support.</b> Moves, adds, changes, cancels, outages and disputes, handled with your account context loaded.</li>
+          <li><b>Renewals tracked.</b> Approved deals update the pipeline and we watch the next term.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="wedge">
+      <h3>You click. We make the calls.</h3>
+      <p class="lede" style="font-size:17px">Here's what happens behind every button in the portal.</p>
+      <div class="flow">
+        <div class="row hdr"><div>You do this in the portal</div><div class="arrow"></div><div>Candid does this behind the scenes</div></div>
+        <div class="row"><div class="you">Upload a bill</div><div class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></div><div class="us">Parse it, benchmark it, publish a savings analysis or proposal</div></div>
+        <div class="row"><div class="you">Request a quote</div><div class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></div><div class="us">RFQ the suppliers, package the options, negotiate</div></div>
+        <div class="row"><div class="you">Send a message or open a ticket</div><div class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></div><div class="us">Action Center triage and specialist follow-through</div></div>
+        <div class="row"><div class="you">Ask for a move, add, change or cancel</div><div class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></div><div class="us">Coordinate with the right suppliers. You never chase a ticket number.</div></div>
+        <div class="row"><div class="you">Report an outage or billing dispute</div><div class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></div><div class="us">Escalate to the provider with your account history already in hand</div></div>
+        <div class="row"><div class="you">Approve a proposal</div><div class="arrow"><svg class="ico"><use href="#i-arrow"/></svg></div><div class="us">Contract and deal pipeline updated. Renewals tracked from here on.</div></div>
+      </div>
+      <p class="loop">Frank ranks and explains. <span>People finish the calls.</span> You approve.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section class="band-white" id="roi">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Financial impact</span>
+      <h2>Savings you can see. Hours you get back.</h2>
+      <p class="lede">Our target is 20 to 30% below a supplier's advertised business price. The real number depends on your bills, so we start there.</p>
+    </div>
+    <div class="roi">
+      <div class="card flat" style="border:1px solid var(--line)">
+        <h3>A. Hard-dollar savings</h3>
+        <p style="margin-bottom:10px">An illustrative multi-site business. We swap in your real bills.</p>
+        <table class="t">
+          <thead><tr><th>Category</th><th class="n">Today</th><th class="n">After Candid</th><th class="n">Saved</th></tr></thead>
+          <tbody>
+            <tr><td>Merchant processing</td><td class="n">$48,000</td><td class="n">$41,000</td><td class="n">$7,000</td></tr>
+            <tr><td>Cloud phones</td><td class="n">$36,000</td><td class="n">$29,000</td><td class="n">$7,000</td></tr>
+            <tr><td>Internet, multi-site</td><td class="n">$24,000</td><td class="n">$19,000</td><td class="n">$5,000</td></tr>
+            <tr><td>Microsoft 365 and software</td><td class="n">$28,000</td><td class="n">$24,000</td><td class="n">$4,000</td></tr>
+            <tr class="tot"><td>Total per year</td><td class="n">$136,000</td><td class="n">$113,000</td><td class="n save">~$23,000</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">On the <b>$39.99/mo</b> plan (about $480 a year), one solid round of optimization returns close to <b>50 times</b> the cost. That's before year-two renewals and avoided lock-ins.</div>
+        <p class="quote">"One avoided bad renewal can pay for CandidIQ for years."</p>
+      </div>
+      <div class="card flat" style="border:1px solid var(--line)">
+        <h3>B. Time back on the clock</h3>
+        <p style="margin-bottom:10px">This is where move, add, change, cancel and support work shine.</p>
+        <table class="t">
+          <thead><tr><th>Task</th><th class="n">Hrs / mo today</th><th>With CandidIQ</th></tr></thead>
+          <tbody>
+            <tr><td>Calling suppliers for quotes</td><td class="n">2 to 4</td><td>Request in the portal</td></tr>
+            <tr><td>Chasing moves, adds, cancels</td><td class="n">2 to 6</td><td>Submit once. We own the chase.</td></tr>
+            <tr><td>Bill surprises and disputes</td><td class="n">1 to 3</td><td>Upload, analyze, specialist</td></tr>
+            <tr><td>Renewal panic</td><td class="n">Spikes</td><td>Dates visible. We watch.</td></tr>
+            <tr><td>"Who's our phone vendor again?"</td><td class="n">Ongoing</td><td>It's in My Services</td></tr>
+          </tbody>
+        </table>
+        <div class="callout">Example: <b>8 hours a month × $60 an hour × 12</b> = about <b>$5,800 a year</b> of recovered capacity. Before any rate savings.</div>
+        <p class="quote">"You're not buying software. You're buying back the hours your team wastes on hold."</p>
+      </div>
+    </div>
+
+    <div class="calc" id="calc">
+      <div>
+        <span class="eyebrow" style="color:#9FB3E8">Quick math</span>
+        <h3 style="margin-top:8px">Run your own numbers.</h3>
+        <p class="s">Move the sliders to sketch the upside. Illustrative only. A bill review gives you the real figure.</p>
+        <div class="field"><label for="spend">Annual tech, telecom and payments spend <output id="spendOut">$150,000</output></label><input id="spend" type="range" min="15000" max="500000" step="5000" value="150000"></div>
+        <div class="field"><label for="pct">Savings found <output id="pctOut">10%</output></label><input id="pct" type="range" min="5" max="30" step="1" value="10"></div>
+        <div class="field"><label for="hrs">Hours a month spent on vendor admin <output id="hrsOut">8 hrs</output></label><input id="hrs" type="range" min="0" max="30" step="1" value="8"></div>
+        <div class="field"><label for="rate">Loaded hourly cost of that person <output id="rateOut">$60</output></label><input id="rate" type="range" min="30" max="120" step="5" value="60"></div>
+        <div class="field"><label for="plan">Plan</label>
+          <select id="plan">
+            <option value="0">Free · browse and earn</option>
+            <option value="299.88">Essentials · $24.99/mo · 1 to 3 services</option>
+            <option value="479.88" selected>Complete · $39.99/mo · 4 to 6 services</option>
+          </select>
+        </div>
+      </div>
+      <div class="res">
+        <div><span>Rate savings per year</span><b id="rSave">$15,000</b></div>
+        <div><span>Time recovered per year</span><b id="rTime">$5,760</b></div>
+        <div><span>Plan cost per year</span><b id="rPlan">$480</b></div>
+        <div class="big"><span>Net value per year</span><b id="rNet">$20,280</b></div>
+        <small id="rMult">About 43x the plan cost.</small>
+      </div>
+    </div>
+
+    <div class="risk">
+      <div class="card"><span class="ibox red"><svg class="ico"><use href="#i-cal"/></svg></span><h4>Missed renewals</h4><p>One auto-renewal can mean years of overpaying.</p></div>
+      <div class="card"><span class="ibox red"><svg class="ico"><use href="#i-alert"/></svg></span><h4>Wrong product fit</h4><p>Buying managed IT when you needed Microsoft 365 wastes money and causes migration pain.</p></div>
+      <div class="card"><span class="ibox red"><svg class="ico"><use href="#i-file"/></svg></span><h4>No inventory</h4><p>Audits, acquisitions and insurance questions turn into fire drills.</p></div>
+      <div class="card"><span class="ibox red"><svg class="ico"><use href="#i-shield"/></svg></span><h4>No paper trail</h4><p>Supplier disputes without records mean lost credits.</p></div>
+    </div>
+    <div class="callout" style="margin-top:20px;display:flex;gap:14px;align-items:flex-start"><svg class="ico" style="color:var(--blue);flex:none;margin-top:2px"><use href="#i-cash"/></svg><span><b>Cash back on eligible services.</b> When Candid places a service, members can earn cash back on eligible products right in the portal. We win when you get a better outcome and stay managed with us.</span></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="band-cream adv" id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why CandidIQ</span>
+      <h2>Not another SaaS dashboard.</h2>
+      <p class="lede">Enterprise tools cost a fortune and stop at the dashboard. Spreadsheets and MSPs are free but scattered. CandidIQ sits in the gap.</p>
+    </div>
+
+    <div class="cmp">
+      <div><span class="tag">Enterprise procurement tools</span><h4>Vendr, Zylo, Torii</h4><div class="price">$20K to $100K+/yr</div><p>SaaS seats only. Built for big companies. You still do the negotiating.</p></div>
+      <div><span class="tag">Do it yourself</span><h4>Spreadsheets and MSPs</h4><div class="price">"Free"</div><p>Fragmented, often biased toward what the MSP sells, and nobody owns renewals.</p></div>
+      <div class="us"><span class="tag">The gap we fill</span><h4>CandidIQ</h4><div class="price">From $0/mo</div><p>Cross-category for businesses of every size: merchant, telecom, UCaaS, internet and software. Humans who execute, in the same product loop.</p></div>
+    </div>
+
+    <div class="grid g2" style="margin-top:28px">
+      <div class="card"><h3><span class="vs">vs</span> Doing nothing</h3><ul><li>Someone is finally watching renewals and rates</li><li>A system of record instead of tribal knowledge</li></ul></div>
+      <div class="card"><h3><span class="vs">vs</span> Spreadsheets and email</h3><ul><li>Benchmarks, RFQs and published proposals, not another tracker</li><li>An audit trail of what was asked for and what was delivered</li></ul></div>
+      <div class="card"><h3><span class="vs">vs</span> "Our MSP handles it"</h3><ul><li>Cross-category: payments, telecom, internet and software, not only what the MSP sells</li><li>You own the portal and the data</li><li>IT stays in the loop. Candid handles the vendor work.</li></ul></div>
+      <div class="card"><h3><span class="vs">vs</span> Enterprise procurement SaaS</h3><ul><li>Priced so any size business can afford it</li><li>Strong on telecom, merchant and connectivity, not just SaaS seats</li><li>Hands-on execution included, not a DIY RFP factory</li></ul></div>
+      <div class="card" style="grid-column:1/-1"><h3><span class="vs">vs</span> One-off savings consultants</h3><ul><li>An ongoing portal, not a one-time PDF</li><li>Quotes, tickets, moves and renewals keep compounding year after year</li></ul></div>
+    </div>
+
+    <div class="chips">
+      <span><b>AI + humans</b> in one loop</span>
+      <span><b>300+</b> supplier network</span>
+      <span><b>Closed loop:</b> request, Action Center, deliverable, notification</span>
+      <span><b>Merchant statement DNA</b> from CandidPay</span>
+      <span><b>Frank:</b> a guided marketplace people can use</span>
+      <span><b>Quote</b> right from the recommendation</span>
+      <span><b>Message Center</b> with account context</span>
+      <span><b>Contracts and renewals</b> as first-class records</span>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="band-blue" id="demo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">See it in 15 minutes</span>
+      <h2>What a CandidIQ walkthrough looks like.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h4>My Services</h4><p>Everything live, and when each one renews.</p></div>
+      <div class="step"><h4>Upload a bill</h4><p>Drop an invoice. We turn it into a decision.</p></div>
+      <div class="step"><h4>Find Solutions</h4><p>Ask Frank for phones or Microsoft 365. Get ranked picks and a quote.</p></div>
+      <div class="step"><h4>Message Center</h4><p>Open a move, add, change, cancel or trouble ticket without calling anyone.</p></div>
+      <div class="step"><h4>A published proposal</h4><p>This is what "we finished it" looks like.</p></div>
+    </div>
+    <div class="endline"><svg class="ico" style="width:26px;height:26px"><use href="#i-hand"/></svg> Approve in the portal. <span>We execute.</span> You stop living in your inbox.</div>
+    <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn btn-blue" href="sms:+13176256318?&body=Hi%20Jared%2C%20I%27d%20like%20a%2015-minute%20CandidIQ%20walkthrough.">Book a walkthrough with Jared <svg class="ico"><use href="#i-msg"/></svg></a>
+      <a class="btn btn-ghost" href="https://candid.solutions/solutions/candidiq" target="_blank" rel="noopener">CandidIQ on candid.solutions <svg class="ico"><use href="#i-ext"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- PLANS -->
+<section class="band-white" id="plans">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Plans</span>
+      <h2>Start free. Pay for what we manage.</h2>
+      <p class="lede">One flat company price, not per user. Pick the plan by how many services you want Candid to manage.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="nm">Free</span>
+        <div class="pr">$0<small>/mo</small></div>
+        <p class="cap">Browse and earn</p>
+        <ul><li>See your services in one place</li><li>Browse the marketplace with Frank</li><li>Request quotes</li><li>Cash back on eligible services</li><li>Ad-supported</li></ul>
+        <a class="btn btn-ghost" href="https://www.candidiq.app/welcome" target="_blank" rel="noopener">Get started</a>
+      </div>
+      <div class="plan">
+        <span class="nm">Essentials</span>
+        <div class="pr">$24.99<small>/mo</small></div>
+        <p class="cap">1 to 3 managed services</p>
+        <ul><li>Everything in Free</li><li>Candid manages your services</li><li>Bill analysis and quotes</li><li>Moves, adds, changes and cancels</li><li>Renewals watched for you</li></ul>
+        <a class="btn btn-ghost" href="#contact">Talk to Jared</a>
+      </div>
+      <div class="plan feat">
+        <span class="nm">Complete</span>
+        <div class="pr">$39.99<small>/mo</small></div>
+        <p class="cap">4 to 6 managed services</p>
+        <ul><li>Everything in Essentials</li><li>Room for multi-site stacks</li><li>Disputes and renegotiations handled</li><li>One portal for every supplier</li><li>Specialists in the Action Center</li></ul>
+        <a class="btn btn-blue" href="#contact">Talk to Jared</a>
+      </div>
+      <div class="plan">
+        <span class="nm">Custom</span>
+        <div class="pr" style="font-size:34px">Let's talk</div>
+        <p class="cap">7 or more services</p>
+        <ul><li>Everything in Complete</li><li>Candid calls carriers for support</li><li>Scoped to your locations and stack</li><li>Built on a call with you</li></ul>
+        <a class="btn btn-ghost" href="tel:+13176256318">Call Jared</a>
+      </div>
+    </div>
+    <div class="founding">
+      <span class="ibox"><svg class="ico"><use href="#i-spark"/></svg></span>
+      <p><b>Already a Candid client?</b> Founding members get Essentials free for 12 months.</p>
+    </div>
+    <div class="pnote"><span>Prices as of October 2026</span><span>Monthly, flat per company</span><span>Partner edition available for agencies and MSPs</span></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="band-cream" id="faq">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Common questions</span>
+      <h2>Straight answers.</h2>
+    </div>
+    <div class="faq">
+      <details open><summary>We already have an MSP.</summary><p>Perfect. We work alongside them. We cover the categories they usually don't, like merchant processing, renewals and multi-vendor work, and you get one portal you own.</p></details>
+      <details><summary>We can call vendors ourselves.</summary><p>You can. Most teams don't. Frank gives you leverage, and Candid can make the calls so your people stay productive.</p></details>
+      <details><summary>Is AI replacing my office manager?</summary><p>No. Frank cuts the research. Your manager approves. We handle the hold music.</p></details>
+      <details><summary>Why not Vendr or another procurement tool?</summary><p>Those are enterprise SaaS procurement tools. We're cross-category for businesses of every size, at a fraction of the cost, with people who execute.</p></details>
+      <details><summary>What does Candid actually do for us?</summary><p>One clear outcome at a time: a renewal, a quote cycle, a dispute, a move or cancel package. Defined up front so you know what done looks like.</p></details>
+      <details><summary>What about security and our data?</summary><p>Documents live in secured storage. Bank connections are only turned on if and when they're enabled for your account. Supplier escalations stay on our side.</p></details>
+      <details><summary>How fast do we see value?</summary><p>The first win is usually a bill analysis or a quote package in days, not months. Then renewals keep paying you back.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- INVESTORS -->
+<section class="band-blue" id="investors">
+  <div class="wrap">
+    <div class="inv-top">
+      <div>
+        <span class="eyebrow">For investors</span>
+        <h2 style="font-size:clamp(32px,4.4vw,48px);font-weight:800;margin:12px 0 16px">A 20-year brokerage, productized.</h2>
+        <p class="lede">Candid Solutions has spent more than 20 years as a broker and MSP across 300+ suppliers in phones, internet, payments, cloud and security. That supply chain and negotiation muscle is hard to copy. CandidIQ wraps it in software.</p>
+      </div>
+      <div class="model">
+        <h3>How CandidIQ makes money</h3>
+        <div class="m"><b>1</b><p><strong>Subscription.</strong> Flat monthly plans for managed services, plus a partner edition.</p></div>
+        <div class="m"><b>2</b><p><strong>Fulfillment margin.</strong> Candid's existing commission economics on every placed deal.</p></div>
+        <div class="m"><b>3</b><p><strong>Retention.</strong> The portal becomes the system of record for renewals and spend.</p></div>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><b>Software</b><h4>Visibility</h4><p>Member portal: My Services, quotes, bill and invoice analysis, Message Center and the guided marketplace.</p></div>
+      <div class="pillar"><b>Intelligence</b><h4>Frank</h4><p>AI that reads bills, ranks fit and surfaces honest pricing. Candid usually beats published.</p></div>
+      <div class="pillar"><b>Execution</b><h4>Action Center</h4><p>Specialists RFQ suppliers, negotiate, publish proposals and handle support so the customer's team stays off hold.</p></div>
+    </div>
+    <div class="grid g4" style="margin-top:20px">
+      <div class="card"><span class="ibox"><svg class="ico"><use href="#i-link"/></svg></span><h3>The moat</h3><p>Supplier relationships, commission infrastructure and operating playbooks, wrapped in software. Hard for a pure AI startup to copy without the network.</p></div>
+      <div class="card"><span class="ibox"><svg class="ico"><use href="#i-spark"/></svg></span><h3>Data flywheel</h3><p>More bills, quotes and outcomes mean better Frank rankings and faster specialist work.</p></div>
+      <div class="card"><span class="ibox"><svg class="ico"><use href="#i-globe"/></svg></span><h3>Expansion</h3><p>SMB direct, then partner white-label, then deeper spend visibility through Tech Spend and utilities.</p></div>
+      <div class="card"><span class="ibox"><svg class="ico"><use href="#i-cash"/></svg></span><h3>Unit economics</h3><p>Subscription plus fulfillment margin on placed services, with retention through renewals managed in the portal.</p></div>
+    </div>
+    <div class="stage">
+      <svg class="ico" style="color:var(--blue);flex:none;margin-top:2px"><use href="#i-clock"/></svg>
+      <p><b>Where we are today.</b> The product is live and demoable. Paid billing, the full Tech Spend roll-out and a deeper member version of Frank are maturing now. We're selling an operating system with real execution behind it, not a slide.</p>
+    </div>
+    <p class="quote" style="margin-top:28px;max-width:900px">"Competitors are either enterprise tools that don't call carriers, or agents without a system of record. We own both."</p>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="band-white" id="partners">
+  <div class="wrap partner">
+    <div>
+      <span class="eyebrow">For MSPs, accountants and agents</span>
+      <h2 style="font-size:clamp(30px,4vw,44px);font-weight:800;margin:12px 0 16px">Look modern. We fulfill. You keep the relationship.</h2>
+      <p class="lede">Refer clients into a portal that gives them one place for spend and support while Candid does the supplier work. A white-label partner edition puts your brand on it.</p>
+      <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+        <a class="btn btn-blue" href="https://candid.solutions/agents" target="_blank" rel="noopener">Candid Partner Program <svg class="ico"><use href="#i-ext"/></svg></a>
+        <a class="btn btn-ghost" href="#contact">Talk to Jared</a>
+      </div>
+    </div>
+    <div class="card" style="background:#fff;border:1px solid var(--line);box-shadow:var(--shadow)">
+      <span class="eyebrow">Partner edition</span>
+      <h3 style="margin-top:8px">Your brand. Our engine.</h3>
+      <p>Monthly plans plus a one-time onboarding fee.</p>
+      <div class="ptiers">
+        <div><b>$24</b><span>/mo</span></div>
+        <div><b>$59</b><span>/mo</span></div>
+        <div><b>$99</b><span>/mo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Next step</span>
+      <h2>Send us one bill. We'll show you what's possible.</h2>
+      <p>A quick call, a bill or two, and you'll see what CandidIQ finds. No pressure, no long discovery process.</p>
+      <div class="cta">
+        <a class="btn btn-white" href="tel:+13176256318"><svg class="ico"><use href="#i-phone"/></svg> Call Jared</a>
+        <a class="btn btn-outline-white" href="sms:+13176256318"><svg class="ico"><use href="#i-msg"/></svg> Text Jared</a>
+        <a class="btn btn-outline-white" href="https://www.candidiq.app/welcome" target="_blank" rel="noopener">Open candidiq.app <svg class="ico"><use href="#i-ext"/></svg></a>
+      </div>
+    </div>
+    <div class="vcard">
+      <span class="av">JS</span>
+      <h3>Jared Stayton</h3>
+      <p class="role">CandidIQ · Candid Solutions, Inc.</p>
+      <a class="line" href="tel:+13176256318"><svg class="ico"><use href="#i-phone"/></svg> (317) 625-6318</a>
+      <a class="line" href="sms:+13176256318"><svg class="ico"><use href="#i-msg"/></svg> Send a text</a>
+      <a class="line" href="https://www.candidiq.app/welcome" target="_blank" rel="noopener"><svg class="ico"><use href="#i-globe"/></svg> candidiq.app</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="fb">Candid<span>IQ</span></div>
+        <p>A product of Candid Solutions, Inc. From carrier brokerage to a full-service IT consulting firm. Parent company of CandidPay and CandidIQ.</p>
+      </div>
+      <div>
+        <h5>CandidIQ</h5>
+        <ul>
+          <li><a href="https://www.candidiq.app/welcome" target="_blank" rel="noopener">candidiq.app ↗</a></li>
+          <li><a href="https://candid.solutions/solutions/candidiq" target="_blank" rel="noopener">CandidIQ overview ↗</a></li>
+          <li><a href="#plans">Plans</a></li>
+          <li><a href="#investors">Investors</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Candid</h5>
+        <ul>
+          <li><a href="https://candid.solutions/" target="_blank" rel="noopener">candid.solutions ↗</a></li>
+          <li><a href="https://candid.solutions/solutions" target="_blank" rel="noopener">All solutions ↗</a></li>
+          <li><a href="https://candid.solutions/solutions/candidpay" target="_blank" rel="noopener">CandidPay ↗</a></li>
+          <li><a href="https://candid.solutions/agents" target="_blank" rel="noopener">Partner Program ↗</a></li>
+          <li><a href="https://candid.solutions/about" target="_blank" rel="noopener">Company ↗</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:+13176256318">Jared · (317) 625-6318</a></li>
+          <li><a href="sms:+13176256318">Text Jared</a></li>
+          <li><a href="tel:+18152078000">Candid · (815) 207-8000</a></li>
+          <li><a href="mailto:connect@candid.solutions">connect@candid.solutions</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Candid Solutions, Inc. · <a href="https://candid.solutions/privacy" target="_blank" rel="noopener">Privacy</a> · <a href="https://candid.solutions/terms" target="_blank" rel="noopener">Terms</a></span>
+      <span>Savings examples are illustrative. Results depend on your bills and contracts.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+  function calc(){
+    var spend=+$('spend').value, pct=+$('pct').value, hrs=+$('hrs').value, rate=+$('rate').value, plan=+$('plan').value;
+    $('spendOut').textContent=fmt(spend); $('pctOut').textContent=pct+'%'; $('hrsOut').textContent=hrs+' hrs'; $('rateOut').textContent=fmt(rate);
+    var save=spend*pct/100, time=hrs*rate*12, net=save+time-plan;
+    $('rSave').textContent=fmt(save); $('rTime').textContent=fmt(time); $('rPlan').textContent=fmt(plan); $('rNet').textContent=fmt(net);
+    $('rMult').textContent= plan>0 ? 'About '+Math.round((save+time)/plan)+'x the plan cost.' : 'No plan cost on Free. Managed plans add specialist execution.';
+  }
+  ['spend','pct','hrs','rate','plan'].forEach(function(id){$(id).addEventListener('input',calc)});
+  calc();
+
+  // highlight active section pill
+  var links=[].slice.call(document.querySelectorAll('.secnav a'));
+  var map={}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting&&map[e.target.id]){links.forEach(function(l){l.classList.remove('on')});map[e.target.id].classList.add('on');
+        var a=map[e.target.id]; a.parentNode.scrollTo({left:a.offsetLeft-24,behavior:'smooth'});}
+    })},{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(map).forEach(function(id){var s=document.getElementById(id); if(s) io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
+
+</body></html>
